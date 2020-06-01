@@ -1,0 +1,1049 @@
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\ResolveAssemblyReference.cache
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.clinic.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.Form1.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.Form2.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.balance.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.Form4.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.IMAGE_SHOW.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.inout.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.LBILL.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.LBLD.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.LEMP.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.Resources.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.notse1.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.rp.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.STOC.resources
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.vbproj.GenerateResource.Cache
+D:\HOSBITAL\HOSBITAL\bin\Release\HOSBITAL.exe
+D:\HOSBITAL\HOSBITAL\bin\Release\HOSBITAL.pdb
+D:\HOSBITAL\HOSBITAL\bin\Release\HOSBITAL.xml
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.exe
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.xml
+D:\HOSBITAL\HOSBITAL\obj\Release\HOSBITAL.pdb
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+C:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+C:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+C:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.inout.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+C:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+E:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+E:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+E:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+E:\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.inout.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+E:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+E:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+E:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+E:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.inout.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+E:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\New folder (4)\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\New folder (4)\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\New folder (4)\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.inout.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\New folder (4)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\New folder (2)\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\New folder (2)\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\New folder (2)\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.inout.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\New folder (2)\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.inout.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\New folder (2)\HOSBITAL\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\New folder\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\New folder\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\HOSBITAL\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+D:\HOSBITAL\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+D:\HOSBITAL\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+D:\HOSBITAL\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\HOSBITAL\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\HOSBITAL\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\HOSBITAL\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+F:\HOSBITAL\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\HOSBITAL\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\HOSBITAL\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.balance.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.liver.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\HOSBITAL\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\New folder (2)\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\New folder (2)\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\New folder (2)\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\New folder (2)\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+D:\New folder (2)\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+D:\New folder (2)\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\New folder (2)\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+D:\New folder (2)\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.liver.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\New folder\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\New folder\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\New folder\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\New folder\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+D:\New folder\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+D:\New folder\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\New folder\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+D:\New folder\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+C:\asil\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+C:\asil\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+C:\asil\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.liver.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+C:\asil\HOSBITAL\bin\Debug\HOSBITAL.exe
+C:\asil\HOSBITAL\bin\Debug\HOSBITAL.pdb
+C:\asil\HOSBITAL\bin\Debug\HOSBITAL.xml
+C:\asil\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+C:\asil\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.exe
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.xml
+C:\asil\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\HOSBITAL\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\pd\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\pd\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\pd\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\pd\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+D:\pd\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+D:\pd\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+D:\pd\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\pd\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+D:\pd\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\pd\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+I:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.exe
+I:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.xml
+I:\New folder (2)\HOSBITAL\obj\Debug\HOSBITAL.pdb
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+E:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+E:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+E:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+E:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+E:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+E:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+E:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+E:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+N:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+N:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+N:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+N:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+N:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+N:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+N:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+N:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+F:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+G:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+G:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+G:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+G:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+G:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+G:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+G:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+G:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+H:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+H:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+H:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+H:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+H:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+H:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+H:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+H:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+D:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+D:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+J:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+J:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+J:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+J:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+J:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+J:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+J:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+J:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+J:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+N:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+I:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+I:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+I:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+I:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+I:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+I:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+I:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+I:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+G:\PD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+I:\PD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.exe
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.xml
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+K:\PD\HOSBITAL\bin\Debug\HOSBITAL.exe
+K:\PD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+K:\PD\HOSBITAL\bin\Debug\HOSBITAL.xml
+K:\PD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+K:\PD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+K:\PD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+K:\PD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+K:\PD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+K:\PD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+K:\PD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+H:\PD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+G:\PD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+F:\PD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+F:\PD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+H:\PD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+I:\PD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+E:\PD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+E:\PD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+E:\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+E:\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+E:\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+E:\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+E:\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+E:\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+E:\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+E:\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+G:\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+G:\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+G:\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+G:\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+G:\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+G:\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+G:\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+G:\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+G:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+D:\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+D:\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+D:\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+H:\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+H:\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+H:\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+H:\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+H:\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+H:\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+H:\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+H:\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+H:\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\ \NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\ \NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\ \NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\ \NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\ \NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+F:\ \NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\ \NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\ \NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+F:\ \NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+K:\.Trashes\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+K:\.Trashes\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+K:\.Trashes\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+K:\.Trashes\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+K:\.Trashes\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+K:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\.Trashes\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\prog\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\prog\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\prog\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.prgn.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+F:\prog\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\prog\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\prog\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\prog\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\prog\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\prog\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.prgn.resources
+D:\New folder\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+G:\NPD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+H:\NPD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+D:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+D:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+D:\NPD\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+D:\NPD\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+D:\NPD\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+D:\NPD\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+D:\NPD\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+D:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+G:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+G:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+G:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+G:\NPD\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+G:\NPD\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+G:\NPD\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+G:\NPD\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+G:\NPD\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+G:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+E:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+E:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+E:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+E:\NPD\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+E:\NPD\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+E:\NPD\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+E:\NPD\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+E:\NPD\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+E:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\NPD\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\NPD\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\NPD\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+F:\NPD\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\NPD\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\NPD\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+F:\NPD\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\NPD\NPD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+E:\NPD\NPD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+D:\NPD\NPD\HOSBITAL\bin\Debug\CheckBoxComboBox.pdb
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+C:\Users\reep\Desktop\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+C:\Users\reep\Desktop\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+C:\Users\reep\Desktop\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+C:\Users\reep\Desktop\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+C:\Users\reep\Desktop\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+C:\Users\reep\Desktop\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+E:\NPD\HOSBITAL\obj\Release\ResolveAssemblyReference.cache
+E:\NPD\HOSBITAL\obj\Release\Interop.WMPLib.dll
+E:\NPD\HOSBITAL\obj\Release\AxInterop.WMPLib.dll
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.vbproj.ResolveComReference.cache
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.clinic.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.Form1.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.Form2.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.IMAGE_SHOW.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.images.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.LBILL.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.LBLD.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.LEMP.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.Resources.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.netcust.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.notse1.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.PATHO.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.rp.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.STOC.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.XXRAY.resources
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.vbproj.GenerateResource.Cache
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.exe
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.xml
+E:\NPD\HOSBITAL\obj\Release\HOSBITAL.pdb
+F:\xxxxxxxx\MY PROG\5-11-2017\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\xxxxxxxx\MY PROG\5-11-2017\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\xxxxxxxx\MY PROG\5-11-2017\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form3.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.tquery.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form3.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.tquery.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.INPU.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.INPU.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form3.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.INPU.resources
+E:\NPD\HOSBITAL\obj\Debug\HOSBITAL.tquery.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\new\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\new\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\new\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\new\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\new\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+F:\new\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\new\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\new\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form3.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.INPU.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.tquery.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+F:\new\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+F:\PROGG\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe
+F:\PROGG\NPD\HOSBITAL\bin\Debug\HOSBITAL.pdb
+F:\PROGG\NPD\HOSBITAL\bin\Debug\HOSBITAL.xml
+F:\PROGG\NPD\HOSBITAL\bin\Debug\Interop.WMPLib.dll
+F:\PROGG\NPD\HOSBITAL\bin\Debug\AxInterop.WMPLib.dll
+F:\PROGG\NPD\HOSBITAL\obj\Debug\ResolveAssemblyReference.cache
+F:\PROGG\NPD\HOSBITAL\obj\Debug\Interop.WMPLib.dll
+F:\PROGG\NPD\HOSBITAL\obj\Debug\AxInterop.WMPLib.dll
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.ResolveComReference.cache
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.clinic.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form1.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form2.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form3.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.Form4.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.IMAGE_SHOW.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.images.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.INPU.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBILL.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.LBLD.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.LEMP.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.Resources.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.netcust.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.notse1.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.PATHO.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.rp.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.STOC.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.tquery.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.XXRAY.resources
+F:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.vbproj.GenerateResource.Cache
+H:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.exe
+H:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.xml
+H:\PROGG\NPD\HOSBITAL\obj\Debug\HOSBITAL.pdb
+D:\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe.config
+F:\NPD\HOSBITAL\bin\Debug\HOSBITAL.exe.config
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.FIND.resources
+F:\NPD\HOSBITAL\obj\Debug\HOSBITAL.FIND.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.bblocck.resources
+D:\NPD\HOSBITAL\obj\Debug\HOSBITAL.newcclinic.resources
