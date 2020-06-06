@@ -749,7 +749,7 @@ Public Class LBILL
         RC = DOC.Rows(0)
         DOC_CODE.Text = RC("code")
         DOC_NAME.Text = RC("name")
-        d1.Value = "1/1/2014"
+        d1.Value = "1/1/" & Now.Year
         pname.Text = 1
         pgover.Items.Clear()
         dr.Close()
@@ -2298,7 +2298,7 @@ mms:
                 ACdr.Close()
                 cmdb.DataAdapter = adeslb
                 adeslb.Update(DBS, "eslb")
-                ACcmd.CommandText = "delete * FROM esl where tot < 0 "
+                ACcmd.CommandText = "delete * FROM esl where tot < 0 and erbank < 0"
                 ACcmd.ExecuteNonQuery()
                 ACcmd.CommandText = "SELECT * FROM esl  "
                 ACdr = ACcmd.ExecuteReader
@@ -3683,7 +3683,8 @@ mm:
                         If IsDBNull(dr("restdate")) = False Then RC("esl_time") = ChangeFormatall(dr("restdate"))
                         RC("sprnt") = dr("sprnt")
                         RC("test") = dr("test")
-                        RC("eslb") = dr("tot1")
+                        If dr("tot1") > 0 Then RC("eslb") = dr("tot1") Else RC("eslb") = 0
+                        If dr("erbank") > 0 Then RC("bank") = dr("erbank") Else RC("bank") = 0
                         RC("bon") = 0
                         RC("esl_no") = dr("esl_no")
                         RC("COMS") = dr("COMS")
@@ -4491,6 +4492,7 @@ mali:
             pemail.Text = dr("pemail")
             pid.Text = dr("pid")
         End If
+        TextBox3.Focus()
     End Sub
 
     Public Sub fres()
@@ -16549,8 +16551,8 @@ mm:
                 ACcmd.CommandText = "SELECT sum(tot),sum(erbank) FROM esl  "
                 ACdr = ACcmd.ExecuteReader
                 ACdr.Read()
-                BANK.Text = ACdr(1)
-                PAY.Text = ACdr(0)
+                BANK.Text = nulls(ACdr(1))
+                PAY.Text = nulls(ACdr(0))
                 cmd.CommandText = "update lbill set pay='" & Val(PAY.Text) & "', rest='" & Val(REST.Text) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
                 cmd.ExecuteNonQuery()
             End If
@@ -17706,7 +17708,7 @@ om:
                 sdr1.Close()
                 
             End While
-            'new bran dnoe
+
             n = 0
             n11 = 0
             dr.Close()
@@ -18922,6 +18924,7 @@ mmm:
         End If
 
         fesl(0, 0)
+        ttpricenew.Text = ""
         grest.Visible = False
     End Sub
     Private Sub GlassButton2_Click_9(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GT21.Click
