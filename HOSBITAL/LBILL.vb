@@ -104,7 +104,7 @@ Public Class LBILL
     Dim nnq As Integer = 0
     Dim nnw As Integer = 0
     Dim SourceDirectory, FFIND, FFINDT, CEDIT, CTOTAL, usr11, shift11, bremail, PORV, YYR, RECEP, anewa, labtests, pap, fchk, MAX_ESL, yrn, DELT, SSFINAL, nxx, final, llname, llnamear, YYN, sname, PT, rptt, SAVEAR, SAVEEN, DELAR, DELEN, EDITAR, EDITEN, PERMEN, PERMAR, booka, TNAME, chkar, chken, lcult1, ldref, ldelgat, lpromz, ltestp, lpnum, reflang As String
-    Dim EMP_CODE, subrrr, esla, scan1, WSITE, snew, fnd, edt, rppnt, brans, disss, tdoc, tlabtolab, trcv, fath, saven, TESTP, TESTSH, slist, FESLT, docs, ams, sbar, sscan, sbill, ffprofile, ffpack_name, resa, fftest_ar, fftest_code, fftest_name, pas, print1, pa1, prnitnn, resta, msga, companal, ali, wer, ltblg, luser, lemail, ldelg, ldis, lref, backcolor1, lbld1, UPDATE_TEST, PRNTNV, REST_PRNT, PRAA, edate, SV, ED, DEL, fast, hrcv, prntn, prntn1, prnt, rpt, hs, lres, mng, mtp, ldoc, lrcv, pa, tv, nf31, tc, dc, pah, ls, lp, lmach, fcolor, bcolor, PMMM, tblg, ref1, sprnt, FLNB, pp As Integer
+    Dim doc_admin, EMP_CODE, subrrr, esla, scan1, WSITE, snew, fnd, edt, rppnt, brans, disss, tdoc, tlabtolab, trcv, fath, saven, TESTP, TESTSH, slist, FESLT, docs, ams, sbar, sscan, sbill, ffprofile, ffpack_name, resa, fftest_ar, fftest_code, fftest_name, pas, print1, pa1, prnitnn, resta, msga, companal, ali, wer, ltblg, luser, lemail, ldelg, ldis, lref, backcolor1, lbld1, UPDATE_TEST, PRNTNV, REST_PRNT, PRAA, edate, SV, ED, DEL, fast, hrcv, prntn, prntn1, prnt, rpt, hs, lres, mng, mtp, ldoc, lrcv, pa, tv, nf31, tc, dc, pah, ls, lp, lmach, fcolor, bcolor, PMMM, tblg, ref1, sprnt, FLNB, pp As Integer
     Dim dttt As Date = Now
     'Dim b As New BarcodeLib.Barcode()
     Dim adedu As New OleDb.OleDbDataAdapter
@@ -450,6 +450,15 @@ Public Class LBILL
             labd.AutoCompleteCustomSource.Add(dr("name"))
         End While
 
+
+        dr.Close()
+        cmd.CommandText = "select * from users"
+        dr = cmd.ExecuteReader
+        DOC_NAME.AutoCompleteCustomSource.Clear()
+        While dr.Read
+            DOC_NAME.AutoCompleteCustomSource.Add(dr("name"))
+        End While
+
         dr.Close()
         cmd.CommandText = "select * from lcomment"
         dr = cmd.ExecuteReader
@@ -748,7 +757,6 @@ Public Class LBILL
         benff()
         RC = DOC.Rows(0)
         DOC_CODE.Text = RC("code")
-        DOC_NAME.Text = RC("name")
         d1.Value = "1/1/" & Now.Year
         pname.Text = 1
         pgover.Items.Clear()
@@ -909,10 +917,9 @@ Public Class LBILL
         dr.Close()
         cmd.CommandText = "select * from eemp "
         dr = cmd.ExecuteReader
-        DOC_NAME.AutoCompleteCustomSource.Clear()
         emp_name.AutoCompleteCustomSource.Clear()
         While dr.Read
-            DOC_NAME.AutoCompleteCustomSource.Add(dr("name"))
+
             emp_name.AutoCompleteCustomSource.Add(dr("name"))
         End While
         DOC_NAME.Text = Nothing
@@ -1688,7 +1695,7 @@ mmm:
             TOT.Text = ACdr(0) + TOT.Text
         End While
         Dim eee As Int16 = 0
-        TOT.Text = Val(hrcvv.Text) + Val(fastv.Text) + Val(rcvv.Text) + TOT.Text
+        TOT.Text = Val(hrcvv.Text) + Val(fastv.Text) + Val(rcvv.Text) + TOT.Text + Val(dev.Text)
         ACdr.Close()
         ACcmd.CommandText = "SELECT test_name,lab FROM TEST_PRICE WHERE qun>0 order by bar"
         ACdr = ACcmd.ExecuteReader
@@ -2226,6 +2233,102 @@ mm:
     Private Sub GlassButton35_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq73.Click
         FSAVEV()
     End Sub
+    Public Sub esl_cash(ByVal type As Integer)
+        If type = 1 Or type = 3 Then
+            ACdr.Close()
+            cmdb.DataAdapter = adeslb
+            adeslb.Update(DBS, "eslb")
+            ACcmd.CommandText = "delete * FROM esl where tot < 0 and erbank < 0"
+            ACcmd.ExecuteNonQuery()
+            ACcmd.CommandText = "SELECT * FROM esl  "
+            ACdr = ACcmd.ExecuteReader
+            If ACdr.HasRows = False Then MsgBox("«·—Ã«¡ ﬂ «»… «·«Ì’«· Ê ﬁÌ„ Â") : esld.Focus() : Exit Sub
+            ACdr.Close()
+            ACcmd.CommandText = "SELECT sum(tot),sum(erbank) FROM esl  "
+            ACdr = ACcmd.ExecuteReader
+            While ACdr.Read
+                BANK.Text = nulls(ACdr(1))
+                PAY.Text = nulls(ACdr(0))
+                If Val(PAY.Text) > Val(TOT.Text) And edt = 1 Then
+                    Dim aaaa As String = MsgBox("„»·€ «·«Ì’«· «ﬂ»— „‰ «Ã„«·Ï «· Õ«·Ì·" & Environment.NewLine & "        " & TOT.Text, MsgBoxStyle.YesNo)
+                    If aaaa = vbNo Then Exit Sub
+                ElseIf Val(PAY.Text) > Val(TOT.Text) And edt = 0 Then
+                    MsgBox("„»·€ «·«Ì’«· «ﬂ»— „‰ «Ã„«·Ï «· Õ«·Ì·" & Environment.NewLine & "        " & TOT.Text)
+                    Exit Sub
+                End If
+            End While
+        End If
+        If type = 2 Or type = 3 Then
+            dr.Close()
+            If FESLT = 1 Then
+                If finals.Checked = False Then
+                    If ChangeFormat(Now) = ChangeFormat(esl_date.Value) Then
+                        cmd.CommandText = "update lbill_esl set qun=0 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+                        cmd.ExecuteNonQuery()
+                        ACdr.Close()
+                        ESLBILL.Text = ""
+                        ACcmd.CommandText = "SELECT * FROM esl  "
+                        ACdr = ACcmd.ExecuteReader
+                        While ACdr.Read
+                            Dim BILL1 As Integer = 0
+                            If IsDBNull(ACdr("bill")) = True Then
+                                dr.Close()
+                                cmd.CommandText = "select MAX(BILL) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
+                                dr = cmd.ExecuteReader
+                                dr.Read()
+                                If dr.HasRows = True Then BILL1 = nulls(dr(0)) + 1 Else BILL1 = 1
+                            Else
+                                BILL1 = nulls(ACdr("bill"))
+                            End If
+
+                            If BILL1 = 0 Then BILL1 = 1
+                            dr.Close()
+                            cmd.CommandText = "select * from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and bill='" & nulls(ACdr("bill")) & "'"
+                            dr = cmd.ExecuteReader
+                            dr.Read()
+                            If dr.HasRows = True Then
+                                dr.Close()
+                                cmd.CommandText = "update lbill_esl set qun=1 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill='" & nulls(ACdr("bill")) & "'"
+                                cmd.ExecuteNonQuery()
+                            Else
+                                If BILL1 = 0 Then
+                                    dr.Close()
+                                    cmd.CommandText = "select MAX(BILL) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
+                                    dr = cmd.ExecuteReader
+                                    dr.Read()
+                                    If dr.HasRows = True Then
+                                        BILL1 = nulls(dr(0)) + 1
+                                    Else
+                                        BILL1 = 1
+                                    End If
+                                End If
+                                dr.Close()
+                                cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill ='" & BILL1 & "'"
+                                cmd.ExecuteNonQuery()
+                                cmd.CommandText = "INSERT INTO  [lbill_esl]([esl_no],[bill],[tot],YEARN,qun,bran,usr,shift,erbank) VALUES ('" & Val(esl_no.Text) & "','" & BILL1 & "','" & nulls(ACdr("tot")) & "','" & esl_date.Value.Year & "','1','" & bran.Text & "','" & USR & "','" & SHF & "','" & nulls(ACdr("erbank")) & "')"
+                                cmd.ExecuteNonQuery()
+                            End If
+                            If ESLBILL.Text <> "" Then ESLBILL.Text = ESLBILL.Text & " - " & ACdr("BILL") & "(" & ACdr("TOT") & ")" Else ESLBILL.Text = ACdr("BILL") & "(" & ACdr("TOT") & ")"
+                        End While
+                        dr.Close()
+                        If dc = 1 Then
+                            cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and qun ='0'"
+                            cmd.ExecuteNonQuery()
+                        End If
+                    End If
+                End If
+            End If
+            dr1.Close()
+            dr.Close()
+            cmd.CommandText = "SELECT sum(tot) FROM lbill_esl  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
+            dr = cmd.ExecuteReader
+            dr.Read()
+            PAY.Text = nulls(dr(0))
+            dr.Close()
+        End If
+
+
+    End Sub
     Public Sub FSAVEV()
         Try
             LLOG("test save", esl_no.Text, pname.Text, 1, bran.Text)
@@ -2294,29 +2397,9 @@ mms:
                     End If
                 End If
             End If
+            '=========================claculate cash and bank=====================
             If FESLT = 1 Then
-                ACdr.Close()
-                cmdb.DataAdapter = adeslb
-                adeslb.Update(DBS, "eslb")
-                ACcmd.CommandText = "delete * FROM esl where tot < 0 and erbank < 0"
-                ACcmd.ExecuteNonQuery()
-                ACcmd.CommandText = "SELECT * FROM esl  "
-                ACdr = ACcmd.ExecuteReader
-                If ACdr.HasRows = False Then MsgBox("«·—Ã«¡ ﬂ «»… «·«Ì’«· Ê ﬁÌ„ Â") : esld.Focus() : Exit Sub
-                ACdr.Close()
-                ACcmd.CommandText = "SELECT sum(tot),sum(erbank) FROM esl  "
-                ACdr = ACcmd.ExecuteReader
-                While ACdr.Read
-                    BANK.Text = nulls(ACdr(1))
-                    PAY.Text = nulls(ACdr(0))
-                    If Val(PAY.Text) > Val(TOT.Text) And edt = 1 Then
-                        Dim aaaa As String = MsgBox("„»·€ «·«Ì’«· «ﬂ»— „‰ «Ã„«·Ï «· Õ«·Ì·" & Environment.NewLine & "        " & TOT.Text, MsgBoxStyle.YesNo)
-                        If aaaa = vbNo Then Exit Sub
-                    ElseIf Val(PAY.Text) > Val(TOT.Text) And edt = 0 Then
-                        MsgBox("„»·€ «·«Ì’«· «ﬂ»— „‰ «Ã„«·Ï «· Õ«·Ì·" & Environment.NewLine & "        " & TOT.Text)
-                        Exit Sub
-                    End If
-                End While
+                esl_cash(1)
             End If
             '******************************************************************************************************
             '*******************************************save patien data************************************************
@@ -2481,63 +2564,10 @@ mms:
 
 
 
-            dr.Close()
-            If FESLT = 1 Then
-                If finals.Checked = False Then
-                    If ChangeFormat(Now) = ChangeFormat(esl_date.Value) Then
-                        cmd.CommandText = "update lbill_esl set qun=0 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                        cmd.ExecuteNonQuery()
-                        ACdr.Close()
-                        ESLBILL.Text = ""
-                        ACcmd.CommandText = "SELECT * FROM esl  "
-                        ACdr = ACcmd.ExecuteReader
-                        While ACdr.Read
-                            Dim BILL1 As Integer = 0
-                            BILL1 = nulls(ACdr("bill"))
-                            If BILL1 = 0 Then BILL1 = 1
-                            dr.Close()
-                            cmd.CommandText = "select * from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and bill='" & nulls(ACdr("bill")) & "'"
-                            dr = cmd.ExecuteReader
-                            dr.Read()
-                            If dr.HasRows = True Then
-                                dr.Close()
-                                cmd.CommandText = "update lbill_esl set qun=1 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill='" & nulls(ACdr("bill")) & "'"
-                                cmd.ExecuteNonQuery()
-                            Else
-                                If BILL1 = 0 Then
-                                    dr.Close()
-                                    cmd.CommandText = "select MAX(BILL) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
-                                    dr = cmd.ExecuteReader
-                                    dr.Read()
-                                    If dr.HasRows = True Then
-                                        BILL1 = nulls(dr(0)) + 1
-                                    Else
-                                        BILL1 = 1
-                                    End If
-                                End If
-                                dr.Close()
-                                cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill ='" & BILL1 & "'"
-                                cmd.ExecuteNonQuery()
-                                cmd.CommandText = "INSERT INTO  [lbill_esl]([esl_no],[bill],[tot],YEARN,qun,bran,usr,shift,erbank) VALUES ('" & Val(esl_no.Text) & "','" & BILL1 & "','" & nulls(ACdr("tot")) & "','" & esl_date.Value.Year & "','1','" & bran.Text & "','" & USR & "','" & SHF & "','" & nulls(ACdr("erbank")) & "')"
-                                cmd.ExecuteNonQuery()
-                            End If
-                            If ESLBILL.Text <> "" Then ESLBILL.Text = ESLBILL.Text & " - " & ACdr("BILL") & "(" & ACdr("TOT") & ")" Else ESLBILL.Text = ACdr("BILL") & "(" & ACdr("TOT") & ")"
-                        End While
-                        dr.Close()
-                        If dc = 1 Then
-                            cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and qun ='0'"
-                            cmd.ExecuteNonQuery()
-                        End If
-                    End If
-                End If
-            End If
-            dr1.Close()
-            dr.Close()
-            cmd.CommandText = "SELECT sum(tot) FROM lbill_esl  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
-            dr = cmd.ExecuteReader
-            dr.Read()
-            PAY.Text = nulls(dr(0))
-            dr.Close()
+            '===================================save esl========
+            esl_cash(2)
+
+            '==================================end save else====
             If fnd = 1 Then
                 cmd.CommandText = "DELETE from lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
                 cmd.ExecuteNonQuery()
@@ -2546,7 +2576,7 @@ mms:
                     guser()
                 End If
             End If
-            cmd.CommandText = "INSERT INTO lbill ([book_code],[book_name],[company_code],[company_name] ,[doc_code] ,[doc_name],[pcode],[pname],[ptype] ,[page],[pid],[depn],[esl_no],[esl_date],[reg_code],[reg_name],[esl_time],[crd_per] ,[crd_v],[cash_per],[cash_v],[bon],[pay] ,[rest],[tot],[nik],[test],diss,usr,shift,rcv_date,rcv,rcvv,rcvn,fastv,fastn,hrcvv,cfast,chrcv,branch_name,branch_code,pemail,dissn,notes,doc_per,PYEAR,ptot,ppay,prest,lab_code,lab_name,labtest,tnum,nnik,testpro,sprnt,rcv_time,ESLBILL,urgant,final,pinc,pcrd,pcanc,YEARN,bran,brans,SAMPL,SAMPLUSR,trl,pmobile,ucash,utc,utn,fs,labd,wuser,wpass,wid,WEB,BANK,NDOC,NCRD) VALUES ('" & BOOK_CODE.Text & " ','" & BOOK_name.Text & "','" & COMPANY_CODE.Text & "','" & COMPANY_name.Text & "','" & DOC_CODE.Text & "','" & DOC_NAME.Text & "','" & pcode.Text & "','" & Trim(xpname) & "','" & ptype.Text & "','" & page.Text & "','" & pid.Text & "','" & depn.Text & "','" & esl_no.Text & "','" & ChangeFormat(esl_date.Value) & "','" & REG_CODE.Text & "','" & REG_name.Text & "','" & esl_time & "','" & crd_per.Text & "','" & crd_v.Text & "','" & cash_per.Text & "','" & cash_v.Text & "','" & bon.Text & "','" & PAY.Text & "','" & REST.Text & "','" & TOT.Text & "','" & PNIK.Text & "','" & test.Text & "','" & DISS.Text & "','" & usr11 & "','" & shift11 & "','" & ChangeFormat(rcv_date.Value) & "','" & Val(rcv.CheckState) & "','" & rcvv.Text & "','" & rcvn.Text & "','" & fastv.Text & "','" & TextBox5.Text & "','" & hrcvv.Text & "','" & Val(cfast.CheckState) & "','" & Val(chrcv.CheckState) & "','" & branch_name.Text & "','" & branch_code.Text & "','" & pemail.Text & "','" & dissn.Text & "','" & lnotes.Text & "','" & doc_per.Text & "','" & PYEAR.Text & "','" & pntot.Text & "','" & pnpay.Text & "','" & pnrest.Text & "','" & lab_code.Text & "','" & lab_name.Text & "','" & ptest.Text & "','" & tnum1.Text & "','" & nik.Text & "','" & testpro.Text & "','" & Val(sprnt1.Text) & "','" & rcv_time.Text & "','" & Val(ESLBILL.Text) & "','" & Val(urgant.CheckState) & "','" & Val(finals.CheckState) & "','" & pinc.Text & "','" & pcrd.Text & "','" & pcanc.Text & "','" & esl_date.Value.Year & "','" & bran.Text & "','" & bran.Text & esl_no.Text & "','" & Val(SAMPL.CheckState) & "','" & SAMPLUSR.Text & "','" & Val(trl1.CheckState) & "','" & pmobile.Text & "','" & Val(ucash.CheckState) & "','" & Val(utc.CheckState) & "','" & Val(utn.CheckState) & "','" & Val(fs.CheckState) & "','" & labd.Text & "','" & wuser.Text & "','" & wpass.Text & "','" & wid.Text & "','" & WEB.Text & "','" & BANK.Text & "','" & NDOC.Text & "','" & Val(NCRD.CheckState) & "') "
+            cmd.CommandText = "INSERT INTO lbill ([book_code],[book_name],[company_code],[company_name] ,[doc_code] ,[doc_name],[pcode],[pname],[ptype] ,[page],[pid],[depn],[esl_no],[esl_date],[reg_code],[reg_name],[esl_time],[crd_per] ,[crd_v],[cash_per],[cash_v],[bon],[pay] ,[rest],[tot],[nik],[test],diss,usr,shift,rcv_date,rcv,rcvv,rcvn,fastv,fastn,hrcvv,cfast,chrcv,branch_name,branch_code,pemail,dissn,notes,doc_per,PYEAR,ptot,ppay,prest,lab_code,lab_name,labtest,tnum,nnik,testpro,sprnt,rcv_time,ESLBILL,urgant,final,pinc,pcrd,pcanc,YEARN,bran,brans,SAMPL,SAMPLUSR,trl,pmobile,ucash,utc,utn,fs,labd,wuser,wpass,wid,WEB,BANK,NDOC,NCRD,dev) VALUES ('" & BOOK_CODE.Text & " ','" & BOOK_name.Text & "','" & COMPANY_CODE.Text & "','" & COMPANY_name.Text & "','" & DOC_CODE.Text & "','" & DOC_NAME.Text & "','" & pcode.Text & "','" & Trim(xpname) & "','" & ptype.Text & "','" & page.Text & "','" & pid.Text & "','" & depn.Text & "','" & esl_no.Text & "','" & ChangeFormat(esl_date.Value) & "','" & REG_CODE.Text & "','" & REG_name.Text & "','" & esl_time & "','" & crd_per.Text & "','" & crd_v.Text & "','" & cash_per.Text & "','" & cash_v.Text & "','" & bon.Text & "','" & PAY.Text & "','" & REST.Text & "','" & TOT.Text & "','" & PNIK.Text & "','" & test.Text & "','" & DISS.Text & "','" & usr11 & "','" & shift11 & "','" & ChangeFormat(rcv_date.Value) & "','" & Val(rcv.CheckState) & "','" & rcvv.Text & "','" & rcvn.Text & "','" & fastv.Text & "','" & TextBox5.Text & "','" & hrcvv.Text & "','" & Val(cfast.CheckState) & "','" & Val(chrcv.CheckState) & "','" & branch_name.Text & "','" & branch_code.Text & "','" & pemail.Text & "','" & dissn.Text & "','" & lnotes.Text & "','" & doc_per.Text & "','" & PYEAR.Text & "','" & pntot.Text & "','" & pnpay.Text & "','" & pnrest.Text & "','" & lab_code.Text & "','" & lab_name.Text & "','" & ptest.Text & "','" & tnum1.Text & "','" & nik.Text & "','" & testpro.Text & "','" & Val(sprnt1.Text) & "','" & rcv_time.Text & "','" & Val(ESLBILL.Text) & "','" & Val(urgant.CheckState) & "','" & Val(finals.CheckState) & "','" & pinc.Text & "','" & pcrd.Text & "','" & pcanc.Text & "','" & esl_date.Value.Year & "','" & bran.Text & "','" & bran.Text & esl_no.Text & "','" & Val(SAMPL.CheckState) & "','" & SAMPLUSR.Text & "','" & Val(trl1.CheckState) & "','" & pmobile.Text & "','" & Val(ucash.CheckState) & "','" & Val(utc.CheckState) & "','" & Val(utn.CheckState) & "','" & Val(fs.CheckState) & "','" & labd.Text & "','" & wuser.Text & "','" & wpass.Text & "','" & wid.Text & "','" & WEB.Text & "','" & BANK.Text & "','" & NDOC.Text & "','" & Val(NCRD.CheckState) & "','" & Val(dev.Text) & "') "
             cmd.ExecuteNonQuery()
             If clinic = 1 Then
                 dr.Close()
@@ -2648,6 +2678,7 @@ mms:
         End If
         If ch.Checked = True Then
             yy = yy & "  " & " and " & b & ".hrcvv>0"
+            yy = yy & "  " & " and " & b & ".doc_name<>'0'"
             YYN = "hrcvv"
             YYR = YYR & " and hrcvv>0'"
         End If
@@ -2810,9 +2841,9 @@ mms:
             YYR = YYR & "  and NDOC='" & NDOC.Text & "'"
         End If
         If cdoc_name.Checked = True Then
-            yy = yy & "  " & " and " & b & ".DOC_NAME='" & DOC_NAME.Text & "'"
+            If doc_admin = 1 Then yy = yy & "  " & " and " & b & ".DOC_NAME<>'0'" Else yy = yy & "  " & " and " & b & ".DOC_NAME='" & suser & "'"
             YYN = "DOC_NAME"
-            YYR = YYR & "  and DOC_NAME='" & DOC_NAME.Text & "'"
+            If doc_admin = 1 Then YYR = YYR & "  and DOC_NAME<>'0'" Else YYR = YYR & "  and DOC_NAME='" & suser & "'"
         End If
         If cdepn.Checked = True Then
             yy = yy & "  " & " and " & b & ".depn='" & depn.Text & "'"
@@ -4276,6 +4307,7 @@ mali:
             fastv.Text = dr1("fastv")
             TextBox5.Text = dr1("fastn")
             hrcvv.Text = dr1("hrcvv")
+            dev.Text = dr1("dev")
             DISS.Text = dr1("diss")
             esl_time.Text = dr1("esl_time")
             COMPANY_CODE.Text = dr1("COMPANY_CODE")
@@ -14227,7 +14259,7 @@ mm:
             If fchk = 1 Then
                 If sbar = 1 Then FBARR() : FBARS()
                 If sbar = 1 And pap > 0 Then docs = 0 : barname()
-                If sbill = 1 Then FPESL()
+                If sbill = 1 Then FPESL("esl")
                 If slist = 1 Then FWORKSHEET()
                 If sscan = 1 Then
                     If prnt = 0 Then
@@ -16452,9 +16484,9 @@ mm:
 
     Private Sub GlassButton147_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq25.Click
         
-        FPESL()
+        FPESL("esl")
     End Sub
-    Public Sub FPESL()
+    Public Sub FPESL(ByVal rpt As String)
         Try
             If prnt = 0 Then
                 If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
@@ -16475,7 +16507,7 @@ mm:
             adesl.SelectCommand = cmdesl
             adesl.Fill(DBS, "esl")
             Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
-            oj.Load(Application.StartupPath & rptp.Text & "\esl.rpt")
+            oj.Load(Application.StartupPath & rptp.Text & "\" & rpt & ".rpt")
             oj.Database.Tables(0).SetDataSource(DBS.Tables("esl"))
             oj.SetParameterValue("a", esla)
             rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
@@ -16499,62 +16531,17 @@ mm:
     Public Sub UPDATEBILL()
         Try
             If lp = 1 Then
-                dr.Close()
-                cmd.CommandText = "update lbill set ucash='" & Val(ucash.Checked) & "' ,UTC='" & Val(utc.Checked) & "'  , UTN='" & Val(utn.Checked) & "',rcv_date='" & ChangeFormat(rcv_date.Value) & "', pemail='" & pemail.Text & "',PID='" & pid.Text & "',pmobile='" & pmobile.Text & "',pyear='" & PYEAR.Text & "',notes='" & lnotes.Text & "',pname='" & pname.Text & "',page='" & page.Text & "',nik='" & PNIK.Text & "',ptype='" & ptype.Text & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
-                cmd.ExecuteNonQuery()
-                PSAVE()
-                cmdb.DataAdapter = adeslb
-                adeslb.Update(DBS, "eslb")
-                dr.Close()
-                cmd.CommandText = "update lbill_esl set qun=0 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                cmd.ExecuteNonQuery()
-                ACdr.Close()
-                ESLBILL.Text = ""
-                ACcmd.CommandText = "SELECT * FROM esl  "
-                ACdr = ACcmd.ExecuteReader
-                While ACdr.Read
-                    Dim BILL1 As Integer = 0
-                    BILL1 = nulls(ACdr("bill"))
-                    If BILL1 = 0 Then BILL1 = 1
-                    dr.Close()
-                    cmd.CommandText = "select * from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and bill='" & ACdr("bill") & "'"
-                    dr = cmd.ExecuteReader
-                    dr.Read()
-                    If dr.HasRows = True Then
-                        dr.Close()
-                        cmd.CommandText = "update lbill_esl set qun=1 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill='" & ACdr("bill") & "'"
-                        cmd.ExecuteNonQuery()
-                    Else
-                        If BILL1 = 0 Then
-                            dr.Close()
-                            cmd.CommandText = "select MAX(BILL) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
-                            dr = cmd.ExecuteReader
-                            dr.Read()
-                            If dr.HasRows = True Then
-                                BILL1 = nulls(dr(0)) + 1
-                            Else
-                                BILL1 = 1
-                            End If
-                        End If
-                        dr.Close()
-                        cmd.CommandText = "INSERT INTO  [lbill_esl]([esl_no],[bill],[tot],YEARN,qun,bran,usr,erbank) VALUES ('" & Val(esl_no.Text) & "','" & BILL1 & "','" & nulls(ACdr("tot")) & "','" & esl_date.Value.Year & "','1','" & bran.Text & "','" & USR & "','" & nulls(ACdr("erbank")) & "')"
-                        cmd.ExecuteNonQuery()
-                    End If
-                    If ESLBILL.Text <> "" Then ESLBILL.Text = ESLBILL.Text & " - " & ACdr("BILL") & "(" & ACdr("TOT") & ")" Else ESLBILL.Text = ACdr("BILL") & "(" & ACdr("TOT") & ")"
-                End While
-                dr.Close()
-                If dc = 1 Then
-                    cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and qun ='0'"
-                    cmd.ExecuteNonQuery()
-                End If
+                esl_cash(3)
                 ACdr.Close()
                 ACcmd.CommandText = "SELECT sum(tot),sum(erbank) FROM esl  "
                 ACdr = ACcmd.ExecuteReader
                 ACdr.Read()
                 BANK.Text = nulls(ACdr(1))
                 PAY.Text = nulls(ACdr(0))
-                cmd.CommandText = "update lbill set pay='" & Val(PAY.Text) & "', rest='" & Val(REST.Text) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+                dr.Close()
+                cmd.CommandText = "update lbill set bank='" & Val(BANK.Text) & "', pay='" & Val(PAY.Text) & "', rest='" & Val(REST.Text) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
                 cmd.ExecuteNonQuery()
+                fesl(0, 0)
             End If
         Catch ex As Exception
             Dim st1 As String = "UPDATE BILL"
@@ -17576,7 +17563,7 @@ mm:
                 SCMD.ExecuteNonQuery()
                 SCMD.CommandText = "delete from lbill_ESL where ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                 SCMD.ExecuteNonQuery()
-                SCMD.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,labd) VALUES ('" & dr("esl_date") & "' , '" & dr("esl_no") & "' , '" & dr("pname") & "' , '" & dr("reg_name") & "' , '" & dr("doc_name") & "' , '" & dr("book_code") & "' , '" & dr("book_name") & "' , '" & dr("company_code") & "' , '" & dr("company_name") & "' , '" & dr("doc_code") & "' , '" & dr("pcode") & "' , '" & dr("ptype") & "' , '" & dr("page") & "' , '" & dr("pid") & "' , '" & dr("depn") & "' , '" & dr("reg_code") & "' , '" & dr("esl_time") & "' , '" & dr("crd_per") & "' , '" & dr("crd_v") & "' , '" & dr("cash_per") & "' , '" & dr("cash_v") & "' , '" & dr("bon") & "' , '" & dr("pay") & "' , '" & dr("rest") & "' , '" & dr("tot") & "' , '" & dr("nik") & "' , '" & dr("test") & "' , '" & dr("diss") & "' , '" & dr("USR") & "' , '" & dr("SHIFT") & "' , '" & dr("rcv_date") & "' , '" & dr("rcv") & "' , '" & dr("fastv") & "' , '" & dr("hrcvv") & "' , '" & dr("rcvv") & "' , '" & dr("rcvn") & "' , '" & dr("fastn") & "' , '" & dr("cfast") & "' , '" & dr("chrcv") & "' , '" & dr("totv") & "' , '" & dr("ty") & "' , '" & dr("doc_per") & "' , '" & dr("branch_name") & "' , '" & dr("branch_code") & "' , '" & dr("pemail") & "' , '" & dr("dissn") & "' , '" & dr("notes") & "' , '" & dr("tblg") & "' , '" & dr("sprnt") & "' , '" & dr("pyear") & "' , '" & dr("lab_name") & "' , '" & dr("lab_code") & "' , '" & dr("ptot") & "' , '" & dr("ppay") & "' , '" & dr("prest") & "' , '" & dr("labprice") & "' , '" & dr("labtest") & "' , '" & dr("tnum") & "' , '" & dr("nnik") & "' , '" & dr("qun") & "' , '" & dr("testpro") & "' , '" & dr("rcv_time") & "' , '" & dr("pinc") & "' , '" & dr("pcrd") & "' , '" & dr("pcanc") & "' , '" & dr("YEARN") & "' , '" & dr("ESLBILL") & "' , '" & dr("urgant") & "' , '" & dr("final") & "' , '" & dr("bdel") & "' , '" & dr("bdelusr") & "' , '" & dr("bdeldate") & "' , '" & dr("eslb") & "' , '" & dr("bran") & "' , '" & dr("printtime") & "' , '0' , '" & dr("brans") & "'  , '" & dr("sampl") & "' , '" & dr("sampldate") & "' , '" & dr("samplusr") & "' , '" & dr("restusr") & "' , '" & dr("restdate") & "' , '" & dr("trl") & "' , '" & dr("fs") & "', '" & dr("labd") & "')"
+                SCMD.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,labd,dev) VALUES ('" & dr("esl_date") & "' , '" & dr("esl_no") & "' , '" & dr("pname") & "' , '" & dr("reg_name") & "' , '" & dr("doc_name") & "' , '" & dr("book_code") & "' , '" & dr("book_name") & "' , '" & dr("company_code") & "' , '" & dr("company_name") & "' , '" & dr("doc_code") & "' , '" & dr("pcode") & "' , '" & dr("ptype") & "' , '" & dr("page") & "' , '" & dr("pid") & "' , '" & dr("depn") & "' , '" & dr("reg_code") & "' , '" & dr("esl_time") & "' , '" & dr("crd_per") & "' , '" & dr("crd_v") & "' , '" & dr("cash_per") & "' , '" & dr("cash_v") & "' , '" & dr("bon") & "' , '" & dr("pay") & "' , '" & dr("rest") & "' , '" & dr("tot") & "' , '" & dr("nik") & "' , '" & dr("test") & "' , '" & dr("diss") & "' , '" & dr("USR") & "' , '" & dr("SHIFT") & "' , '" & dr("rcv_date") & "' , '" & dr("rcv") & "' , '" & dr("fastv") & "' , '" & dr("hrcvv") & "' , '" & dr("rcvv") & "' , '" & dr("rcvn") & "' , '" & dr("fastn") & "' , '" & dr("cfast") & "' , '" & dr("chrcv") & "' , '" & dr("totv") & "' , '" & dr("ty") & "' , '" & dr("doc_per") & "' , '" & dr("branch_name") & "' , '" & dr("branch_code") & "' , '" & dr("pemail") & "' , '" & dr("dissn") & "' , '" & dr("notes") & "' , '" & dr("tblg") & "' , '" & dr("sprnt") & "' , '" & dr("pyear") & "' , '" & dr("lab_name") & "' , '" & dr("lab_code") & "' , '" & dr("ptot") & "' , '" & dr("ppay") & "' , '" & dr("prest") & "' , '" & dr("labprice") & "' , '" & dr("labtest") & "' , '" & dr("tnum") & "' , '" & dr("nnik") & "' , '" & dr("qun") & "' , '" & dr("testpro") & "' , '" & dr("rcv_time") & "' , '" & dr("pinc") & "' , '" & dr("pcrd") & "' , '" & dr("pcanc") & "' , '" & dr("YEARN") & "' , '" & dr("ESLBILL") & "' , '" & dr("urgant") & "' , '" & dr("final") & "' , '" & dr("bdel") & "' , '" & dr("bdelusr") & "' , '" & dr("bdeldate") & "' , '" & dr("eslb") & "' , '" & dr("bran") & "' , '" & dr("printtime") & "' , '0' , '" & dr("brans") & "'  , '" & dr("sampl") & "' , '" & dr("sampldate") & "' , '" & dr("samplusr") & "' , '" & dr("restusr") & "' , '" & dr("restdate") & "' , '" & dr("trl") & "' , '" & dr("fs") & "', '" & dr("labd") & "', '" & dr("dev") & "')"
                 SCMD.ExecuteNonQuery()
                 dr1.Close()
                 cmd1.CommandText = "select * from lbillimage where ESL_NO='" & dr("esl_no") & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
@@ -17804,7 +17791,7 @@ om:
             While SDR.Read
                 cmd.CommandText = "delete from lbill where ESL_NO='" & SDR("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                 cmd.ExecuteNonQuery()
-                cmd.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[fnd],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs) VALUES ('" & SDR("esl_date") & "' , '" & SDR("esl_no") & "' , '" & SDR("pname") & "' , '" & SDR("reg_name") & "' , '" & SDR("doc_name") & "' , '" & SDR("book_code") & "' , '" & SDR("book_name") & "' , '" & SDR("company_code") & "' , '" & SDR("company_name") & "' , '" & SDR("doc_code") & "' , '" & SDR("pcode") & "' , '" & SDR("ptype") & "' , '" & SDR("page") & "' , '" & SDR("pid") & "' , '" & SDR("depn") & "' , '" & SDR("reg_code") & "' , '" & SDR("esl_time") & "' , '" & SDR("crd_per") & "' , '" & SDR("crd_v") & "' , '" & SDR("cash_per") & "' , '" & SDR("cash_v") & "' , '" & SDR("bon") & "' , '" & SDR("pay") & "' , '" & SDR("rest") & "' , '" & SDR("tot") & "' , '" & SDR("nik") & "' , '" & SDR("test") & "' , '" & SDR("diss") & "' , '" & SDR("USR") & "' , '" & SDR("SHIFT") & "' , '" & SDR("rcv_date") & "' , '" & SDR("rcv") & "' , '" & SDR("fastv") & "' , '" & SDR("hrcvv") & "' , '" & SDR("rcvv") & "' , '" & SDR("rcvn") & "' , '" & SDR("fastn") & "' , '" & SDR("cfast") & "' , '" & SDR("chrcv") & "' , '" & SDR("totv") & "' , '" & SDR("ty") & "' , '" & SDR("doc_per") & "' , '" & SDR("branch_name") & "' , '" & SDR("branch_code") & "' , '" & SDR("pemail") & "' , '" & SDR("dissn") & "' , '" & SDR("notes") & "' , '" & SDR("tblg") & "' , '" & SDR("sprnt") & "' , '" & SDR("pyear") & "' , '" & SDR("lab_name") & "' , '" & SDR("lab_code") & "' , '" & SDR("ptot") & "' , '" & SDR("ppay") & "' , '" & SDR("prest") & "' , '" & SDR("labprice") & "' , '" & SDR("labtest") & "' , '" & SDR("tnum") & "' , '" & SDR("nnik") & "' , '" & SDR("qun") & "' , '" & SDR("testpro") & "' , '" & SDR("rcv_time") & "' , '" & SDR("pinc") & "' , '" & SDR("pcrd") & "' , '" & SDR("pcanc") & "' , '" & SDR("YEARN") & "' , '" & SDR("ESLBILL") & "' , '" & SDR("urgant") & "' , '" & SDR("final") & "' , '" & SDR("bdel") & "' , '" & SDR("bdelusr") & "' , '" & SDR("bdeldate") & "' , '" & SDR("eslb") & "' , '" & SDR("bran") & "' , '" & SDR("printtime") & "' , '0' , '" & SDR("brans") & "' , '" & SDR("fnd") & "' , '" & SDR("sampl") & "' , '" & SDR("sampldate") & "' , '" & SDR("samplusr") & "' , '" & SDR("restusr") & "' , '" & SDR("restdate") & "' , '" & SDR("trl") & "', '" & SDR("trl") & "')"
+                cmd.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[fnd],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,dev) VALUES ('" & SDR("esl_date") & "' , '" & SDR("esl_no") & "' , '" & SDR("pname") & "' , '" & SDR("reg_name") & "' , '" & SDR("doc_name") & "' , '" & SDR("book_code") & "' , '" & SDR("book_name") & "' , '" & SDR("company_code") & "' , '" & SDR("company_name") & "' , '" & SDR("doc_code") & "' , '" & SDR("pcode") & "' , '" & SDR("ptype") & "' , '" & SDR("page") & "' , '" & SDR("pid") & "' , '" & SDR("depn") & "' , '" & SDR("reg_code") & "' , '" & SDR("esl_time") & "' , '" & SDR("crd_per") & "' , '" & SDR("crd_v") & "' , '" & SDR("cash_per") & "' , '" & SDR("cash_v") & "' , '" & SDR("bon") & "' , '" & SDR("pay") & "' , '" & SDR("rest") & "' , '" & SDR("tot") & "' , '" & SDR("nik") & "' , '" & SDR("test") & "' , '" & SDR("diss") & "' , '" & SDR("USR") & "' , '" & SDR("SHIFT") & "' , '" & SDR("rcv_date") & "' , '" & SDR("rcv") & "' , '" & SDR("fastv") & "' , '" & SDR("hrcvv") & "' , '" & SDR("rcvv") & "' , '" & SDR("rcvn") & "' , '" & SDR("fastn") & "' , '" & SDR("cfast") & "' , '" & SDR("chrcv") & "' , '" & SDR("totv") & "' , '" & SDR("ty") & "' , '" & SDR("doc_per") & "' , '" & SDR("branch_name") & "' , '" & SDR("branch_code") & "' , '" & SDR("pemail") & "' , '" & SDR("dissn") & "' , '" & SDR("notes") & "' , '" & SDR("tblg") & "' , '" & SDR("sprnt") & "' , '" & SDR("pyear") & "' , '" & SDR("lab_name") & "' , '" & SDR("lab_code") & "' , '" & SDR("ptot") & "' , '" & SDR("ppay") & "' , '" & SDR("prest") & "' , '" & SDR("labprice") & "' , '" & SDR("labtest") & "' , '" & SDR("tnum") & "' , '" & SDR("nnik") & "' , '" & SDR("qun") & "' , '" & SDR("testpro") & "' , '" & SDR("rcv_time") & "' , '" & SDR("pinc") & "' , '" & SDR("pcrd") & "' , '" & SDR("pcanc") & "' , '" & SDR("YEARN") & "' , '" & SDR("ESLBILL") & "' , '" & SDR("urgant") & "' , '" & SDR("final") & "' , '" & SDR("bdel") & "' , '" & SDR("bdelusr") & "' , '" & SDR("bdeldate") & "' , '" & SDR("eslb") & "' , '" & SDR("bran") & "' , '" & SDR("printtime") & "' , '0' , '" & SDR("brans") & "' , '" & SDR("fnd") & "' , '" & SDR("sampl") & "' , '" & SDR("sampldate") & "' , '" & SDR("samplusr") & "' , '" & SDR("restusr") & "' , '" & SDR("restdate") & "' , '" & SDR("trl") & "', '" & SDR("trl") & "', '" & SDR("dev") & "')"
                 cmd.ExecuteNonQuery()
                 sdr1.Close()
 lm:
@@ -18445,6 +18432,8 @@ mmm:
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD lbill_esl  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbill ADD dev  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD COMS  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE EEMP ADD O1_1S  numeric(18, 2) NOT NULL DEFAULT '0',O1_2S  numeric(18, 2) NOT NULL DEFAULT '0',O1_5S  numeric(18, 2) NOT NULL DEFAULT '0',O1_3S  numeric(18, 2) NOT NULL DEFAULT '0',O1_4S  numeric(18, 2) NOT NULL DEFAULT '0',O1_6S  numeric(18, 2) NOT NULL DEFAULT '0',O1_7S  numeric(18, 2) NOT NULL DEFAULT '0',O1_8S  numeric(18, 2) NOT NULL DEFAULT '0',O1_9S  numeric(18, 2) NOT NULL DEFAULT '0',O1_10S  numeric(18, 2) NOT NULL DEFAULT '0',O1_11S  numeric(18, 2) NOT NULL DEFAULT '0',O1_12S  numeric(18, 2) NOT NULL DEFAULT '0'"
@@ -18867,7 +18856,7 @@ mmm:
         cmd.CommandText = "select sum(tot),sum(erbank) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
         dr = cmd.ExecuteReader
         dr.Read()
-        BANK.Text = nulls(1)
+        BANK.Text = nulls(dr(1))
         PAY.Text = nulls(dr(0))
         Dim n As String = MsgBox("Â·  —Ìœ  ”ÃÌ· ø", MsgBoxStyle.YesNo)
         If n = vbNo Then Exit Sub
@@ -18876,12 +18865,9 @@ mmm:
         cmd.CommandText = "select MAX(BILL),sum(erbank) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
         dr = cmd.ExecuteReader
         dr.Read()
-        If dr.HasRows = True Then
-            BILL1 = nulls(dr(0)) + 1
-        Else
-            BILL1 = 1
-        End If
-        Dim s1 As String = InputBox("«œŒ· —ﬁ„ «·«Ì’«·", , BILL1)
+        If dr.HasRows = True Then BILL1 = nulls(dr(0)) + 1 Else BILL1 = 1
+
+        Dim s1 As String = BILL1
         Dim s2 As Integer = 0
         Dim rst1 As Integer = 0
         Dim rst2 As Integer = 0
@@ -20876,15 +20862,16 @@ mm:         Exit Sub
         rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
         rp.Show() : rp.Focus()
     End Sub
-    Public Sub login()
+    Public Sub login(ByVal pass As String)
         On Error Resume Next
-        dr.Close() : cmd.CommandText = "select * from USERS where pass='" & usrpass.Text & "'"
+        dr.Close() : cmd.CommandText = "select * from USERS where pass='" & pass & "'"
         dr = cmd.ExecuteReader
         dr.Read()
         If dr.HasRows Then
             CTOTAL = dr("ctotal")
             EMP_CODE = dr("EMP_CODE")
             USR = dr("name")
+            suser = dr("name")
             mluser = dr("luser")
             final = dr("final")
             SV = dr("LSAVE")
@@ -20933,16 +20920,14 @@ mm:         Exit Sub
             MsgBox(" „  ⁄„·Ì…  €Ì— «·„” Œœ„ »‰Ã«Õ", MsgBoxStyle.Information)
             Me.Text = USR & "   " & SHF & "  " & branch_name.Text
             Me.Enabled = True
-
         Else
             MsgBox("«·—Ã«¡ ﬂ «»… ﬂ·„… «·”— ’ÕÌÕ…", MsgBoxStyle.Information)
-            usrpass.Text = ""
-
-
         End If
+
     End Sub
     Private Sub gla1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles gla1.Click
-        login()
+        login(usrpass.Text)
+        usrpass.Text = ""
     End Sub
 
     Private Sub GL3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GL3.Click
@@ -21106,7 +21091,7 @@ mm:         Exit Sub
     Private Sub DOC_NAME_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles DOC_NAME.KeyDown
         If e.KeyCode = Keys.Enter Then
             dr.Close()
-            cmd.CommandText = "select * from eemp where name='" & DOC_NAME.Text & "'"
+            cmd.CommandText = "select * from users where name='" & DOC_NAME.Text & "'"
             dr = cmd.ExecuteReader
             dr.Read()
             DOC_CODE.Text = dr("code")
@@ -21144,7 +21129,8 @@ mm:         Exit Sub
 
     Private Sub usrpass_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles usrpass.KeyUp
         If e.KeyCode = Keys.Enter Then
-            gla1_Click(gla1, e)
+            login(usrpass.Text)
+            usrpass.Text = ""
         End If
     End Sub
 
@@ -21334,10 +21320,11 @@ mm:         Exit Sub
     Private Sub GB_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GB.Click
 
         'chrcv.Checked = True
+        doc_admin = 1
         ComboBox5.Text = "all"
-        ch.Checked = True
+        cdoc_name.Checked = True
         f3(9)
-        ch.Checked = False
+        cdoc_name.Checked = False
         'chrcv.Checked = False
     End Sub
 
@@ -22416,7 +22403,7 @@ mv:
         SCMD.CommandText = "select * from lbill where  " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
         SDR = SCMD.ExecuteReader
         While SDR.Read
-            cmd.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[fnd],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs) VALUES ('" & SDR("esl_date") & "' , '" & SDR("esl_no") & "' , '" & SDR("pname") & "' , '" & SDR("reg_name") & "' , '" & SDR("doc_name") & "' , '" & SDR("book_code") & "' , '" & SDR("book_name") & "' , '" & SDR("company_code") & "' , '" & SDR("company_name") & "' , '" & SDR("doc_code") & "' , '" & SDR("pcode") & "' , '" & SDR("ptype") & "' , '" & SDR("page") & "' , '" & SDR("pid") & "' , '" & SDR("depn") & "' , '" & SDR("reg_code") & "' , '" & SDR("esl_time") & "' , '" & SDR("crd_per") & "' , '" & SDR("crd_v") & "' , '" & SDR("cash_per") & "' , '" & SDR("cash_v") & "' , '" & SDR("bon") & "' , '" & SDR("pay") & "' , '" & SDR("rest") & "' , '" & SDR("tot") & "' , '" & SDR("nik") & "' , '" & SDR("test") & "' , '" & SDR("diss") & "' , '" & SDR("USR") & "' , '" & SDR("SHIFT") & "' , '" & SDR("rcv_date") & "' , '" & SDR("rcv") & "' , '" & SDR("fastv") & "' , '" & SDR("hrcvv") & "' , '" & SDR("rcvv") & "' , '" & SDR("rcvn") & "' , '" & SDR("fastn") & "' , '" & SDR("cfast") & "' , '" & SDR("chrcv") & "' , '" & SDR("totv") & "' , '" & SDR("ty") & "' , '" & SDR("doc_per") & "' , '" & SDR("branch_name") & "' , '" & SDR("branch_code") & "' , '" & SDR("pemail") & "' , '" & SDR("dissn") & "' , '" & SDR("notes") & "' , '" & SDR("tblg") & "' , '" & SDR("sprnt") & "' , '" & SDR("pyear") & "' , '" & SDR("lab_name") & "' , '" & SDR("lab_code") & "' , '" & SDR("ptot") & "' , '" & SDR("ppay") & "' , '" & SDR("prest") & "' , '" & SDR("labprice") & "' , '" & SDR("labtest") & "' , '" & SDR("tnum") & "' , '" & SDR("nnik") & "' , '" & SDR("qun") & "' , '" & SDR("testpro") & "' , '" & SDR("rcv_time") & "' , '" & SDR("pinc") & "' , '" & SDR("pcrd") & "' , '" & SDR("pcanc") & "' , '" & SDR("YEARN") & "' , '" & SDR("ESLBILL") & "' , '" & SDR("urgant") & "' , '" & SDR("final") & "' , '" & SDR("bdel") & "' , '" & SDR("bdelusr") & "' , '" & SDR("bdeldate") & "' , '" & SDR("eslb") & "' , '" & SDR("bran") & "' , '" & SDR("printtime") & "' , '0' , '" & SDR("brans") & "' , '" & SDR("fnd") & "' , '" & SDR("sampl") & "' , '" & SDR("sampldate") & "' , '" & SDR("samplusr") & "' , '" & SDR("restusr") & "' , '" & SDR("restdate") & "' , '" & SDR("trl") & "', '" & SDR("trl") & "')"
+            cmd.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[fnd],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,dev) VALUES ('" & SDR("esl_date") & "' , '" & SDR("esl_no") & "' , '" & SDR("pname") & "' , '" & SDR("reg_name") & "' , '" & SDR("doc_name") & "' , '" & SDR("book_code") & "' , '" & SDR("book_name") & "' , '" & SDR("company_code") & "' , '" & SDR("company_name") & "' , '" & SDR("doc_code") & "' , '" & SDR("pcode") & "' , '" & SDR("ptype") & "' , '" & SDR("page") & "' , '" & SDR("pid") & "' , '" & SDR("depn") & "' , '" & SDR("reg_code") & "' , '" & SDR("esl_time") & "' , '" & SDR("crd_per") & "' , '" & SDR("crd_v") & "' , '" & SDR("cash_per") & "' , '" & SDR("cash_v") & "' , '" & SDR("bon") & "' , '" & SDR("pay") & "' , '" & SDR("rest") & "' , '" & SDR("tot") & "' , '" & SDR("nik") & "' , '" & SDR("test") & "' , '" & SDR("diss") & "' , '" & SDR("USR") & "' , '" & SDR("SHIFT") & "' , '" & SDR("rcv_date") & "' , '" & SDR("rcv") & "' , '" & SDR("fastv") & "' , '" & SDR("hrcvv") & "' , '" & SDR("rcvv") & "' , '" & SDR("rcvn") & "' , '" & SDR("fastn") & "' , '" & SDR("cfast") & "' , '" & SDR("chrcv") & "' , '" & SDR("totv") & "' , '" & SDR("ty") & "' , '" & SDR("doc_per") & "' , '" & SDR("branch_name") & "' , '" & SDR("branch_code") & "' , '" & SDR("pemail") & "' , '" & SDR("dissn") & "' , '" & SDR("notes") & "' , '" & SDR("tblg") & "' , '" & SDR("sprnt") & "' , '" & SDR("pyear") & "' , '" & SDR("lab_name") & "' , '" & SDR("lab_code") & "' , '" & SDR("ptot") & "' , '" & SDR("ppay") & "' , '" & SDR("prest") & "' , '" & SDR("labprice") & "' , '" & SDR("labtest") & "' , '" & SDR("tnum") & "' , '" & SDR("nnik") & "' , '" & SDR("qun") & "' , '" & SDR("testpro") & "' , '" & SDR("rcv_time") & "' , '" & SDR("pinc") & "' , '" & SDR("pcrd") & "' , '" & SDR("pcanc") & "' , '" & SDR("YEARN") & "' , '" & SDR("ESLBILL") & "' , '" & SDR("urgant") & "' , '" & SDR("final") & "' , '" & SDR("bdel") & "' , '" & SDR("bdelusr") & "' , '" & SDR("bdeldate") & "' , '" & SDR("eslb") & "' , '" & SDR("bran") & "' , '" & SDR("printtime") & "' , '0' , '" & SDR("brans") & "' , '" & SDR("fnd") & "' , '" & SDR("sampl") & "' , '" & SDR("sampldate") & "' , '" & SDR("samplusr") & "' , '" & SDR("restusr") & "' , '" & SDR("restdate") & "' , '" & SDR("trl") & "', '" & SDR("trl") & "', '" & SDR("dev") & "')"
             cmd.ExecuteNonQuery()
             sdr1.Close()
 lm:
@@ -23832,7 +23819,7 @@ mms:
                     If x = vbNo Then Exit Sub
                     dr.Close()
 
-                    cmd.CommandText = "INSERT INTO lbillDEL ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB]) SELECT [esl_date],esl_no,[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB] FROM lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+                    cmd.CommandText = "INSERT INTO lbillDEL (dev,[esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB]) SELECT dev,[esl_date],esl_no,[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB] FROM lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
                     cmd.ExecuteNonQuery()
                     cmd.CommandText = "INSERT INTO lbill_ESLDEL  ([esl_no],[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[bran],[trl],[st],[id],[usr],[SHIFT])  SELECT  esl_no,[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[bran],[trl],[st],[id],[usr],[SHIFT] FROM lbill_ESL where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
                     cmd.ExecuteNonQuery()
@@ -24298,10 +24285,10 @@ mms:
         If Me.Enabled = True Then
             Me.Enabled = False
         Else
-            Dim ss As String = InputBox("enter your password", "login form")
-            usrpass.Text = ss
-            login()
-            If usrpass.Text = "" Then Me.Enabled = False
+            INPU.TextBox1.Text = Nothing
+            INPU.ShowDialog()
+            login(INPUTX)
+
         End If
     End Sub
 
@@ -24549,5 +24536,36 @@ mms:
 
     Private Sub brestbank_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles brestbank.Click
         RESTF(1)
+    End Sub
+
+    Private Sub MMMMMMM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MMMMMMM.Click
+        'chrcv.Checked = True
+        ComboBox5.Text = "all"
+        ch.Checked = True
+        f3(9)
+        ch.Checked = False
+        'chrcv.Checked = False
+    End Sub
+
+    Private Sub  ﬁ—Ì—”Õ»«·⁄Ì‰…„‰«·„‰“·ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles  ﬁ—Ì—”Õ»«·⁄Ì‰…„‰«·„‰“·ToolStripMenuItem.Click
+        LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì— ”Õ» «·⁄Ì‰… „‰ «·„‰“·", 0, bran.Text)
+        doc_admin = 0
+        ComboBox5.Text = "all"
+        cdoc_name.Checked = True
+        f3(9)
+        cdoc_name.Checked = False
+    End Sub
+
+    Private Sub brestcancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles brestcancel.Click
+        grest.Visible = False
+
+    End Sub
+
+    Private Sub dev_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dev.TextChanged
+        SUMT()
+    End Sub
+
+    Private Sub fffffffffffffff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles fffffffffffffff.Click
+        FPESL("eslbill")
     End Sub
 End Class
