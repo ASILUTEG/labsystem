@@ -2261,62 +2261,61 @@ mm:
         If type = 2 Or type = 3 Then
             dr.Close()
             If FESLT = 1 Then
-                If finals.Checked = False Then
-                    If ChangeFormat(Now) = ChangeFormat(esl_date.Value) Then
-                        cmd.CommandText = "update lbill_esl set qun=0 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                        cmd.ExecuteNonQuery()
-                        ACdr.Close()
-                        ESLBILL.Text = ""
-                        ACcmd.CommandText = "SELECT * FROM esl  "
-                        ACdr = ACcmd.ExecuteReader
-                        While ACdr.Read
-                            Dim BILL1 As Integer = 0
-                            If IsDBNull(ACdr("bill")) = True Then
+                If ChangeFormat(Now) = ChangeFormat(esl_date.Value) Or mng = 1 Then
+                    cmd.CommandText = "update lbill_esl set qun=0 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+                    cmd.ExecuteNonQuery()
+                    ACdr.Close()
+                    ESLBILL.Text = ""
+                    ACcmd.CommandText = "SELECT * FROM esl  "
+                    ACdr = ACcmd.ExecuteReader
+                    While ACdr.Read
+                        Dim BILL1 As Integer = 0
+                        If IsDBNull(ACdr("bill")) = True Then
+                            dr.Close()
+                            cmd.CommandText = "select MAX(BILL) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
+                            dr = cmd.ExecuteReader
+                            dr.Read()
+                            If dr.HasRows = True Then BILL1 = nulls(dr(0)) + 1 Else BILL1 = 1
+                        Else
+                            BILL1 = nulls(ACdr("bill"))
+                        End If
+
+                        If BILL1 = 0 Then BILL1 = 1
+                        dr.Close()
+                        cmd.CommandText = "select * from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and bill='" & nulls(ACdr("bill")) & "'"
+                        dr = cmd.ExecuteReader
+                        dr.Read()
+                        If dr.HasRows = True Then
+                            dr.Close()
+                            cmd.CommandText = "update lbill_esl set qun=1 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill='" & nulls(ACdr("bill")) & "'"
+                            cmd.ExecuteNonQuery()
+                        Else
+                            If BILL1 = 0 Then
                                 dr.Close()
                                 cmd.CommandText = "select MAX(BILL) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
                                 dr = cmd.ExecuteReader
                                 dr.Read()
-                                If dr.HasRows = True Then BILL1 = nulls(dr(0)) + 1 Else BILL1 = 1
-                            Else
-                                BILL1 = nulls(ACdr("bill"))
-                            End If
-
-                            If BILL1 = 0 Then BILL1 = 1
-                            dr.Close()
-                            cmd.CommandText = "select * from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and bill='" & nulls(ACdr("bill")) & "'"
-                            dr = cmd.ExecuteReader
-                            dr.Read()
-                            If dr.HasRows = True Then
-                                dr.Close()
-                                cmd.CommandText = "update lbill_esl set qun=1 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill='" & nulls(ACdr("bill")) & "'"
-                                cmd.ExecuteNonQuery()
-                            Else
-                                If BILL1 = 0 Then
-                                    dr.Close()
-                                    cmd.CommandText = "select MAX(BILL) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
-                                    dr = cmd.ExecuteReader
-                                    dr.Read()
-                                    If dr.HasRows = True Then
-                                        BILL1 = nulls(dr(0)) + 1
-                                    Else
-                                        BILL1 = 1
-                                    End If
+                                If dr.HasRows = True Then
+                                    BILL1 = nulls(dr(0)) + 1
+                                Else
+                                    BILL1 = 1
                                 End If
-                                dr.Close()
-                                cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill ='" & BILL1 & "'"
-                                cmd.ExecuteNonQuery()
-                                cmd.CommandText = "INSERT INTO  [lbill_esl]([esl_no],[bill],[tot],YEARN,qun,bran,usr,shift,erbank) VALUES ('" & Val(esl_no.Text) & "','" & BILL1 & "','" & nulls(ACdr("tot")) & "','" & esl_date.Value.Year & "','1','" & bran.Text & "','" & USR & "','" & SHF & "','" & nulls(ACdr("erbank")) & "')"
-                                cmd.ExecuteNonQuery()
                             End If
-                            If ESLBILL.Text <> "" Then ESLBILL.Text = ESLBILL.Text & " - " & ACdr("BILL") & "(" & ACdr("TOT") & ")" Else ESLBILL.Text = ACdr("BILL") & "(" & ACdr("TOT") & ")"
-                        End While
-                        dr.Close()
-                        If dc = 1 Then
-                            cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and qun ='0'"
+                            dr.Close()
+                            cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and bill ='" & BILL1 & "'"
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "INSERT INTO  [lbill_esl]([esl_no],[bill],[tot],YEARN,qun,bran,usr,shift,erbank) VALUES ('" & Val(esl_no.Text) & "','" & BILL1 & "','" & nulls(ACdr("tot")) & "','" & esl_date.Value.Year & "','1','" & bran.Text & "','" & USR & "','" & SHF & "','" & nulls(ACdr("erbank")) & "')"
                             cmd.ExecuteNonQuery()
                         End If
+                        If ESLBILL.Text <> "" Then ESLBILL.Text = ESLBILL.Text & " - " & ACdr("BILL") & "(" & ACdr("TOT") & ")" Else ESLBILL.Text = ACdr("BILL") & "(" & ACdr("TOT") & ")"
+                    End While
+                    dr.Close()
+                    If dc = 1 Then
+                        cmd.CommandText = "delete from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and qun ='0'"
+                        cmd.ExecuteNonQuery()
                     End If
                 End If
+
             End If
             dr1.Close()
             dr.Close()
@@ -20849,7 +20848,6 @@ mm:         Exit Sub
         DBS.Tables("temp").Clear()
         adtemp.Fill(DBS, "temp")
         temp = DBS.Tables("temp")
-
         tm = 4
         Dim v As Integer = 0
         LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì— «Õ’«∆Ì«  «· Õ«·Ì·", 1, bran.Text)
