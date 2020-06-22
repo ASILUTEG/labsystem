@@ -22546,7 +22546,6 @@ lm:
         Using client As New Net.WebClient
             Dim reqparm As New Specialized.NameValueCollection
             reqparm.Add("name", pname.Text)
-
             Dim responsebytes = client.UploadValues("http://misr-labs.ahomran.com/api/users", "POST", reqparm)
             Dim responsebody = (New System.Text.UTF8Encoding).GetString(responsebytes)
             resp = responsebody
@@ -22563,7 +22562,21 @@ lm:
             wid.Text = resp.Substring(resp.IndexOf("data", 1) + 12, resp.IndexOf("title", 1) - (resp.IndexOf("data", 1) + 14))
         End Using
     End Sub
-
+    Public Sub testpost()
+        Using client As New Net.WebClient
+            Dim reqparm As New Specialized.NameValueCollection
+            reqparm.Add("name", "alhamed llah ")
+            reqparm.Add("description", "very perecft desc")
+            reqparm.Add("price", "2000")
+            reqparm.Add("discount", "10")
+            reqparm.Add("stoc", "50")
+            client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMjlmOWY2M2E5MmNhM2U1OTlmMTg1MmFlMzEwNTU2YTZkNWZkZmY0YzhjOTVmZWUxZjM2NzE4M2I2Mzg2YTQ2NTVlZmZkMTJmMzdmZjQwMTIiLCJpYXQiOjE1OTI2MTI4NTAsIm5iZiI6MTU5MjYxMjg1MCwiZXhwIjoxNjI0MTQ4ODUwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.sMJDuaqHflv2qc5o_4L5iL5brJy7rFT28zmndVB8emLFELYFXS9lzfU71pORGBNSYfeginDoe1IuIeZSJ1lOMoHMi9sMfTJENTkskqlUr2fwAoQHzClc5jB0NNr4soant1vCf2jiZvNnQOCBMDlXXMXmAueETexEHIhbQV_3nNEmI7iY7BKxjHgt0rZbGTWS2r-4tvEusIYhl3k_Qnxy9sZRrpvgPt-mGdSaJHI8yUyEiW5l0m4AC20pLpXKQUXRrKskf_34l3RbERwCXWHVofqCh5nLEfpvfIdap-bZ-uXnBDc5S8AUhYnPbepOCgz-VOcYjdxFcMdgRpYE8YEzrL4CVMgYGoTnSeHkf1mNZR-wZLPcoGNeaH1ntBBKulds4Am0_NqyGGKjUFSqTe9u718yl6YWLiWp4n4W588VLOP3KSZ03dVC1ZIuOEAVz5l9qSjkeh6MObCDgr8SvRhXfh4Em_H_JuflUBg5xP2sNW6QIVFu8m5DdBSQK9ETOxf3y-XpNJ0WZbq0ZR7hYPSPsVELTUymheQXt_oyTGmXzW2rAwfa5Uh3KkXxx0OZIo2QeFla79KaMbNiqbDlCM0t8r2jbT2TERc8TM-R3cNAGblRNhTvse7hn8qlbZABPfwX9UB1vUs1qO4fSxWjMatzLYoKhHLh6dM5I7323GcMWy4")
+            Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/products", "POST", reqparm)
+            Dim responsebody = (New System.Text.UTF8Encoding).GetString(responsebytes)
+            MsgBox(responsebody)
+        End Using
+      
+    End Sub
     Public Sub chbook()
         dr.Close()
         ACdr.Close()
@@ -23284,6 +23297,7 @@ lm:
     End Sub
 
     Private Sub apass_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles apass.Click
+        testpost()
 
     End Sub
 
