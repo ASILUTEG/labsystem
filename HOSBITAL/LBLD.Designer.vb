@@ -698,6 +698,7 @@ Me.Label2 = New System.Windows.Forms.Label
 Me.Label1 = New System.Windows.Forms.Label
 Me.TabControl1 = New System.Windows.Forms.TabControl
 Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
+Me.cal = New System.Windows.Forms.CheckBox
 Me.TabPage19.SuspendLayout
 CType(Me.dataso,System.ComponentModel.ISupportInitialize).BeginInit
 Me.TabPage18.SuspendLayout
@@ -8031,6 +8032,7 @@ Me.Label11.Text = "MAIN TEST"
 'TabPage2
 '
 Me.TabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+Me.TabPage2.Controls.Add(Me.cal)
 Me.TabPage2.Controls.Add(Me.GlassButton103)
 Me.TabPage2.Controls.Add(Me.CheckBox22)
 Me.TabPage2.Controls.Add(Me.ask1)
@@ -8962,6 +8964,17 @@ Me.TabControl1.TabIndex = 0
 '
 Me.OpenFileDialog1.FileName = "OpenFileDialog1"
 '
+'cal
+'
+Me.cal.AutoSize = true
+Me.cal.Font = New System.Drawing.Font("Times New Roman", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic),System.Drawing.FontStyle))
+Me.cal.Location = New System.Drawing.Point(193, 43)
+Me.cal.Name = "cal"
+Me.cal.Size = New System.Drawing.Size(67, 26)
+Me.cal.TabIndex = 241
+Me.cal.Text = "„⁄«œ·…"
+Me.cal.UseVisualStyleBackColor = true
+'
 'LBLD
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -9720,4 +9733,5 @@ End Sub
     Friend WithEvents GlassButton106 As Glass.GlassButton
     Friend WithEvents GlassButton107 As Glass.GlassButton
     Friend WithEvents GlassButton155 As Glass.GlassButton
+    Friend WithEvents cal As System.Windows.Forms.CheckBox
 End Class

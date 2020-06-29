@@ -152,6 +152,8 @@ Public Class LBILL
     Dim adcoomp1 As New OleDb.OleDbDataAdapter
     Dim coomp1 As New DataTable
     Dim xpname As String
+    Dim oer As System.IO.FileStream
+    Dim rer As IO.StreamReader
     Dim barscode, ccname, rrname, DELPICTB, TB As String
     Dim ESLNN, upd1, clinic, onl, v, LABOUT, savenew, PMOB, stb1, typec, ttrest As Integer
 
@@ -2361,7 +2363,20 @@ mms:
             If ptype.Text = "" Then MsgBox("«·—Ã«¡ «Œ Ì«— ‰Ê⁄ «·„—Ì÷") : Exit Sub
             If pmobile.Text = "0" And PMOB = 1 Then MsgBox("«·—Ã«¡ ﬂ «»… «·„Ê»Ì·") : Exit Sub
             If yrn = "=" Then YEARN.Text = esl_date.Value.Year
+            '============================================check calculated test=======================
 
+            ACdr.Close()
+            ACcmd.CommandText = "select * from test_price where cal=0 and tot=0 and qun=1"
+            ACdr = ACcmd.ExecuteReader
+            If ACdr.HasRows = True Then
+                While ACdr.Read
+                    MsgBox("there is test with out price please check:-((((" & ACdr("test_name") & "))))", MsgBoxStyle.Critical)
+                End While
+                Dim x As String = MsgBox("Â·  —Ìœ «·«” „—«— ›Ï Õ›Ÿ «·«Ì’«·", MsgBoxStyle.YesNo)
+                If x = vbNo Then Exit Sub
+            End If
+            
+            '=============================================end of calculated==========================
             '***************************** save add1ress***********************************************************************
             If pgover.Text <> "" Then
                 dr.Close()
@@ -9195,12 +9210,12 @@ KKK:
             If asx = 1 Then
                 ACdr.Close()
                 dr.Close()
-                cmd.CommandText = "SELECT LTEST_PRICE.*,LTEST.kid_type as kid_type,LTEST.lck as lck,LTEST.ar as aar,LTEST.res,LTEST.NOTES,LTEST.GNAME,LTEST.lab,LTEST.GCODE,LTEST.CULT,LTEST.SUB,LTEST.so as so1 ,LTEST.ResultAfter,LTEST.short,LTEST.gr_name,LTEST.gr_code,LTEST.gr_code,RSO  FROM   LTEST_PRICE INNER JOIN LTEST ON LTEST_PRICE.TEST_CODE = LTEST.TEST_CODE WHERE LTEST_PRICE.BOOK_PRICE_CODE='" & BOOK_CODE.Text & "'"
+                cmd.CommandText = "SELECT LTEST_PRICE.*,LTEST.kid_type as kid_type,LTEST.lck as lck,LTEST.ar as aar,LTEST.res,LTEST.NOTES,LTEST.GNAME,LTEST.lab,LTEST.GCODE,LTEST.CULT,LTEST.SUB,LTEST.so as so1 ,LTEST.ResultAfter,LTEST.short,LTEST.gr_name,LTEST.gr_code,LTEST.gr_code,LTEST.cal,RSO  FROM   LTEST_PRICE INNER JOIN LTEST ON LTEST_PRICE.TEST_CODE = LTEST.TEST_CODE WHERE LTEST_PRICE.BOOK_PRICE_CODE='" & BOOK_CODE.Text & "'"
                 dr = cmd.ExecuteReader
                 While dr.Read
                     Dim nnn As Integer = 0
                     nnn = nulls(dr("gr_code"))
-                    ACcmd.CommandText = "INSERT INTO TEST_PRICE(TEST_CODE,TEST_NAME,TEST_AR,price1,GCODE,GNAME,sub,CULT,ResultAfter,[shortname],gr_name,gr_code,so,RSO,LAB2,rcv_date,res,NOTES,kid_type,lck) VALUES ('" & dr("TEST_CODE") & "','" & dr("TEST_NAME") & "','" & dr("aar") & "','" & dr("TOT") & "','" & dr("GCODE") & "','" & dr("GNAME") & "','" & dr("sub") & "','" & dr("CULT") & "','" & dr("ResultAfter") & "','" & dr("short") & "','" & dr("gr_name") & "','" & nnn & "','" & dr("so1") & "','" & dr("RSO") & "','" & dr("LAB") & "','" & Now & "','" & dr("res") & "','" & dr("NOTES") & "','" & dr("kid_type") & "','" & dr("lck") & "')"
+                    ACcmd.CommandText = "INSERT INTO TEST_PRICE(TEST_CODE,TEST_NAME,TEST_AR,price1,GCODE,GNAME,sub,CULT,ResultAfter,[shortname],gr_name,gr_code,so,RSO,LAB2,rcv_date,res,NOTES,kid_type,lck,cal) VALUES ('" & dr("TEST_CODE") & "','" & dr("TEST_NAME") & "','" & dr("aar") & "','" & dr("TOT") & "','" & dr("GCODE") & "','" & dr("GNAME") & "','" & dr("sub") & "','" & dr("CULT") & "','" & dr("ResultAfter") & "','" & dr("short") & "','" & dr("gr_name") & "','" & nnn & "','" & dr("so1") & "','" & dr("RSO") & "','" & dr("LAB") & "','" & Now & "','" & dr("res") & "','" & dr("NOTES") & "','" & dr("kid_type") & "','" & dr("lck") & "','" & dr("cal") & "')"
                     ACcmd.ExecuteNonQuery()
                 End While
                 fprice(0)
@@ -14035,45 +14050,55 @@ mm:
 
     End Sub
     Public Sub FSCAN()
-        dr.Close()
-        If Val(esl_no.Text) = 0 Then MsgBox("«·—Ã«¡ «Œ Ì«— Ê—ﬁ… «·—Ê‘ Â") : Exit Sub
-        dr.Close()
-        cmd.CommandText = "select * from lbill WHERE ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-        dr = cmd.ExecuteReader
-        If dr.HasRows = False Then MsgBox("«·—Ã«¡ «Œ Ì«— «·«Ì’«· «Ê·«") : Exit Sub
-        ACdr.Close()
-        ACcmd.CommandText = "select * from srv "
-        ACdr = ACcmd.ExecuteReader
-        ACdr.Read()
-        Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
-        'NREF.Text = TwainLib.TwainOperations.GetScanSource
-        PictureBox1.ImageLocation = FileNames(0)
-        Dim oer As System.IO.FileStream
-        Dim rer As IO.StreamReader
-        oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-        rer = New IO.StreamReader(oer)
-        Dim FileByteArrayr(oer.Length - 1) As Byte
-        oer.Read(FileByteArrayr, 0, oer.Length)
-        dr.Close()
-        cmd.CommandText = "select max(code) from lbillimage WHERE ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-        dr = cmd.ExecuteReader
-        dr.Read()
-        IMAGE_CODE.Text = nulls(dr(0)) + 1
-        dr.Close()
-        cmd.CommandText = "insert into lbillimage (ESL_NO,CODE,IIMAGE ,bran,yearn) values ('" & esl_no.Text & "','" & IMAGE_CODE.Text & "','" & IIMAGE.Text & "','" & bran.Text & "','" & YEARN.Text & "')"
-        cmd.ExecuteNonQuery()
-        Dim Sql As String = "update  lbillimage set image = ? , no = ? where  ESL_NO='" & Val(esl_no.Text) & "' AND CODE='" & IMAGE_CODE.Text & "' and yearn='" & YEARN.Text & "'"
-        cmd.CommandText = Sql
-        cmd.Parameters.Clear()
-        cmd.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr
-        cmd.Parameters.Add("@no", System.Data.OleDb.OleDbType.VarChar, 100).Value = oer.Length
-        cmd.ExecuteNonQuery()
-        dr.Close()
-        If PORV <> "" Then
-            cmd.CommandText = " update lbill set st=1 where st=0 and ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
+        If vv.Checked = False Then
+            Dim oer As System.IO.FileStream
+            Dim rer As IO.StreamReader
+            dr.Close()
+            If Val(esl_no.Text) = 0 Then MsgBox("«·—Ã«¡ «Œ Ì«— Ê—ﬁ… «·—Ê‘ Â") : Exit Sub
+            dr.Close()
+            cmd.CommandText = "select * from lbill WHERE ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            dr = cmd.ExecuteReader
+            If dr.HasRows = False Then MsgBox("«·—Ã«¡ «Œ Ì«— «·«Ì’«· «Ê·«") : Exit Sub
+
+            If rfile.Checked = True Then
+                OpenFileDialog1.ShowDialog()
+                picup.ImageLocation = OpenFileDialog1.FileName
+                oer = New IO.FileStream(OpenFileDialog1.FileName, IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+            ElseIf vprint.Checked = True Then
+                ACdr.Close()
+                ACcmd.CommandText = "select * from srv "
+                ACdr = ACcmd.ExecuteReader
+                ACdr.Read()
+                Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
+                'NREF.Text = TwainLib.TwainOperations.GetScanSource
+                PictureBox1.ImageLocation = FileNames(0)
+                oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+            End If
+            rer = New IO.StreamReader(oer)
+            Dim FileByteArrayr(oer.Length - 1) As Byte
+            oer.Read(FileByteArrayr, 0, oer.Length)
+            dr.Close()
+            cmd.CommandText = "select max(code) from lbillimage WHERE ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            dr = cmd.ExecuteReader
+            dr.Read()
+            IMAGE_CODE.Text = nulls(dr(0)) + 1
+            dr.Close()
+            cmd.CommandText = "insert into lbillimage (ESL_NO,CODE,IIMAGE ,bran,yearn) values ('" & esl_no.Text & "','" & IMAGE_CODE.Text & "','" & IIMAGE.Text & "','" & bran.Text & "','" & YEARN.Text & "')"
             cmd.ExecuteNonQuery()
+            Dim Sql As String = "update  lbillimage set image = ? , no = ? where  ESL_NO='" & Val(esl_no.Text) & "' AND CODE='" & IMAGE_CODE.Text & "' and yearn='" & YEARN.Text & "'"
+            cmd.CommandText = Sql
+            cmd.Parameters.Clear()
+            cmd.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr
+            cmd.Parameters.Add("@no", System.Data.OleDb.OleDbType.VarChar, 100).Value = oer.Length
+            cmd.ExecuteNonQuery()
+            dr.Close()
+            If PORV <> "" Then
+                cmd.CommandText = " update lbill set st=1 where st=0 and ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
+                cmd.ExecuteNonQuery()
+            End If
+            LLOG(" ’ÊÌ—", esl_no.Text, " ”Õ» —Ê‘ Â " & pname.Text, 1, bran.Text)
         End If
-        LLOG(" ’ÊÌ—", esl_no.Text, " ”Õ» —Ê‘ Â " & pname.Text, 1, bran.Text)
+        
     End Sub
     Private Sub SCANNERIMAGEToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
@@ -16524,7 +16549,12 @@ mm:
 
     End Sub
     Private Sub GlassButton148_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq27.Click
-        FSCAN()
+        If vv.Checked = False Then
+            FSCAN()
+        Else
+            GlassButton101_Click(GlassButton101, e)
+        End If
+
     End Sub
    
     Public Sub UPDATEBILL()
@@ -18431,6 +18461,8 @@ mmm:
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD lbill_esl  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE ltest ADD cal  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lbill ADD dev  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD COMS  int NOT NULL DEFAULT '0'"
@@ -18556,7 +18588,8 @@ mmm:
         ACcmd.ExecuteNonQuery()
 
 
-
+        ACcmd.CommandText = "ALTER TABLE TEST_PRICE ADD cal Number NOT NULL DEFAULT '0'"
+        ACcmd.ExecuteNonQuery()
         ACcmd.CommandText = "ALTER TABLE TEST_PRICE ADD pricev Number"
         ACcmd.ExecuteNonQuery()
         ACcmd.CommandText = "ALTER TABLE TEST_PRICE ADD RST Number NOT NULL DEFAULT '0'"
@@ -19741,7 +19774,7 @@ mm1:
         SCMD.CommandText = "select * from ltest "
         SDR = SCMD.ExecuteReader
         While SDR.Read
-            cmd.CommandText = "INSERT INTO ltest ([TEST_NAME],[short],[lab],[gso],[RSO],[SO],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],[TEST_CODE],[AR],[GCODE],[GNAME],[SUB],[CULT],[nor],[qun],[w],[gr_name],[gr_code],[color],[res],[notes],[st]) VALUES ('" & SDR("TEST_NAME") & "','" & SDR("short") & "','" & SDR("lab") & "','" & SDR("gso") & "','" & SDR("RSO") & "','" & SDR("SO") & "','" & SDR("KID_N") & "','" & SDR("KID_TYPE") & "','" & SDR("ResultAfter") & "','" & SDR("NormalRange") & "','" & SDR("TEST_CODE") & "','" & SDR("AR") & "','" & SDR("GCODE") & "','" & SDR("GNAME") & "','" & SDR("SUB") & "','" & SDR("CULT") & "','" & SDR("nor") & "','" & SDR("qun") & "','" & SDR("w") & "','" & SDR("gr_name") & "','" & SDR("gr_code") & "','" & SDR("color") & "','" & SDR("res") & "','" & SDR("notes") & "','" & SDR("LCK") & "') "
+            cmd.CommandText = "INSERT INTO ltest ([TEST_NAME],[short],[lab],[gso],[RSO],[SO],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],[TEST_CODE],[AR],[GCODE],[GNAME],[SUB],[CULT],[nor],[qun],[w],[gr_name],[gr_code],[color],[res],[notes],[st],cal) VALUES ('" & SDR("TEST_NAME") & "','" & SDR("short") & "','" & SDR("lab") & "','" & SDR("gso") & "','" & SDR("RSO") & "','" & SDR("SO") & "','" & SDR("KID_N") & "','" & SDR("KID_TYPE") & "','" & SDR("ResultAfter") & "','" & SDR("NormalRange") & "','" & SDR("TEST_CODE") & "','" & SDR("AR") & "','" & SDR("GCODE") & "','" & SDR("GNAME") & "','" & SDR("SUB") & "','" & SDR("CULT") & "','" & SDR("nor") & "','" & SDR("qun") & "','" & SDR("w") & "','" & SDR("gr_name") & "','" & SDR("gr_code") & "','" & SDR("color") & "','" & SDR("res") & "','" & SDR("notes") & "','" & SDR("LCK") & "','" & SDR("cal") & "') "
             cmd.ExecuteNonQuery()
         End While
         dr.Close()
@@ -20347,14 +20380,22 @@ mm1:
                 If dr.HasRows = False Then MsgBox("«·—Ã«¡ «Œ Ì«— «·«Ì’«· «Ê·«") : Exit Sub
                 dr.Close()
                 ACdr.Close()
-                ACcmd.CommandText = "select * from srv "
-                ACdr = ACcmd.ExecuteReader
-                ACdr.Read()
-                Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
-                PictureBox1.ImageLocation = FileNames(0)
                 Dim oer As System.IO.FileStream
                 Dim rer As IO.StreamReader
-                oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                If rfile.Checked = True Then
+                    OpenFileDialog1.ShowDialog()
+                    picup.ImageLocation = OpenFileDialog1.FileName
+                    oer = New IO.FileStream(OpenFileDialog1.FileName, IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                ElseIf vprint.Checked = True Then
+                    ACdr.Close()
+                    ACcmd.CommandText = "select * from srv "
+                    ACdr = ACcmd.ExecuteReader
+                    ACdr.Read()
+                    Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
+                    'NREF.Text = TwainLib.TwainOperations.GetScanSource
+                    PictureBox1.ImageLocation = FileNames(0)
+                    oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                End If
                 rer = New IO.StreamReader(oer)
                 Dim FileByteArrayr(oer.Length - 1) As Byte
                 oer.Read(FileByteArrayr, 0, oer.Length)
@@ -20430,14 +20471,22 @@ mm:         Exit Sub
                 If dr.HasRows = False Then MsgBox("«·—Ã«¡ «Œ Ì«— «·«Ì’«· «Ê·«") : Exit Sub
                 dr.Close()
                 ACdr.Close()
-                ACcmd.CommandText = "select * from srv "
-                ACdr = ACcmd.ExecuteReader
-                ACdr.Read()
-                Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
-                PictureBox1.ImageLocation = FileNames(0)
                 Dim oer As System.IO.FileStream
                 Dim rer As IO.StreamReader
-                oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                If rfile.Checked = True Then
+                    OpenFileDialog1.ShowDialog()
+                    picup.ImageLocation = OpenFileDialog1.FileName
+                    oer = New IO.FileStream(OpenFileDialog1.FileName, IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                ElseIf vprint.Checked = True Then
+                    ACdr.Close()
+                    ACcmd.CommandText = "select * from srv "
+                    ACdr = ACcmd.ExecuteReader
+                    ACdr.Read()
+                    Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
+                    'NREF.Text = TwainLib.TwainOperations.GetScanSource
+                    PictureBox1.ImageLocation = FileNames(0)
+                    oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                End If
                 rer = New IO.StreamReader(oer)
                 Dim FileByteArrayr(oer.Length - 1) As Byte
                 oer.Read(FileByteArrayr, 0, oer.Length)
@@ -20505,14 +20554,21 @@ mm:         Exit Sub
             If vv.Checked = False Then
                 dr.Close()
                 ACdr.Close()
-                ACcmd.CommandText = "select * from srv "
-                ACdr = ACcmd.ExecuteReader
-                ACdr.Read()
-                Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
-                PictureBox1.ImageLocation = FileNames(0)
-                Dim oer As System.IO.FileStream
-                Dim rer As IO.StreamReader
-                oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+               
+                If rfile.Checked = True Then
+                    OpenFileDialog1.ShowDialog()
+                    picup.ImageLocation = OpenFileDialog1.FileName
+                    oer = New IO.FileStream(OpenFileDialog1.FileName, IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                ElseIf vprint.Checked = True Then
+                    ACdr.Close()
+                    ACcmd.CommandText = "select * from srv "
+                    ACdr = ACcmd.ExecuteReader
+                    ACdr.Read()
+                    Dim FileNames = TwainLib.ScanImages(esl_no.Text, True, ACdr("scan"))
+                    'NREF.Text = TwainLib.TwainOperations.GetScanSource
+                    PictureBox1.ImageLocation = FileNames(0)
+                    oer = New IO.FileStream(FileNames(0), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                End If
                 rer = New IO.StreamReader(oer)
                 Dim FileByteArrayr(oer.Length - 1) As Byte
                 oer.Read(FileByteArrayr, 0, oer.Length)
@@ -24579,5 +24635,9 @@ mms:
 
     Private Sub fffffffffffffff_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles fffffffffffffff.Click
         FPESL("eslbill")
+    End Sub
+
+    Private Sub dddddddd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dddddddd.Click
+        DELPIC.Visible = False
     End Sub
 End Class

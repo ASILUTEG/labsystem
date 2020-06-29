@@ -418,7 +418,7 @@ Public Class LBLD
             cmd.ExecuteNonQuery()
 
         End If
-        dr.Close() : cmd.CommandText = "insert into LTEST (test_code,test_name,AR,Gcode,Gname,SO,SUB,NOR,CULT,[CollectionNote],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],short,gr_name,gr_code)  values ('" & ttest_code.Text & "','" & Trim(ttest_name.Text) & "','" & Trim(tar.Text) & "','" & grcode.Text & "','" & grname.Text & "','" & so.Text & "','" & Val(tsub.CheckState) & "','" & Val(nor.CheckState) & "','" & Val(cult.CheckState) & "','" & CollectionNote.Text & "','" & KID_N.Text & "','" & KID_TYPE.Text & "','" & ResultAfter.Text & "','" & NormalRange.Text & "' ,'" & Trim(lshort.Text) & "','" & gr_name.Text & "','" & gr_code.Text & "')"
+        dr.Close() : cmd.CommandText = "insert into LTEST (test_code,test_name,AR,Gcode,Gname,SO,SUB,NOR,CULT,[CollectionNote],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],short,gr_name,gr_code,cal)  values ('" & ttest_code.Text & "','" & Trim(ttest_name.Text) & "','" & Trim(tar.Text) & "','" & grcode.Text & "','" & grname.Text & "','" & so.Text & "','" & Val(tsub.CheckState) & "','" & Val(nor.CheckState) & "','" & Val(cult.CheckState) & "','" & CollectionNote.Text & "','" & KID_N.Text & "','" & KID_TYPE.Text & "','" & ResultAfter.Text & "','" & NormalRange.Text & "' ,'" & Trim(lshort.Text) & "','" & gr_name.Text & "','" & gr_code.Text & "','" & Val(cal.CheckState) & "')"
         cmd.ExecuteNonQuery()
         ttest_name.AutoCompleteCustomSource.Add(Trim(ttest_name.Text))
         Ntest_NAME.AutoCompleteCustomSource.Add(Trim(ttest_name.Text))
@@ -759,6 +759,7 @@ Public Class LBLD
         nor.Checked = DataGridView2(("NOR"), e.RowIndex).Value
         tsub.Checked = DataGridView2(("SUB"), e.RowIndex).Value
         cult.Checked = DataGridView2(("CULT"), e.RowIndex).Value
+        cal.Checked = DataGridView2(("cal"), e.RowIndex).Value
         CollectionNote.Text = DataGridView2(("CollectionNote"), e.RowIndex).Value
         KID_N.Text = DataGridView2(("KID_N"), e.RowIndex).Value
         KID_TYPE.Text = DataGridView2(("KID_TYPE"), e.RowIndex).Value
