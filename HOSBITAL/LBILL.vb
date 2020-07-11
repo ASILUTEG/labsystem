@@ -2468,6 +2468,7 @@ mms:
                 fnd = 1
                 LLOG(" ⁄œÌ· “Ì«—…", esl_no.Text, XLOG, 1, bran.Text)
             Else
+                testpost()
                 LLOG("Õ›Ÿ “Ì«—…", esl_no.Text, XLOG, 1, bran.Text)
                 Dim ss As Integer = 0
                 If TOT.Text = 0 And DISS.Text = 0 Then  Else ss = Math.Round((Val(DISS.Text) / Val(TOT.Text)) * 100, 0)
@@ -18461,6 +18462,10 @@ mmm:
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD lbill_esl  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbill_esl ADD erbank  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbilldel ADD dev  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE ltest ADD cal  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lbill ADD dev  int NOT NULL DEFAULT '0'"
@@ -22619,18 +22624,34 @@ lm:
         End Using
     End Sub
     Public Sub testpost()
+        'Using client As New Net.WebClient
+        '    Dim reqparm As New Specialized.NameValueCollection
+        '    reqparm.Add("name", "alhamed llah ")
+        '    reqparm.Add("description", "very perecft desc")
+        '    reqparm.Add("price", "2000")
+        '    reqparm.Add("discount", "10")
+        '    reqparm.Add("stoc", "50")
+        '    client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMjlmOWY2M2E5MmNhM2U1OTlmMTg1MmFlMzEwNTU2YTZkNWZkZmY0YzhjOTVmZWUxZjM2NzE4M2I2Mzg2YTQ2NTVlZmZkMTJmMzdmZjQwMTIiLCJpYXQiOjE1OTI2MTI4NTAsIm5iZiI6MTU5MjYxMjg1MCwiZXhwIjoxNjI0MTQ4ODUwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.sMJDuaqHflv2qc5o_4L5iL5brJy7rFT28zmndVB8emLFELYFXS9lzfU71pORGBNSYfeginDoe1IuIeZSJ1lOMoHMi9sMfTJENTkskqlUr2fwAoQHzClc5jB0NNr4soant1vCf2jiZvNnQOCBMDlXXMXmAueETexEHIhbQV_3nNEmI7iY7BKxjHgt0rZbGTWS2r-4tvEusIYhl3k_Qnxy9sZRrpvgPt-mGdSaJHI8yUyEiW5l0m4AC20pLpXKQUXRrKskf_34l3RbERwCXWHVofqCh5nLEfpvfIdap-bZ-uXnBDc5S8AUhYnPbepOCgz-VOcYjdxFcMdgRpYE8YEzrL4CVMgYGoTnSeHkf1mNZR-wZLPcoGNeaH1ntBBKulds4Am0_NqyGGKjUFSqTe9u718yl6YWLiWp4n4W588VLOP3KSZ03dVC1ZIuOEAVz5l9qSjkeh6MObCDgr8SvRhXfh4Em_H_JuflUBg5xP2sNW6QIVFu8m5DdBSQK9ETOxf3y-XpNJ0WZbq0ZR7hYPSPsVELTUymheQXt_oyTGmXzW2rAwfa5Uh3KkXxx0OZIo2QeFla79KaMbNiqbDlCM0t8r2jbT2TERc8TM-R3cNAGblRNhTvse7hn8qlbZABPfwX9UB1vUs1qO4fSxWjMatzLYoKhHLh6dM5I7323GcMWy4")
+        '    Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/products", "POST", reqparm)
+        '    Dim responsebody = (New System.Text.UTF8Encoding).GetString(responsebytes)
+        '    MsgBox(responsebody)
+        'End Using
+
+
         Using client As New Net.WebClient
             Dim reqparm As New Specialized.NameValueCollection
-            reqparm.Add("name", "alhamed llah ")
-            reqparm.Add("description", "very perecft desc")
-            reqparm.Add("price", "2000")
-            reqparm.Add("discount", "10")
-            reqparm.Add("stoc", "50")
+            reqparm.Add("yu", pname.Text)
+            reqparm.Add("yy", YEARN.Text)
+            reqparm.Add("yb", bran.Text.Trim)
+            reqparm.Add("ye", esl_no.Text)
             client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMjlmOWY2M2E5MmNhM2U1OTlmMTg1MmFlMzEwNTU2YTZkNWZkZmY0YzhjOTVmZWUxZjM2NzE4M2I2Mzg2YTQ2NTVlZmZkMTJmMzdmZjQwMTIiLCJpYXQiOjE1OTI2MTI4NTAsIm5iZiI6MTU5MjYxMjg1MCwiZXhwIjoxNjI0MTQ4ODUwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.sMJDuaqHflv2qc5o_4L5iL5brJy7rFT28zmndVB8emLFELYFXS9lzfU71pORGBNSYfeginDoe1IuIeZSJ1lOMoHMi9sMfTJENTkskqlUr2fwAoQHzClc5jB0NNr4soant1vCf2jiZvNnQOCBMDlXXMXmAueETexEHIhbQV_3nNEmI7iY7BKxjHgt0rZbGTWS2r-4tvEusIYhl3k_Qnxy9sZRrpvgPt-mGdSaJHI8yUyEiW5l0m4AC20pLpXKQUXRrKskf_34l3RbERwCXWHVofqCh5nLEfpvfIdap-bZ-uXnBDc5S8AUhYnPbepOCgz-VOcYjdxFcMdgRpYE8YEzrL4CVMgYGoTnSeHkf1mNZR-wZLPcoGNeaH1ntBBKulds4Am0_NqyGGKjUFSqTe9u718yl6YWLiWp4n4W588VLOP3KSZ03dVC1ZIuOEAVz5l9qSjkeh6MObCDgr8SvRhXfh4Em_H_JuflUBg5xP2sNW6QIVFu8m5DdBSQK9ETOxf3y-XpNJ0WZbq0ZR7hYPSPsVELTUymheQXt_oyTGmXzW2rAwfa5Uh3KkXxx0OZIo2QeFla79KaMbNiqbDlCM0t8r2jbT2TERc8TM-R3cNAGblRNhTvse7hn8qlbZABPfwX9UB1vUs1qO4fSxWjMatzLYoKhHLh6dM5I7323GcMWy4")
-            Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/products", "POST", reqparm)
-            Dim responsebody = (New System.Text.UTF8Encoding).GetString(responsebytes)
-            MsgBox(responsebody)
+            Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/sysUser", "POST", reqparm)
+            Dim resp = (New System.Text.UTF8Encoding).GetString(responsebytes)
+            wuser.Text = resp.Substring(resp.IndexOf("user_name", 1) + 12, resp.IndexOf("password", 1) - (resp.IndexOf("username", 1) + 18))
+            wpass.Text = resp.Substring(resp.IndexOf("password", 1) + 11, resp.IndexOf("report_id", 1) - (resp.IndexOf("password", 1) + 14))
+            wid.Text = resp.Substring(resp.IndexOf("report_id", 1) + 11, resp.IndexOf("end_way", 1) - (resp.IndexOf("report_id", 1) + 13))
         End Using
+
       
     End Sub
     Public Sub chbook()
@@ -23358,31 +23379,33 @@ lm:
     End Sub
 
     Private Sub ASD131_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ASD131.Click
-        dr.Close() : cmd.Connection = CN
-        dr.Close() : cmd.CommandText = "select * from lbill where WEB=0 AND REST=0 AND WUSER<>'0' "
-        adF31.SelectCommand = cmd
-        adF31.Fill(DBS, "F31")
-        F31 = DBS.Tables("F31")
-        DBS.Tables("F31").Clear()
-        adF31.Fill(DBS, "F31")
-        F31 = DBS.Tables("F31")
-        F31D.DataSource = F31
+        'dr.Close() : cmd.Connection = CN
+        'dr.Close() : cmd.CommandText = "select * from lbill where WEB=0 AND REST=0 AND WUSER<>'0' "
+        'adF31.SelectCommand = cmd
+        'adF31.Fill(DBS, "F31")
+        'F31 = DBS.Tables("F31")
+        'DBS.Tables("F31").Clear()
+        'adF31.Fill(DBS, "F31")
+        'F31 = DBS.Tables("F31")
+        'F31D.DataSource = F31
 
-        Dim x As Integer = 0
-        While Not x = F31.Rows.Count
-            RC = F31.Rows(x)
-            YEARN.Text = RC("YEARN")
-            bran.Text = RC("bran")
-            esl_no.Text = RC("esl_no")
-            x = x + 1
-        End While
+        'Dim x As Integer = 0
+        'While Not x = F31.Rows.Count
+        '    RC = F31.Rows(x)
+        '    YEARN.Text = RC("YEARN")
+        '    bran.Text = RC("bran")
+        '    esl_no.Text = RC("esl_no")
+        '    x = x + 1
+        'End While
 
         PDFM()
-        FileSystem.Rename(SourceDirectory & REG_name.Text & "  " & pname.Text & ".PDF", SourceDirectory & wid.Text & ".PDF")
+        FileSystem.Rename(SourceDirectory & pname.Text & ".PDF", SourceDirectory & wid.Text & ".PDF")
         Using client As New Net.WebClient
             Dim reqparm As New Specialized.NameValueCollection
-            Dim responsebytes = client.UploadFile("http://misr-labs.ahomran.com/api/analyses/add-file", "POST", SourceDirectory & wid.Text & ".PDF")
+            client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMjlmOWY2M2E5MmNhM2U1OTlmMTg1MmFlMzEwNTU2YTZkNWZkZmY0YzhjOTVmZWUxZjM2NzE4M2I2Mzg2YTQ2NTVlZmZkMTJmMzdmZjQwMTIiLCJpYXQiOjE1OTI2MTI4NTAsIm5iZiI6MTU5MjYxMjg1MCwiZXhwIjoxNjI0MTQ4ODUwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.sMJDuaqHflv2qc5o_4L5iL5brJy7rFT28zmndVB8emLFELYFXS9lzfU71pORGBNSYfeginDoe1IuIeZSJ1lOMoHMi9sMfTJENTkskqlUr2fwAoQHzClc5jB0NNr4soant1vCf2jiZvNnQOCBMDlXXMXmAueETexEHIhbQV_3nNEmI7iY7BKxjHgt0rZbGTWS2r-4tvEusIYhl3k_Qnxy9sZRrpvgPt-mGdSaJHI8yUyEiW5l0m4AC20pLpXKQUXRrKskf_34l3RbERwCXWHVofqCh5nLEfpvfIdap-bZ-uXnBDc5S8AUhYnPbepOCgz-VOcYjdxFcMdgRpYE8YEzrL4CVMgYGoTnSeHkf1mNZR-wZLPcoGNeaH1ntBBKulds4Am0_NqyGGKjUFSqTe9u718yl6YWLiWp4n4W588VLOP3KSZ03dVC1ZIuOEAVz5l9qSjkeh6MObCDgr8SvRhXfh4Em_H_JuflUBg5xP2sNW6QIVFu8m5DdBSQK9ETOxf3y-XpNJ0WZbq0ZR7hYPSPsVELTUymheQXt_oyTGmXzW2rAwfa5Uh3KkXxx0OZIo2QeFla79KaMbNiqbDlCM0t8r2jbT2TERc8TM-R3cNAGblRNhTvse7hn8qlbZABPfwX9UB1vUs1qO4fSxWjMatzLYoKhHLh6dM5I7323GcMWy4")
+            Dim responsebytes = client.UploadFile("http://127.0.0.1:8000/api/report", "POST", SourceDirectory & wid.Text & ".PDF")
             Dim responsebody = (New System.Text.UTF8Encoding).GetString(responsebytes)
+
         End Using
 
     End Sub
@@ -24639,5 +24662,9 @@ mms:
 
     Private Sub dddddddd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dddddddd.Click
         DELPIC.Visible = False
+    End Sub
+
+    Private Sub main_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles main.Click
+
     End Sub
 End Class
