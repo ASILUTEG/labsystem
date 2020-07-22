@@ -146,7 +146,8 @@ Public Class LBILL
     Dim adresv As New OleDb.OleDbDataAdapter
     Dim resv As New DataTable
     Dim cmdptt As New OleDb.OleDbCommand
-
+    Dim com_test As New DataTable
+    Dim adcom_test As New OleDb.OleDbDataAdapter
     Dim adptt As New OleDb.OleDbDataAdapter
     Dim ptt As New DataTable
     Dim adcoomp1 As New OleDb.OleDbDataAdapter
@@ -272,6 +273,14 @@ Public Class LBILL
             If ACdr("gso") = 8 Then Z68.Text = ACdr("name1") : Z68.BackColor = Color.FromArgb(ACdr("color"))
             If ACdr("gso") = 9 Then Z69.Text = ACdr("name1") : Z69.BackColor = Color.FromArgb(ACdr("color"))
         End While
+
+    End Sub
+
+    Private Sub LBILL_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus
+
+    End Sub
+
+    Private Sub LBILL_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
 
     End Sub
 
@@ -2375,7 +2384,7 @@ mms:
                 Dim x As String = MsgBox("Â·  —Ìœ «·«” „—«— ›Ï Õ›Ÿ «·«Ì’«·", MsgBoxStyle.YesNo)
                 If x = vbNo Then Exit Sub
             End If
-            
+
             '=============================================end of calculated==========================
             '***************************** save add1ress***********************************************************************
             If pgover.Text <> "" Then
@@ -2468,7 +2477,7 @@ mms:
                 fnd = 1
                 LLOG(" ⁄œÌ· “Ì«—…", esl_no.Text, XLOG, 1, bran.Text)
             Else
-                testpost()
+                'testpost()
                 LLOG("Õ›Ÿ “Ì«—…", esl_no.Text, XLOG, 1, bran.Text)
                 Dim ss As Integer = 0
                 If TOT.Text = 0 And DISS.Text = 0 Then  Else ss = Math.Round((Val(DISS.Text) / Val(TOT.Text)) * 100, 0)
@@ -2643,6 +2652,7 @@ mms:
             ACcmd.ExecuteNonQuery()
             NORBb()
             PNIK.Focus()
+            If fnd = 0 Then fesl(0, 0)
             LLOG("test save", esl_no.Text, pname.Text, 1, bran.Text)
             If onl = 1 Then pau()
         Catch ex As Exception
@@ -18454,9 +18464,14 @@ mmm:
     Private Sub GlassButton15_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq224.Click
         On Error Resume Next
         dr.Close()
+
+        cmd.CommandText = "CREATE TABLE lcom_test  (test_name varchar(50), test_code int , price int NOT NULL DEFAULT '0', lab int NOT NULL DEFAULT '0',com_name [nvarchar](200) NULL,com_code int)"
+        cmd.ExecuteNonQuery()
+
         cmd.CommandText = "CREATE TABLE [dbo].[lblock]([pname] [nvarchar](200) NULL,[pcode] [nvarchar](50) NULL,[comment] [nvarchar](500) NULL,[type] [int] NOT NULL DEFAULT '0',[pmobile] [int] NOT NULL DEFAULT '0')"
         cmd.ExecuteNonQuery()
-        cmd.CommandText = "ALTER TABLE lcompany ADD address  nvarchar(max) , price_name  varchar(50),oprice_name  nvarchar(50),price_diss INT NOT NULL DEFAULT '0',oprice_diss INT NOT NULL DEFAULT '0',tah_form  nvarchar(MAX),tah_exp  nvarchar(50),tah_date  nvarchar(50),emp_cash  nvarchar(50),fam_cash  nvarchar(50),HC  nvarchar(MAX),out_date  nvarchar(MAX) "
+        
+        cmd.CommandText = "ALTER TABLE lcompany ADD address  nvarchar(max) , price_name  int,oprice_name  nvarchar(50),price_diss INT NOT NULL DEFAULT '0',oprice_diss INT NOT NULL DEFAULT '0',tah_form  nvarchar(MAX),tah_exp  nvarchar(50),tah_date  nvarchar(50),emp_cash  nvarchar(50),fam_cash  nvarchar(50),HC  nvarchar(MAX),out_date  nvarchar(MAX) "
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD labin  INT  "
         cmd.ExecuteNonQuery()
@@ -24666,5 +24681,147 @@ mms:
 
     Private Sub main_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles main.Click
 
+    End Sub
+
+    Private Sub updateaymentest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles updateaymentest.Click
+        INPU.TextBox1.Text = Nothing
+        INPU.ShowDialog()
+        If INPUTX = 206 Then
+            dr.Close()
+            ACdr.Close()
+            cmd.CommandText = "delete from lcom_test where com_code='" & REG_CODE.Text & "'"
+            cmd.ExecuteNonQuery()
+            ACcmd.CommandText = "select * from test_price where qun=1"
+            ACdr = ACcmd.ExecuteReader
+            While ACdr.Read
+                cmd.CommandText = "INSERT INTO lcom_test (test_name,test_code,lab,com_name,com_code) VALUES('" & ACdr("test_name") & "','" & ACdr("test_code") & "','" & ACdr("tot") & "','" & REG_name.Text & "','" & REG_CODE.Text & "')"
+                cmd.ExecuteNonQuery()
+            End While
+        End If
+    End Sub
+
+    Private Sub aymenrev_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles aymenrev.Click
+
+
+        Dim cnum As Integer = 0
+        Dim ctots As Integer = 0
+        Dim clabs As Integer = 0
+        Dim diss As Integer = 0
+        dr1.Close()
+        dr.Close()
+        cmd1.CommandText = "select * from v_com_test where esl_no='" & esl_no.Text & "' and yearn='" & YEARN.Text & "' and bran='" & bran.Text & "'"
+        dr1 = cmd1.ExecuteReader
+        While dr1.Read
+            cnum += 1
+            ctots += dr1("test_price")
+            clabs += dr1("lab")
+            diss = dr1("dissn")
+        End While
+        com_tot.Text = ctots
+        com_lab.Text = clabs
+        com_all.Text = ctots - clabs
+        com_diss.Text = diss
+        com_num.Text = cnum
+        If ctots > 0 Then
+            com_g.Visible = True
+        End If
+    End Sub
+
+    Private Sub LBILL_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.MouseHover
+
+    End Sub
+
+    Private Sub com_add_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles com_add.Click
+        esl_date.Value = Now.Date
+        cesl_date.Checked = True
+        If save_code.Text = "" Or save_code.Text = "0" Then MsgBox("«Œ «— «·Œ“Ì‰…") : Exit Sub
+        If save_name.Text = "" Or save_name.Text = "0" Then MsgBox("«Œ «— «·Œ“Ì‰…") : Exit Sub
+
+        cesl_date.Checked = True
+        CBRAN.Checked = True
+        dr.Close()
+        cmd.CommandText = "select * from lsave where CODE='" & saven & "'"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            save_name.Text = dr("NAME")
+        End While
+
+        Dim s2 As Integer = 0
+        Dim n As Int16
+        dr.Close()
+        Dim D As Date = Now
+        time1.Text = D.Hour.ToString & " : " & D.Minute.ToString
+        date1.Text = D.Date.ToShortDateString
+        cash.Text = -1 * Val(REST.Text)
+        crd.Text = 0
+
+        dr.Close()
+        cmd.CommandText = "select * from lsub where sub_code='25'"
+        dr = cmd.ExecuteReader
+        dr.Read()
+
+        If dr("flg") = 1 Then flg.Checked = True Else flg.Checked = False
+        main_code.Text = dr("main_code")
+        main_name.Text = dr("main_name")
+
+        dr.Close()
+        cmd.CommandText = "select * from lsub where sub_code='25'"
+        dr = cmd.ExecuteReader
+        dr.Read()
+        sub_name.Text = dr("sub_name")
+
+        tm = 10
+        RSD.Text = 0
+        FCASH1()
+        ACdr.Close()
+        ACcmd.CommandText = "update srv set CASH='" & Val(id.Text) & "' "
+        ACcmd.ExecuteNonQuery()
+        n = -1
+        Dim ctest, cpname, cusers, cshift, cesls As String
+        Dim ctots As Integer = 0
+        Dim clabs As Integer = 0
+        Dim diss As Integer = 0
+        dr1.Close()
+        dr.Close()
+        cmd1.CommandText = "select * from v_com_test where esl_no='" & esl_no.Text & "' and yearn='" & YEARN.Text & "' and bran='" & bran.Text & "'"
+        dr1 = cmd1.ExecuteReader
+        While dr1.Read
+            ctots += dr1("test_price")
+            clabs += dr1("lab")
+            diss = dr1("dissn")
+            ctest += "+" & dr1("test_name")
+            cpname = dr1("pname")
+            cusers = dr1("usr")
+            cshift = dr1("shift")
+            cesls = dr1("esl_no")
+        End While
+
+       
+        dr.Close()
+        cmd.CommandText = "insert into lcash ([main_name],[main_code],[sub_code],[sub_name],[flg],[cash],[crd],[time1],[date1],[id],[notse],usr,shift,SAVE_NAME,SAVE_CODE,branch_code,branch_name) values ('" & main_name.Text & " ','" & main_code.Text & "','" & sub_code.Text & "','" & sub_name.Text & "','" & n & "','" & com_net.Text & "','0','" & time1.Text & "','" & ChangeFormat(esl_date.Value) & "','" & id.Text & "','" & cpname & "----->  " & cesls & "" & "   tests->>>" & ctest & "','" & cusers & "','" & cshift & "','" & save_name.Text & "','" & save_code.Text & "','" & branch_code.Text & "','" & branch_name.Text & "')"
+        cmd.ExecuteNonQuery()
+        MsgBox(" „  ÕÊÌ· «·»Ê‰’")
+
+    End Sub
+
+    Private Sub com_diss_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles com_diss.KeyDown
+        
+    End Sub
+
+    Private Sub com_diss_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles com_diss.TextChanged
+        If Val(com_all.Text) > 0 Then
+            Dim net As Integer = Val(com_tot.Text) * Val(com_diss.Text) * 0.01
+            com_dis.Text = Math.Ceiling(net / 5) * 5
+        End If
+    End Sub
+
+    Private Sub com_dis_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles com_dis.TextChanged
+        If Val(com_all.Text) > 0 Then
+            com_net.Text = com_all.Text - com_dis.Text
+        End If
+    End Sub
+
+    Private Sub com_h_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles com_h.Click
+        com_g.Visible = False
     End Sub
 End Class
