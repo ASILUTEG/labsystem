@@ -22659,8 +22659,8 @@ lm:
             reqparm.Add("yy", YEARN.Text)
             reqparm.Add("yb", bran.Text.Trim)
             reqparm.Add("ye", esl_no.Text)
-            client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMjlmOWY2M2E5MmNhM2U1OTlmMTg1MmFlMzEwNTU2YTZkNWZkZmY0YzhjOTVmZWUxZjM2NzE4M2I2Mzg2YTQ2NTVlZmZkMTJmMzdmZjQwMTIiLCJpYXQiOjE1OTI2MTI4NTAsIm5iZiI6MTU5MjYxMjg1MCwiZXhwIjoxNjI0MTQ4ODUwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.sMJDuaqHflv2qc5o_4L5iL5brJy7rFT28zmndVB8emLFELYFXS9lzfU71pORGBNSYfeginDoe1IuIeZSJ1lOMoHMi9sMfTJENTkskqlUr2fwAoQHzClc5jB0NNr4soant1vCf2jiZvNnQOCBMDlXXMXmAueETexEHIhbQV_3nNEmI7iY7BKxjHgt0rZbGTWS2r-4tvEusIYhl3k_Qnxy9sZRrpvgPt-mGdSaJHI8yUyEiW5l0m4AC20pLpXKQUXRrKskf_34l3RbERwCXWHVofqCh5nLEfpvfIdap-bZ-uXnBDc5S8AUhYnPbepOCgz-VOcYjdxFcMdgRpYE8YEzrL4CVMgYGoTnSeHkf1mNZR-wZLPcoGNeaH1ntBBKulds4Am0_NqyGGKjUFSqTe9u718yl6YWLiWp4n4W588VLOP3KSZ03dVC1ZIuOEAVz5l9qSjkeh6MObCDgr8SvRhXfh4Em_H_JuflUBg5xP2sNW6QIVFu8m5DdBSQK9ETOxf3y-XpNJ0WZbq0ZR7hYPSPsVELTUymheQXt_oyTGmXzW2rAwfa5Uh3KkXxx0OZIo2QeFla79KaMbNiqbDlCM0t8r2jbT2TERc8TM-R3cNAGblRNhTvse7hn8qlbZABPfwX9UB1vUs1qO4fSxWjMatzLYoKhHLh6dM5I7323GcMWy4")
-            Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/sysUser", "POST", reqparm)
+            'client.Headers.Add("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5MTFjOWJhYS0zZjk0LTRhNzgtYThjYy1kN2NmZDkyNWMxMDEiLCJqdGkiOiI5NjNhYjc3ZjNhYWJlODQxZDViYzUwZmJjZDVhOTRiYzI1ZDUxNzk1NjI2MzNkOTFmN2RhZDNhZjQyZDA5YmY5ZWZmN2U0NjAwM2ZiNGU1NCIsImlhdCI6MTU5NTUzOTUzMywibmJmIjoxNTk1NTM5NTMzLCJleHAiOjE2MjcwNzU1MzMsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.JG3CzqACbpLPTHfz1PHEgSZY2s1JQpr_krSdwPOHM4qPR8NAhjmFTnylh1vwcihfj4x99Gik2rqqkhuiRbCCqBkBkc_J8EoOwtTfpTc5ibTEMj9U3658OZITu43iBe4uLubJLoR4GX4vGiDOyu9mio1hmRz_P9yKP8H7nP5IzxTIcnuTqLL8xzxQm8bEWXylyy_v1mG66Qu6sDk580h0xS-mw0yuJdS-zQdBjmfrCVMB5emSRp-U6ZWD1kTJLVwzi0UM3YU6hJj6TgHKhDeWHhoRN_4LiNsNVaTMqKzgQjc29kKJZwcLpid27xjdlwCa_ZuN5_eqjjPrW8-2wCzAt0qJfmoeChUG5J9kFtkoumkgO6FqgyebXvNbG-YJHTOZ6WCu6F8YWovr-NNaGocFCdQbBO0jDSyBxsFDaalJXpY0-CKEui4JQwr3RrnntirVqf4Kcox7pSV5jlIZmSMPcDhyiqCXw6t0-j8ImI7BJV1DejmR0B03a9y5rl34v--9m_UxJlPurQYvViCRG7xe8sfVn6yWbBySOuOxO7B67EbPExNuRw78os6Q4Lrh2o4I2ksUerXKx6R-W97v2coptTZ5skZ8Q_1uQjXJ8BHP8noRSB1kTnyKFZozLrTxIt26PCgNCKXLLUPn8ZzAo6uJ1HQwMdwpNnNwgvA1A8YQ9T8")
+            Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/pdfuser", "POST", reqparm)
             Dim resp = (New System.Text.UTF8Encoding).GetString(responsebytes)
             wuser.Text = resp.Substring(resp.IndexOf("user_name", 1) + 12, resp.IndexOf("password", 1) - (resp.IndexOf("username", 1) + 18))
             wpass.Text = resp.Substring(resp.IndexOf("password", 1) + 11, resp.IndexOf("report_id", 1) - (resp.IndexOf("password", 1) + 14))
@@ -24723,6 +24723,7 @@ mms:
         com_diss.Text = diss
         com_num.Text = cnum
         If ctots > 0 Then
+            com_date.Value = Now
             com_g.Visible = True
         End If
     End Sub
@@ -24737,6 +24738,7 @@ mms:
         If save_code.Text = "" Or save_code.Text = "0" Then MsgBox("«Œ «— «·Œ“Ì‰…") : Exit Sub
         If save_name.Text = "" Or save_name.Text = "0" Then MsgBox("«Œ «— «·Œ“Ì‰…") : Exit Sub
 
+       
         cesl_date.Checked = True
         CBRAN.Checked = True
         dr.Close()
@@ -24751,7 +24753,7 @@ mms:
         dr.Close()
         Dim D As Date = Now
         time1.Text = D.Hour.ToString & " : " & D.Minute.ToString
-        date1.Text = D.Date.ToShortDateString
+        date1.Text = com_date.Value
         cash.Text = -1 * Val(REST.Text)
         crd.Text = 0
 
@@ -24796,10 +24798,21 @@ mms:
             cesls = dr1("esl_no")
         End While
 
-       
         dr.Close()
-        cmd.CommandText = "insert into lcash ([main_name],[main_code],[sub_code],[sub_name],[flg],[cash],[crd],[time1],[date1],[id],[notse],usr,shift,SAVE_NAME,SAVE_CODE,branch_code,branch_name) values ('" & main_name.Text & " ','" & main_code.Text & "','" & sub_code.Text & "','" & sub_name.Text & "','" & n & "','" & com_net.Text & "','0','" & time1.Text & "','" & ChangeFormat(esl_date.Value) & "','" & id.Text & "','" & cpname & "----->  " & cesls & "" & "   tests->>>" & ctest & "','" & cusers & "','" & cshift & "','" & save_name.Text & "','" & save_code.Text & "','" & branch_code.Text & "','" & branch_name.Text & "')"
+        cmd.CommandText = "select * from lcash where notse like'%" & cpname & "----->  " & cesls & "-->" & "%' and YEAR(date1)='" & YEARN.Text & "'"
+        dr = cmd.ExecuteReader
+        If dr.HasRows Then
+            dr.Read()
+            Dim x As String = MsgBox("Â–« «·„’—Ê› „—›Ê⁄ „”»ﬁ« Â·  —Ìœ «⁄«œ… —›⁄Âø", MsgBoxStyle.YesNo)
+            If x = vbNo Then Exit Sub
+            dr1.Close()
+            cmd1.CommandText = "delete  from lcash where id=" & dr("id")
+            cmd1.ExecuteNonQuery()
+        End If
+        dr.Close()
+        cmd.CommandText = "insert into lcash ([main_name],[main_code],[sub_code],[sub_name],[flg],[cash],[crd],[time1],[date1],[id],[notse],usr,shift,SAVE_NAME,SAVE_CODE,branch_code,branch_name) values ('" & main_name.Text & " ','" & main_code.Text & "','" & sub_code.Text & "','" & sub_name.Text & "','" & n & "','" & com_net.Text & "','0','" & time1.Text & "','" & ChangeFormat(com_date.Value) & "','" & id.Text & "','" & cpname & "----->  " & cesls & "-->" & "   tests->>>" & ctest & "','" & cusers & "','" & cshift & "','" & save_name.Text & "','" & save_code.Text & "','" & branch_code.Text & "','" & branch_name.Text & "')"
         cmd.ExecuteNonQuery()
+        com_g.Visible = False
         MsgBox(" „  ÕÊÌ· «·»Ê‰’")
 
     End Sub
