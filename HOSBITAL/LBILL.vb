@@ -17580,6 +17580,8 @@ mm:
             End If
             SDR.Close()
             sdr1.Close()
+            dr.Close()
+            dr1.Close()
             Dim oer As System.IO.FileStream
             Dim rer As IO.StreamReader
             dr.Close()
@@ -17595,6 +17597,7 @@ mm:
             While dr.Read
                 n11 = n11 + 1
                 If n11 > n Then n11 = n - 1
+                ncode.Text = (n11 / n)
                 ACcmd.CommandText = "update srv set pass11='" & (n11 / n) * 100 & "'"
                 ACcmd.ExecuteNonQuery()
                 SCMD.CommandText = "delete from lbill where ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
@@ -17733,20 +17736,17 @@ om:
                 End While
                 dr1.Close()
                 sdr1.Close()
-                
+                If dr("st") = 2 Then GoTo lin
             End While
-
-            n = 0
-            n11 = 0
-            dr.Close()
-            cmd.CommandText = "UPDATE lbill SET ST=2 where st='2' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-            n = cmd.ExecuteNonQuery
+           
+          
             n = n + 1
             dr.Close()
             cmd.CommandText = "select * from lbill where st='2' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
             dr = cmd.ExecuteReader
             While dr.Read
                 GoTo om
+lin:
             End While
             dr.Close()
             cmd1.CommandText = "update lbill set st=0 where    " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
@@ -17755,73 +17755,82 @@ om:
             cmd1.ExecuteNonQuery()
             cmd1.CommandText = "update lbill_test set st=0  where    " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
             cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update lbill_testsub set st=0 where " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.CommandText = "update lbill_testsub set st=0 where   " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
             cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update LBILL_CULT set st=0 where  " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.CommandText = "update LBILL_CULT set st=0 where   " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
             cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update LBILL_CULT_DET set st=0 where   " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.CommandText = "update LBILL_CULT_DET set st=0 where    " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
             cmd1.ExecuteNonQuery()
-            dr.Close()
-            SDR.Close()
-            SCMD.CommandText = "SELECT * FROM LBILLEMAGE WHERE IMAGE IS NULL  "
-            SDR = SCMD.ExecuteReader
-            While SDR.Read
-                If IO.File.Exists(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("BRAN")) = False Then
-                    Dim W As Integer = Convert.ToInt32("150")
-                    Dim H As Integer = Convert.ToInt32("37")
-                    bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
-                    Dim type As BarcodeLib.TYPE = BarcodeLib.TYPE.UNSPECIFIED
-                    type = BarcodeLib.TYPE.CODE128
-                    bar1.IncludeLabel = True
-                    barco.Image = bar1.Encode(type, n11 & SDR("BRAN").ToString.Trim & SDR("ESL_NO").ToString.Trim, W, H)
-                    IO.File.Delete(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"))
-                    barco.Image.Save(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), System.Drawing.Imaging.ImageFormat.Jpeg)
-                End If
-                Dim oer1 As System.IO.FileStream
-                Dim rer1 As IO.StreamReader
-                oer1 = New IO.FileStream(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-                rer1 = New IO.StreamReader(oer1)
-                Dim FileByteArrayr(oer1.Length - 1) As Byte
-                oer1.Read(FileByteArrayr, 0, oer1.Length)
-                sdr1.Close()
-                Dim AAAAA As String = ""
-                Dim Sql As String = "update  lbillemage set image = ? " & AAAAA & "  where  ESL_NO='" & Val(SDR("esl_no")) & "' and " & "yearn='" & Val(SDR("YEARN")) & "' and bran='" & SDR("BRAN") & "'"
-                scmd1.CommandText = Sql
-                scmd1.Parameters.Clear()
-                scmd1.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer1.Length).Value = FileByteArrayr
-                scmd1.ExecuteNonQuery()
-                n11 += 1
-            End While
-            dr1.Close()
-            cmd1.CommandText = "select * from llogsheet where ST='1' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-            dr1 = cmd1.ExecuteReader
-            While dr1.Read
-                SDR.Close()
-                SCMD.CommandText = "INSERT INTO llogsheet ([no],[yearn],[code],[bran],esl_date) VALUES ('" & dr1("no") & "'  , '" & dr1("yearn") & "' , '" & dr1("code") & "'  , '" & dr1("bran") & "', '" & dr1("esl_date") & "' )"
-                SCMD.ExecuteNonQuery()
-                Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
-                Dim ImageFromDB As New Bitmap(newMstream)
-                PictureBox1.Image = ImageFromDB
-                t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
-                IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("code"))
-                PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr1("code"), System.Drawing.Imaging.ImageFormat.Jpeg)
-                oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr1("code"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-                rer = New IO.StreamReader(oer)
-                Dim FileByteArrayr1(oer.Length - 1) As Byte
-                oer.Read(FileByteArrayr1, 0, oer.Length)
-                Dim AAAAA1 As String = ""
-                Dim Sql1 As String = "update  llogsheet set image = ? " & AAAAA1 & "  where  code='" & Val(dr1("code")) & "' and esl_date='" & dr1("esl_date") & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-                SCMD.CommandText = Sql1
-                SCMD.Parameters.Clear()
-                SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
-                SCMD.ExecuteNonQuery()
-            End While
-            dr1.Close()
-            cmd.CommandText = "update llogsheet set st=0 "
-            cmd.ExecuteNonQuery()
+            'dr.Close()
+            'SDR.Close()
+            'SCMD.CommandText = "SELECT * FROM LBILLEMAGE WHERE IMAGE IS NULL  "
+            'SDR = SCMD.ExecuteReader
+            'While SDR.Read
+            '    If IO.File.Exists(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("BRAN")) = False Then
+            '        Dim W As Integer = Convert.ToInt32("150")
+            '        Dim H As Integer = Convert.ToInt32("37")
+            '        bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
+            '        Dim type As BarcodeLib.TYPE = BarcodeLib.TYPE.UNSPECIFIED
+            '        type = BarcodeLib.TYPE.CODE128
+            '        bar1.IncludeLabel = True
+            '        barco.Image = bar1.Encode(type, n11 & SDR("BRAN").ToString.Trim & SDR("ESL_NO").ToString.Trim, W, H)
+            '        IO.File.Delete(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"))
+            '        barco.Image.Save(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), System.Drawing.Imaging.ImageFormat.Jpeg)
+            '    End If
+            '    Dim oer1 As System.IO.FileStream
+            '    Dim rer1 As IO.StreamReader
+            '    oer1 = New IO.FileStream(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+            '    rer1 = New IO.StreamReader(oer1)
+            '    Dim FileByteArrayr(oer1.Length - 1) As Byte
+            '    oer1.Read(FileByteArrayr, 0, oer1.Length)
+            '    sdr1.Close()
+            '    Dim AAAAA As String = ""
+            '    Dim Sql As String = "update  lbillemage set image = ? " & AAAAA & "  where  ESL_NO='" & Val(SDR("esl_no")) & "' and " & "yearn='" & Val(SDR("YEARN")) & "' and bran='" & SDR("BRAN") & "'"
+            '    scmd1.CommandText = Sql
+            '    scmd1.Parameters.Clear()
+            '    scmd1.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer1.Length).Value = FileByteArrayr
+            '    scmd1.ExecuteNonQuery()
+            '    n11 += 1
+            'End While
+            'dr1.Close()
+            'cmd1.CommandText = "select * from llogsheet where ST='1' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+            'dr1 = cmd1.ExecuteReader
+            'While dr1.Read
+            '    SDR.Close()
+            '    SCMD.CommandText = "INSERT INTO llogsheet ([no],[yearn],[code],[bran],esl_date) VALUES ('" & dr1("no") & "'  , '" & dr1("yearn") & "' , '" & dr1("code") & "'  , '" & dr1("bran") & "', '" & dr1("esl_date") & "' )"
+            '    SCMD.ExecuteNonQuery()
+            '    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
+            '    Dim ImageFromDB As New Bitmap(newMstream)
+            '    PictureBox1.Image = ImageFromDB
+            '    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
+            '    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("code"))
+            '    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr1("code"), System.Drawing.Imaging.ImageFormat.Jpeg)
+            '    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr1("code"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+            '    rer = New IO.StreamReader(oer)
+            '    Dim FileByteArrayr1(oer.Length - 1) As Byte
+            '    oer.Read(FileByteArrayr1, 0, oer.Length)
+            '    Dim AAAAA1 As String = ""
+            '    Dim Sql1 As String = "update  llogsheet set image = ? " & AAAAA1 & "  where  code='" & Val(dr1("code")) & "' and esl_date='" & dr1("esl_date") & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            '    SCMD.CommandText = Sql1
+            '    SCMD.Parameters.Clear()
+            '    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
+            '    SCMD.ExecuteNonQuery()
+            'End While
+            'dr1.Close()
+            'cmd.CommandText = "update llogsheet set st=0 "
+            'cmd.ExecuteNonQuery()
 
+            
 
             '==================================================================dawnload============================
+            n = 0
+            n11 = 0
+            SDR.Close()
+            sdr1.Close()
+            dr.Close()
+            dr1.Close()
+            SCMD.CommandText = " update lbill set st=1 where st=1 and  " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            n = SCMD.ExecuteNonQuery
             SDR.Close()
             sdr1.Close()
             dr.Close()
@@ -17829,6 +17838,13 @@ om:
             SCMD.CommandText = "select * from lbill where st='1' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
             SDR = SCMD.ExecuteReader
             While SDR.Read
+                ncode.Text = (n11 / n)
+                n11 = n11 + 1
+                If n11 > n Then n11 = n - 1
+                ACdr.Close()
+                ACcmd.CommandText = "update srv set pass11='" & (n11 / n) * 100 & "'"
+                ACcmd.ExecuteNonQuery()
+
                 cmd.CommandText = "delete from lbill where ESL_NO='" & SDR("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[fnd],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,dev) VALUES ('" & SDR("esl_date") & "' , '" & SDR("esl_no") & "' , '" & SDR("pname") & "' , '" & SDR("reg_name") & "' , '" & SDR("doc_name") & "' , '" & SDR("book_code") & "' , '" & SDR("book_name") & "' , '" & SDR("company_code") & "' , '" & SDR("company_name") & "' , '" & SDR("doc_code") & "' , '" & SDR("pcode") & "' , '" & SDR("ptype") & "' , '" & SDR("page") & "' , '" & SDR("pid") & "' , '" & SDR("depn") & "' , '" & SDR("reg_code") & "' , '" & SDR("esl_time") & "' , '" & SDR("crd_per") & "' , '" & SDR("crd_v") & "' , '" & SDR("cash_per") & "' , '" & SDR("cash_v") & "' , '" & SDR("bon") & "' , '" & SDR("pay") & "' , '" & SDR("rest") & "' , '" & SDR("tot") & "' , '" & SDR("nik") & "' , '" & SDR("test") & "' , '" & SDR("diss") & "' , '" & SDR("USR") & "' , '" & SDR("SHIFT") & "' , '" & SDR("rcv_date") & "' , '" & SDR("rcv") & "' , '" & SDR("fastv") & "' , '" & SDR("hrcvv") & "' , '" & SDR("rcvv") & "' , '" & SDR("rcvn") & "' , '" & SDR("fastn") & "' , '" & SDR("cfast") & "' , '" & SDR("chrcv") & "' , '" & SDR("totv") & "' , '" & SDR("ty") & "' , '" & SDR("doc_per") & "' , '" & SDR("branch_name") & "' , '" & SDR("branch_code") & "' , '" & SDR("pemail") & "' , '" & SDR("dissn") & "' , '" & SDR("notes") & "' , '" & SDR("tblg") & "' , '" & SDR("sprnt") & "' , '" & SDR("pyear") & "' , '" & SDR("lab_name") & "' , '" & SDR("lab_code") & "' , '" & SDR("ptot") & "' , '" & SDR("ppay") & "' , '" & SDR("prest") & "' , '" & SDR("labprice") & "' , '" & SDR("labtest") & "' , '" & SDR("tnum") & "' , '" & SDR("nnik") & "' , '" & SDR("qun") & "' , '" & SDR("testpro") & "' , '" & SDR("rcv_time") & "' , '" & SDR("pinc") & "' , '" & SDR("pcrd") & "' , '" & SDR("pcanc") & "' , '" & SDR("YEARN") & "' , '" & SDR("ESLBILL") & "' , '" & SDR("urgant") & "' , '" & SDR("final") & "' , '" & SDR("bdel") & "' , '" & SDR("bdelusr") & "' , '" & SDR("bdeldate") & "' , '" & SDR("eslb") & "' , '" & SDR("bran") & "' , '" & SDR("printtime") & "' , '0' , '" & SDR("brans") & "' , '" & SDR("fnd") & "' , '" & SDR("sampl") & "' , '" & SDR("sampldate") & "' , '" & SDR("samplusr") & "' , '" & SDR("restusr") & "' , '" & SDR("restdate") & "' , '" & SDR("trl") & "', '" & SDR("trl") & "', '" & SDR("dev") & "')"
@@ -17872,13 +17888,16 @@ lm:
                     cmd.ExecuteNonQuery()
                 End While
                 sdr1.Close()
+                If SDR("st") = 2 Then GoTo lout
             End While
+           
             sdr1.Close()
             SDR.Close()
             SCMD.CommandText = "select * from lbill where st='2' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
             SDR = SCMD.ExecuteReader
             While SDR.Read
                 GoTo lm
+lout:
             End While
             sdr1.Close()
             scmd1.CommandText = "update lbill set st=0 where  yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
@@ -18852,7 +18871,7 @@ mmm:
         'mm:
         Dim n As Integer = 1
         dr.Close()
-        cmd.CommandText = "SELECT * FROM LBILLEMAGE WHERE IMAGE IS NULL  "
+        cmd.CommandText = "SELECT * FROM LBILLEMAGE WHERE IMAGE IS NULL and yearn=" & Now.Year
         dr = cmd.ExecuteReader
         While dr.Read
             System.IO.File.WriteAllText("d:\Serials.text", "empty")
@@ -19794,7 +19813,7 @@ mm1:
         SCMD.CommandText = "select * from ltest "
         SDR = SCMD.ExecuteReader
         While SDR.Read
-            cmd.CommandText = "INSERT INTO ltest ([TEST_NAME],[short],[lab],[gso],[RSO],[SO],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],[TEST_CODE],[AR],[GCODE],[GNAME],[SUB],[CULT],[nor],[qun],[w],[gr_name],[gr_code],[color],[res],[notes],[st],cal) VALUES ('" & SDR("TEST_NAME") & "','" & SDR("short") & "','" & SDR("lab") & "','" & SDR("gso") & "','" & SDR("RSO") & "','" & SDR("SO") & "','" & SDR("KID_N") & "','" & SDR("KID_TYPE") & "','" & SDR("ResultAfter") & "','" & SDR("NormalRange") & "','" & SDR("TEST_CODE") & "','" & SDR("AR") & "','" & SDR("GCODE") & "','" & SDR("GNAME") & "','" & SDR("SUB") & "','" & SDR("CULT") & "','" & SDR("nor") & "','" & SDR("qun") & "','" & SDR("w") & "','" & SDR("gr_name") & "','" & SDR("gr_code") & "','" & SDR("color") & "','" & SDR("res") & "','" & SDR("notes") & "','" & SDR("LCK") & "','" & SDR("cal") & "') "
+            cmd.CommandText = "INSERT INTO ltest ([TEST_NAME],[short],[lab],[gso],[RSO],[SO],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],[TEST_CODE],[AR],[GCODE],[GNAME],[SUB],[CULT],[nor],[qun],[w],[gr_name],[gr_code],[color],[res],[notes]) VALUES ('" & SDR("TEST_NAME") & "','" & SDR("short") & "','" & SDR("lab") & "','" & SDR("gso") & "','" & SDR("RSO") & "','" & SDR("SO") & "','" & SDR("KID_N") & "','" & SDR("KID_TYPE") & "','" & SDR("ResultAfter") & "','" & SDR("NormalRange") & "','" & SDR("TEST_CODE") & "','" & SDR("AR") & "','" & SDR("GCODE") & "','" & SDR("GNAME") & "','" & SDR("SUB") & "','" & SDR("CULT") & "','" & SDR("nor") & "','" & SDR("qun") & "','" & SDR("w") & "','" & SDR("gr_name") & "','" & SDR("gr_code") & "','" & SDR("color") & "','" & SDR("res") & "','" & SDR("notes") & "') "
             cmd.ExecuteNonQuery()
         End While
         dr.Close()
@@ -21352,18 +21371,18 @@ mm:         Exit Sub
 
 
     Private Sub GB120_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GB120.Click
-        Try
-            PDFM()
-            MsgBox("FILE EXPORTED")
-        Catch ex As Exception
-            Dim st1 As String = sender.ToString.Replace("'", "-")
-            Dim st As String = ex.Message
-            st = st.Replace("'", "-")
-            dr.Close()
-            cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','" & st1 & "','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
-            cmd.ExecuteNonQuery()
-            MsgBox(st) : If ex.Message = "Load report failed." Then End
-        End Try
+        'Try
+        PDFM()
+        MsgBox("FILE EXPORTED")
+        'Catch ex As Exception
+        '    Dim st1 As String = sender.ToString.Replace("'", "-")
+        '    Dim st As String = ex.Message
+        '    st = st.Replace("'", "-")
+        '    dr.Close()
+        '    cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','" & st1 & "','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
+        '    cmd.ExecuteNonQuery()
+        '    MsgBox(st) : If ex.Message = "Load report failed." Then End
+        'End Try
     End Sub
     Public Sub PDFM()
         If finals.Checked = True Then
@@ -22800,6 +22819,7 @@ lm:
             cmd.ExecuteNonQuery()
         End While
         fprice1(1)
+        MsgBox("dawnload done")
     End Sub
 
     Private Sub testonline_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles testonline.Click
