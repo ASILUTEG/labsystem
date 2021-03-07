@@ -205,5 +205,24 @@ Public Class Form2
         'MsgBox(cmd.ExecuteNonQuery())
         'cmd.CommandText = "delete from LPATIEN where pgover <> '10'"
         'MsgBox(cmd.ExecuteNonQuery())
+        dr.Close()
+        Dim S1 As Integer = InputBox("ENTER PASWORD")
+        cmd.CommandText = "UPDATE lbill_test SET lbill_test.labprice = ltest_price.tot FROM lbill_test INNER JOIN ltest_price ON lbill_test.test_code = ltest_price.test_code where ltest_price.book_price_code=2  and lbill_test.lab=1 and lbill_test.yearn='2020'"
+        cmd.ExecuteNonQuery()
+
+        Dim nnnn As String = ""
+        dr.Close()
+        cmd.CommandText = "select sum(labprice) as labprice ,esl_no,sum(test_price) as test_price from lbill_test  where tdel=0 group by esl_no"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            dr1.Close()
+            cmd1.CommandText = "update lbill set lab_name='royal lab',lab_code='2',ptot='" & dr("labprice") & "',ppay='" & dr("labprice") & "' where esl_no='" & dr("esl_no") & "' and yearn='2020'"
+            cmd1.ExecuteNonQuery()
+        End While
+
+    End Sub
+
+    Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label1.Click
+      
     End Sub
 End Class

@@ -278,8 +278,7 @@ Module Module1
         If FRC.Length > 0 Then If FRC(0)("hide") = 1 Then LBILL.NOTSEToolStripMenuItem.Visible = False
         FRC = ifc.Select("NAME='TestpriceToolStripMenuItem1'") : If FRC.Length > 0 Then LBILL.TestpriceToolStripMenuItem1.Text = FRC(0)(lng)
         If FRC.Length > 0 Then If FRC(0)("hide") = 1 Then LBILL.TestpriceToolStripMenuItem1.Visible = False
-        FRC = ifc.Select("NAME='FUNCTIONToolStripMenuItem'") : If FRC.Length > 0 Then LBILL.FUNCTIONToolStripMenuItem.Text = FRC(0)(lng)
-        If FRC.Length > 0 Then If FRC(0)("hide") = 1 Then LBILL.FUNCTIONToolStripMenuItem.Visible = False
+       
         '================= CULT ================================================
         FRC = ifc.Select("NAME='Column11'") : If FRC.Length > 0 Then LBILL.Column11.HeaderText = "" : LBILL.Column11.Width = FRC(0)("Size")
         If FRC.Length > 0 Then If FRC(0)("hide") = 1 Then LBILL.Column11.Visible = False

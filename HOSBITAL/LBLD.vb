@@ -4758,8 +4758,10 @@ mv:
     End Sub
 
     Private Sub GlassButton48_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton48.Click
+
         If IsNumeric(Ntest_CODE.Text) = False Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·ﬂÊœ") : Exit Sub
         If Ntest_NAME.Text = "" Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·»Ì«‰") : Exit Sub
+
         dr.Close()
         cmd.CommandText = "delete from LNTEST where test_code='" & Ntest_CODE.Text & "'"
         cmd.ExecuteNonQuery()
@@ -4791,6 +4793,9 @@ mv:
     Private Sub GlassButton145_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton145.Click
         'If IsNumeric(Ntest_CODE.Text) = False Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·ﬂÊœ") : Exit Sub
         'If Ntest_NAME.Text = "" Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·»Ì«‰") : Exit Sub
+
+        Dim n As String = MsgBox(" Â·  —Ìœ «·Õ›Ÿ ø", MsgBoxStyle.YesNo)
+        If n = vbNo Then Exit Sub
         dr.Close()
         cmd.CommandText = "delete from LNSTEST where test_code='" & nstest_code.Text & "'"
         cmd.ExecuteNonQuery()
@@ -5191,7 +5196,7 @@ mv:
             RC = test_price.Rows(n)
             dr.Close()
             If RC("tot") > 0 Then
-                Dim x As Integer = (RC("tot") * per.Text * 0.01) + RC("tot")
+                Dim x As Integer = Val(Math.Round((RC("tot") * per.Text * 0.01) / 5) * 5) + RC("tot")
                 Dim nn As Integer = x Mod 5
                 x = (5 - nn) + x
                 cmd.CommandText = "update ltest_price set tot='" & x & "' where test_code='" & RC("test_code") & "' and book_price_code='" & RC("book_price_code") & "'"
@@ -5601,5 +5606,73 @@ mv:
             N += 1
         End While
 
+    End Sub
+
+    Private Sub GlassButton156_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton156.Click
+        If IsNumeric(Ntest_CODE.Text) = False Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·ﬂÊœ") : Exit Sub
+        If Ntest_NAME.Text = "" Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·»Ì«‰") : Exit Sub
+        dr.Close()
+        cmd.CommandText = "delete from LNTEST where test_code='" & Ntest_CODE.Text & "'"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','MALE','0','6','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','YEAR','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','FEMALE','0','6','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','YEAR','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','MALE','0','120','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','MONTH','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','FEMALE','0','120','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','MONTH','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','MALE','0','120','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','DAY','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','FEMALE','0','120','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','DAY','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+        GlassButton36_Click(GlassButton36, e)
+
+    End Sub
+
+    Private Sub GlassButton170_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton170.Click
+        If IsNumeric(Ntest_CODE.Text) = False Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·ﬂÊœ") : Exit Sub
+        If Ntest_NAME.Text = "" Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·»Ì«‰") : Exit Sub
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','FEMALE','7','120','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','YEAR','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+    End Sub
+
+    Private Sub GlassButton169_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton169.Click
+        If IsNumeric(Ntest_CODE.Text) = False Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·ﬂÊœ") : Exit Sub
+        If Ntest_NAME.Text = "" Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·»Ì«‰") : Exit Sub
+        dr.Close() : cmd.CommandText = "INSERT INTO LNTEST([test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year,SRES) VALUES ('" & Ntest_CODE.Text & "','" & Ntest_NAME.Text & "','" & NREF.Text & "','MALE','7','120','" & NNORB.Text & "','" & NNORE.Text & "','" & nunit.Text & "','YEAR','" & Val(sres.CheckState) & "')"
+        cmd.ExecuteNonQuery()
+    End Sub
+
+    Private Sub GlassButton171_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton171.Click
+        dr.Close()
+        cmd.CommandText = "delete from LNSTEST where test_code='" & nstest_code.Text & "'"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','MALE','0','6','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','YEAR')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','FEMALE','0','6','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','YEAR')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','MALE','0','120','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','MONTH')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','FEMALE','0','120','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','MONTH')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','MALE','0','120','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','DAY')"
+        cmd.ExecuteNonQuery()
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','FEMALE','0','120','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','DAY')"
+        cmd.ExecuteNonQuery()
+
+        GlassButton45_Click(GlassButton45, e)
+    End Sub
+
+    Private Sub GlassButton173_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton173.Click
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','FEMALE','7','120','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','YEAR')"
+        cmd.ExecuteNonQuery()
+        GlassButton45_Click(GlassButton45, e)
+    End Sub
+
+    Private Sub GlassButton172_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton172.Click
+        dr.Close() : cmd.CommandText = "INSERT INTO LNSTEST([Mtest_code],[Mtest_name],[test_code],[test_name],[ref],[type] ,[ageb],[agee],[NORB],[NORE],[unit],year) VALUES ('" & nMtest_CODE.Text & "','" & nmtest_name.Text & "','" & nstest_code.Text & "','" & nstest_name.Text & "','" & nsref.Text & "','MALE','7','120','" & nsnorb.Text & "','" & nsnore.Text & "','" & nsunit.Text & "','YEAR')"
+        cmd.ExecuteNonQuery()
+        GlassButton45_Click(GlassButton45, e)
     End Sub
 End Class

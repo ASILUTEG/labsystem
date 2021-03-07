@@ -104,7 +104,7 @@ Public Class LBILL
     Dim nnq As Integer = 0
     Dim nnw As Integer = 0
     Dim SourceDirectory, FFIND, FFINDT, CEDIT, CTOTAL, usr11, shift11, bremail, PORV, YYR, RECEP, anewa, labtests, pap, fchk, MAX_ESL, yrn, DELT, SSFINAL, nxx, final, llname, llnamear, YYN, sname, PT, rptt, SAVEAR, SAVEEN, DELAR, DELEN, EDITAR, EDITEN, PERMEN, PERMAR, booka, TNAME, chkar, chken, lcult1, ldref, ldelgat, lpromz, ltestp, lpnum, reflang As String
-    Dim doc_admin, EMP_CODE, subrrr, esla, scan1, WSITE, snew, fnd, edt, rppnt, brans, disss, tdoc, tlabtolab, trcv, fath, saven, TESTP, TESTSH, slist, FESLT, docs, ams, sbar, sscan, sbill, ffprofile, ffpack_name, resa, fftest_ar, fftest_code, fftest_name, pas, print1, pa1, prnitnn, resta, msga, companal, ali, wer, ltblg, luser, lemail, ldelg, ldis, lref, backcolor1, lbld1, UPDATE_TEST, PRNTNV, REST_PRNT, PRAA, edate, SV, ED, DEL, fast, hrcv, prntn, prntn1, prnt, rpt, hs, lres, mng, mtp, ldoc, lrcv, pa, tv, nf31, tc, dc, pah, ls, lp, lmach, fcolor, bcolor, PMMM, tblg, ref1, sprnt, FLNB, pp As Integer
+    Dim doc_admin, EMP_CODE, subrrr, esla, scan1, WSITE, snew, fnd, edt, rppnt, brans, disss, tdoc, tlabtolab, trcv, fath, saven, TESTP, TESTSH, slist, FESLT, docs, ams, sbar, sscan, sbill, ffprofile, ffpack_name, resa, fftest_ar, fftest_code, fftest_name, pas, print1, pa1, prnitnn, resta, msga, companal, ali, wer, ltblg, luser, lemail, ldelg, ldis, lref, backcolor1, lbld1, UPDATE_TEST, PRNTNV, REST_PRNT, PRAA, edate, SV, ED, DEL, fast, hrcv, prntn, prntn1, prnt, rpt, hs, lres, mng, mtp, ldoc, lrcv, pa, tv, nf31, tc, dc, pah, ls, lp, lmach, fcolor, bcolor, PMMM, tblg, ref1, sprnt, FLNB, pp, visa As Integer
     Dim dttt As Date = Now
     'Dim b As New BarcodeLib.Barcode()
     Dim adedu As New OleDb.OleDbDataAdapter
@@ -157,7 +157,9 @@ Public Class LBILL
     Dim rer As IO.StreamReader
     Dim barscode, ccname, rrname, DELPICTB, TB As String
     Dim ESLNN, upd1, clinic, onl, v, LABOUT, savenew, PMOB, stb1, typec, ttrest As Integer
-
+    Dim line_st As Integer = 0
+    Dim comlab1 As Integer = 0
+    Dim comlaa As Integer = 0
 
     Private Sub pbrith_date_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles pbrith_date.GotFocus
         colu(Me, Val(bcolor), Val(fcolor))
@@ -308,10 +310,17 @@ Public Class LBILL
         While dr.Read
             mach_name.Items.Add(dr("name"))
         End While
+        YEARN.Items.Clear()
+        Dim ny As Integer = Now.Year - 10
+
+        For index As Integer = 1 To 20
+            YEARN.Items.Add(ny + index)
+        Next
+
         dr.Close() : cmd.CommandText = "SELECT  * from users"
         adPVW.SelectCommand = cmd
         adPVW.Fill(DBS, "PVW")
-        PVW = DBS.Tables("PVW")
+0:      PVW = DBS.Tables("PVW")
         dr.Close() : cmd.CommandText = "SELECT  * from users"
         adpv1.SelectCommand = cmd
         adpv1.Fill(DBS, "PV1")
@@ -356,13 +365,13 @@ Public Class LBILL
         YEARN.Text = Now.Year
         'On Error Resume Next
         Dim rrr As Process = Process.Start(Application.StartupPath & "\bar.exe")
-        'dr.Close() : cmd.CommandText = "select * from v_total "
-        'adtfinal.SelectCommand = cmd
-        'adtfinal.Fill(DBS, "tfinal")
-        'tfinal = DBS.Tables("tfinal")
-        'DBS.Tables("tfinal").Clear()
-        'adtfinal.Fill(DBS, "tfinal")
-        'tfinal = DBS.Tables("tfinal")
+        dr.Close() : cmd.CommandText = "select top(1) * from v_total "
+        adtfinal.SelectCommand = cmd
+        adtfinal.Fill(DBS, "tfinal")
+        tfinal = DBS.Tables("tfinal")
+        DBS.Tables("tfinal").Clear()
+        adtfinal.Fill(DBS, "tfinal")
+        tfinal = DBS.Tables("tfinal")
         cmdBILL.Connection = ACcn
 
         wer = 1
@@ -739,6 +748,7 @@ Public Class LBILL
         Dim ass As Integer = 0
         While Not ass = BOOK.Rows.Count
             tquery.BOOK_name.Items.Add(BOOK.Rows(ass).Item("name"))
+            lab_book_price.Items.Add(BOOK.Rows(ass).Item("name"))
             ass = ass + 1
         End While
         fbranch(2)
@@ -856,7 +866,7 @@ Public Class LBILL
         QQ40.Visible = True
         If edt = 0 Then
             GL33.Visible = False
-            GlassButton141.Visible = False
+
         End If
         If scan1 = 1 Then
             qq115.Visible = False
@@ -1010,7 +1020,10 @@ Public Class LBILL
             pictext.AutoCompleteCustomSource.Add(dr("name"))
         End While
         SDAY.Value = Now
-
+        If visa = 0 Then
+            Column16.Visible = False
+            brestcash.Visible = False
+        End If
         dr.Close() : cmd.CommandText = "SELECT  * from V_LIMAGE where ESL_NO=0  and yearn=2019 and bran='" & bran.Text & "'"
         ada1.SelectCommand = cmd
         adPVW.Fill(DBS, "a1")
@@ -1023,6 +1036,17 @@ Public Class LBILL
         If FRC.Length > 0 Then
 mm:
             RC = FRC(0)
+            msga = nulls(RC("msga"))
+            CTRL.Checked = nulls(RC("CTRL"))
+            If nulls(RC("CTRL")) = 1 Then
+                trl1.Text = "„—Õ·"
+
+            End If
+            visa = nulls(RC("visa"))
+            If visa = 0 Then
+                Column16.Visible = False
+                brestcash.Visible = False
+            End If
             PMOB = nulls(RC("PMOBILE"))
             subrrr = nulls(RC("subres"))
             savenew = nulls(RC("savenew"))
@@ -1147,17 +1171,20 @@ mm:
             fufind()
         End If
         rrname = COMPANY_name.Text
-        
+
     End Sub
 
     Private Sub REG_name_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles REG_name.LostFocus
         dr.Close()
-        cmd.CommandText = "SELECT * FROM lcompany WHERE code='" & REG_CODE.Text & "' and NAME='" & REG_name.Text & "'"
+        cmd.CommandText = "SELECT * FROM lcompany WHERE NAME='" & REG_name.Text & "'"
         dr = cmd.ExecuteReader
         If dr.HasRows = False Then
             REG_name.Focus()
             REG_name.BackColor = Color.Red
             Exit Sub
+        Else
+            dr.Read()
+            REG_CODE.Text = dr("code")
         End If
     End Sub
 
@@ -1392,40 +1419,40 @@ mm:
         End Try
     End Sub
     Public Sub fesl_no()
-        If ESLNN = 0 Then
-            dr.Close()
-            cmd.CommandText = "select MAX(ESL_NO) from lbill where bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
-            dr = cmd.ExecuteReader
-            dr.Read()
-            esl_no.Text = nulls(dr(0)) + 1
-        Else
-            ACdr.Close()
-            ACcmd.CommandText = "select * from srv  "
-            ACdr = ACcmd.ExecuteReader
-            ACdr.Read()
-            esl_no.Text = ACdr("esln")
-mmm:
-            dr.Close()
-            cmd.CommandText = "select * from lbill where esl_no='" & Val(esl_no.Text) & "' and bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
-            dr = cmd.ExecuteReader
-            dr.Read()
-            If dr.HasRows = True Or Val(esl_no.Text) = 0 Then
-                dr.Close()
-                cmd.CommandText = "select * from Branch where code='" & branch_code.Text & "'"
-                dr = cmd.ExecuteReader
-                dr.Read()
-                If dr.HasRows = True Then
-                    esl_no.Text = nulls(dr("esln"))
-                    dr.Close()
-                    cmd.CommandText = "update Branch set esln='" & Val(esl_no.Text) + 1 & "' where code='" & branch_code.Text & "'"
-                    cmd.ExecuteNonQuery()
-                    ACdr.Close()
-                    ACcmd.CommandText = "update srv set esln='" & Val(esl_no.Text) & "' "
-                    ACcmd.ExecuteNonQuery()
-                    GoTo mmm
-                End If
-            End If
-        End If
+        ' If ESLNN = 0 Then
+        dr.Close()
+        cmd.CommandText = "select MAX(ESL_NO) from lbill where bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
+        dr = cmd.ExecuteReader
+        dr.Read()
+        esl_no.Text = nulls(dr(0)) + 1
+        '        Else
+        '            ACdr.Close()
+        '            ACcmd.CommandText = "select * from srv  "
+        '            ACdr = ACcmd.ExecuteReader
+        '            ACdr.Read()
+        '            esl_no.Text = ACdr("esln")
+        'mmm:
+        '            dr.Close()
+        '            cmd.CommandText = "select * from lbill where esl_no='" & Val(esl_no.Text) & "' and bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
+        '            dr = cmd.ExecuteReader
+        '            dr.Read()
+        '            If dr.HasRows = True Or Val(esl_no.Text) = 0 Then
+        '                dr.Close()
+        '                cmd.CommandText = "select * from Branch where code='" & branch_code.Text & "'"
+        '                dr = cmd.ExecuteReader
+        '                dr.Read()
+        '                If dr.HasRows = True Then
+        '                    esl_no.Text = nulls(dr("esln"))
+        '                    dr.Close()
+        '                    cmd.CommandText = "update Branch set esln='" & Val(esl_no.Text) + 1 & "' where code='" & branch_code.Text & "'"
+        '                    cmd.ExecuteNonQuery()
+        '                    ACdr.Close()
+        '                    ACcmd.CommandText = "update srv set esln='" & Val(esl_no.Text) & "' "
+        '                    ACcmd.ExecuteNonQuery()
+        '                    GoTo mmm
+        '                End If
+        '            End If
+        '        End If
     End Sub
     Public Sub esln()
 
@@ -1687,7 +1714,7 @@ mmm:
         ACdr = ACcmd.ExecuteReader
         ACdr.Read()
         If nulls(ACdr(4)) > 0 Then
-            bon.Text = nulls(ACdr(5))
+            ' bon.Text = nulls(ACdr(5))
             TOT.Text = nulls(ACdr(0))
             DISS.Text = TOT.Text - nulls(ACdr(4)) - nulls(ACdr(5))
         Else
@@ -2247,14 +2274,8 @@ mm:
     Public Sub esl_cash(ByVal type As Integer)
         If type = 1 Or type = 3 Then
             ACdr.Close()
-            cmdb.DataAdapter = adeslb
-            adeslb.Update(DBS, "eslb")
-            ACcmd.CommandText = "delete * FROM esl where tot < 0 and erbank < 0"
-            ACcmd.ExecuteNonQuery()
-            ACcmd.CommandText = "SELECT * FROM esl  "
-            ACdr = ACcmd.ExecuteReader
-            If ACdr.HasRows = False Then MsgBox("«·—Ã«¡ ﬂ «»… «·«Ì’«· Ê ﬁÌ„ Â") : esld.Focus() : Exit Sub
-            ACdr.Close()
+
+        
             ACcmd.CommandText = "SELECT sum(tot),sum(erbank) FROM esl  "
             ACdr = ACcmd.ExecuteReader
             While ACdr.Read
@@ -2339,7 +2360,7 @@ mm:
 
 
     End Sub
-    Public Sub FSAVEV()
+    Public Sub FSAVEV(Optional ByVal rfnd As Int16 = 0)
         Try
             LLOG("test save", esl_no.Text, pname.Text, 1, bran.Text)
             xpname = pname.Text
@@ -2353,7 +2374,7 @@ mm:
             pname.Text = xpname
             If SV = 0 Then
                 If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
-                LLOG("Õ›Ÿ “Ì«—…", esl_no.Text, XLOG, 0, bran.Text)
+                LLOG("save visit", esl_no.Text, XLOG, 0, bran.Text)
                 Exit Sub
             End If
 mms:
@@ -2366,6 +2387,8 @@ mms:
             page.Text = Math.Round(Val(page.Text))
             If esl_no.Text < 0 And mng = 0 Then MsgBox("·«  ÊÃœ ·œÌﬂ ’·«ÕÌ…") : Exit Sub
             If PYEAR.Text = "" Then MsgBox("«·—Ã«¡ «Œ Ì«— ‰Ê⁄ «· «—ÌŒ") : Exit Sub
+            If ptype.Text.Length < 2 Then MsgBox("«·—Ã«¡ «Œ Ì«— ‰Ê⁄ «·Õ«·…") : Exit Sub
+            If PNIK.Text.Length < 2 Then MsgBox("«·—Ã«¡ «Œ Ì«— ‰Ê⁄ «·Õ«·…") : Exit Sub
             If Val(page.Text) > 120 Or Val(page.Text) = 0 Then MsgBox("«·—Ã«¡ «· √ﬂœ „‰ «·”‰") : Exit Sub
             If Val(page.Text) > 12 And PYEAR.Text = "Month" Then MsgBox("·« Ì„ﬂ‰  ﬂ «»… «ﬂÀ— „‰ 12 ‘Â—") : Exit Sub
             If Val(page.Text) > 30 And PYEAR.Text = "Day" Then MsgBox("·« Ì„ﬂ‰  ﬂ «»… «ﬂÀ— „‰ 30 ÌÊ„") : Exit Sub
@@ -2373,18 +2396,16 @@ mms:
             If pmobile.Text = "0" And PMOB = 1 Then MsgBox("«·—Ã«¡ ﬂ «»… «·„Ê»Ì·") : Exit Sub
             If yrn = "=" Then YEARN.Text = esl_date.Value.Year
             '============================================check calculated test=======================
-
-            ACdr.Close()
-            ACcmd.CommandText = "select * from test_price where cal=0 and tot=0 and qun=1"
-            ACdr = ACcmd.ExecuteReader
-            If ACdr.HasRows = True Then
-                While ACdr.Read
-                    MsgBox("there is test with out price please check:-((((" & ACdr("test_name") & "))))", MsgBoxStyle.Critical)
-                End While
-                Dim x As String = MsgBox("Â·  —Ìœ «·«” „—«— ›Ï Õ›Ÿ «·«Ì’«·", MsgBoxStyle.YesNo)
-                If x = vbNo Then Exit Sub
-            End If
-
+            'ACdr.Close()
+            'ACcmd.CommandText = "select * from test_price where cal=0 and tot=0 and qun=1"
+            'ACdr = ACcmd.ExecuteReader
+            'If ACdr.HasRows = True Then
+            '    While ACdr.Read
+            '        MsgBox("there is test with out price please check:-((((" & ACdr("test_name") & "))))", MsgBoxStyle.Critical)
+            '    End While
+            '    Dim x As String = MsgBox("Â·  —Ìœ «·«” „—«— ›Ï Õ›Ÿ «·«Ì’«·", MsgBoxStyle.YesNo)
+            '    If x = vbNo Then Exit Sub
+            'End If
             '=============================================end of calculated==========================
             '***************************** save add1ress***********************************************************************
             If pgover.Text <> "" Then
@@ -2422,6 +2443,14 @@ mms:
             End If
             '=========================claculate cash and bank=====================
             If FESLT = 1 Then
+                ACdr.Close()
+                cmdb.DataAdapter = adeslb
+                adeslb.Update(DBS, "eslb")
+                ACcmd.CommandText = "delete * FROM esl where tot < 0 and erbank < 0"
+                ACcmd.ExecuteNonQuery()
+                ACcmd.CommandText = "SELECT * FROM esl  "
+                ACdr = ACcmd.ExecuteReader
+                If ACdr.HasRows = False Then MsgBox("«·—Ã«¡ ﬂ «»… «·«Ì’«· Ê ﬁÌ„ Â") : esld.Focus() : Exit Sub
                 esl_cash(1)
             End If
             '******************************************************************************************************
@@ -2455,12 +2484,12 @@ mms:
                 shift11 = dr("shift")
                 If (ChangeFormat(Now) <> ChangeFormat(esl_date.Value) Or ChangeFormat(esl_date.Value) <> ChangeFormat(dr("esl_date"))) And CTOTAL = 0 Then
                     MsgBox("·« Ì„ﬂ‰ﬂ  ⁄œÌ· «·“Ì«—… «·—Ã«¡ «·—ÃÊ⁄ «·Ï «·„œÌ—", MsgBoxStyle.Critical)
-                    LLOG(" ⁄œÌ· “Ì«—…", esl_no.Text, " „Õ«Ê·…  ⁄œÌ· «·«Ì’«· ›Ï «·ÌÊ„ «· «·Ï   ⁄œÌ· «·«Ì’«·" & xpname, 0, bran.Text)
+                    LLOG("edit visit", esl_no.Text, " „Õ«Ê·…  ⁄œÌ· «·«Ì’«· ›Ï «·ÌÊ„ «· «·Ï   ⁄œÌ· «·«Ì’«·" & xpname, 0, bran.Text)
                     Exit Sub
                 End If
                 If mng = 0 And ChangeFormat(esl_date.Value) <> ChangeFormat(dr("esl_date")) And edt = 0 Then MsgBox("·« Ì„ﬂ‰  ⁄œÌ· «· «—ÌŒ", MsgBoxStyle.Critical) : Exit Sub
                 If ED = 0 Then
-                    LLOG(" ⁄œÌ· “Ì«—…", esl_no.Text, "  ⁄œÌ· «·«Ì’«·" & xpname, 0, bran.Text)
+                    LLOG("edit visit", esl_no.Text, "  ⁄œÌ· «·«Ì’«·" & xpname, 0, bran.Text)
                     MsgBox("·« Ì„ﬂ‰ «· ⁄œÌ·")
                     FNEWV()
                     Exit Sub
@@ -2475,10 +2504,10 @@ mms:
                 End If
                 dr.Close()
                 fnd = 1
-                LLOG(" ⁄œÌ· “Ì«—…", esl_no.Text, XLOG, 1, bran.Text)
+                LLOG("edit visit", esl_no.Text, XLOG, 1, bran.Text)
             Else
                 'testpost()
-                LLOG("Õ›Ÿ “Ì«—…", esl_no.Text, XLOG, 1, bran.Text)
+                LLOG("save visit", esl_no.Text, XLOG, 1, bran.Text)
                 Dim ss As Integer = 0
                 If TOT.Text = 0 And DISS.Text = 0 Then  Else ss = Math.Round((Val(DISS.Text) / Val(TOT.Text)) * 100, 0)
                 If ss > disss And ltblg = 0 Then MsgBox("ﬁÌ„… «·Œ’„ «ﬂ»— „‰ «·’·«ÕÌ…") : Exit Sub
@@ -2502,8 +2531,10 @@ mms:
                 If lng = "AR" Then MsgBox("«·—Ã«¡ «Œ Ì«—  Õ·Ì· Ê«Õœ ⁄·Ï «·«ﬁ·") Else MsgBox("choose one test to complete")
                 Exit Sub
             End If
+            Dim asaa As String = ""
+            If rfnd = 0 Then asaa = " AND RST=0 "
             ACdr.Close()
-            ACcmd.CommandText = "SELECT * FROM TEST_PRICE WHERE qun>0 AND RST=0  order by so"
+            ACcmd.CommandText = "SELECT * FROM TEST_PRICE WHERE qun>0" & asaa & " order by so"
             ACdr = ACcmd.ExecuteReader
             If finals.Checked = True And edt = 0 Then
             Else
@@ -2643,18 +2674,18 @@ mms:
             Dim aaa As Integer = 0
             aaa = esl_no.Text
             esl_no.Text = aaa
-            If msga = 1 Then
+            If msga = 1 And rfnd = 0 Then
                 If lng = "AR" Then MsgBox(" „  ⁄„·Ì… «·Õ›Ÿ »‰Ã«Õ" & " " & xpname) Else MsgBox("IT'S SAVED" & " " & xpname)
             End If
             fchk = 1
             ACdr.Close()
             ACcmd.CommandText = "UPDATE  TEST_PRICE SET RST=1"
             ACcmd.ExecuteNonQuery()
-            NORBb()
+            If rfnd = 0 Then NORBb()
             PNIK.Focus()
-            If fnd = 0 Then fesl(0, 0)
+            If rfnd = 0 And rfnd = 1 Then fesl(0, 0)
             LLOG("test save", esl_no.Text, pname.Text, 1, bran.Text)
-            If onl = 1 Then pau()
+
         Catch ex As Exception
             Dim st1 As String = "SAVE NEW VISITE"
             Dim st As String = ex.Message
@@ -2673,9 +2704,6 @@ mms:
 
     Private Sub GlassButton34_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq74.Click
         FDELV()
-        
-
-
     End Sub
 
 
@@ -2709,17 +2737,17 @@ mms:
         End If
         If clabd.Checked = True Then
             Dim DDF As String
-            If labd.Text = "" Then DDF = ".labd<>'0'" Else DDF = ".labd LIKE'%" & labd.Text & "%'"
+            If labd.Text = "" Or labd.Text = "0" Then DDF = ".labd<>'0' " Else DDF = ".labd LIKE'%" & labd.Text & "%'"
             yy = yy & "  " & " and " & b & DDF
             YYN = "hrcvv"
             YYR = YYR & DDF
         End If
-        If ComboBox5.Text = "print" Then
+        If f3type.Text = "print" Then
             yy = yy & "  " & " and " & b & ".sprnt>0"
             YYR = YYR & " and sprnt>0'"
         End If
 
-        If ComboBox5.Text = "not print" Then
+        If f3type.Text = "not print" Then
             yy = yy & "  " & " and " & b & ".sprnt=0"
             YYR = YYR & " and sprnt=0'"
         End If
@@ -2730,6 +2758,7 @@ mms:
             yy = yy & "  " & " and " & b & ".final=1"
             YYR = YYR & " and final=1'"
         End If
+       
         If nfinal.Checked = True Then
             yy = yy & "  " & " and " & b & ".final=0"
         End If
@@ -2825,7 +2854,14 @@ mms:
             yy = yy & "  " & " and " & b & ".lab_name='" & lab_name.Text & "'"
             YYN = "lab_name"
         End If
-
+        If ccdoc.Checked = True Then
+            yy = yy & "  " & " and " & b & ".coms_doc=0"
+            YYN = "coms_doc"
+        End If
+        If cccompany.Checked = True Then
+            yy = yy & "  " & " and " & b & ".coms_company=1"
+            YYN = "coms_company"
+        End If
         If cbook_code.Checked = True Then
             yy = yy & "  " & " and " & b & ".BOOK_CODE='" & BOOK_CODE.Text & "'"
             YYN = "BOOK_NAME"
@@ -2837,7 +2873,7 @@ mms:
             YYN = "cfast"
         End If
         If chrcv.Checked = True Then
-            yy = yy & "  " & " and " & b & ".cfast='" & Val(chrcv.CheckState) & "'"
+            yy = yy & "  " & " and " & b & ".chrcv='" & Val(chrcv.CheckState) & "'"
             YYN = "cfast"
         End If
         If crcv.Checked = True Then
@@ -3552,7 +3588,6 @@ mm:
 
     Private Sub hrcvv_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles hrcvv.GotFocus
         colu(Me, Val(bcolor), Val(fcolor))
-
         hrcvv.BackColor = Color.FromArgb(backcolor1)
         sotr(2, "hrcvv")
     End Sub
@@ -3607,308 +3642,337 @@ mm:
 
     End Sub
     Public Sub f3(ByVal asm As String)
-        Try
-            If branch_code.Text <> brans And lrcv = 0 Then Me.Text = "«·—Ã«¡ «Œ Ì«— «·›—⁄" : Exit Sub
-            If rpt = 0 Then MsgBox("·«  ÊÃœ ’·«ÕÌ…") : Exit Sub
-            If ADCODE.Items.Count > 0 Then
-                dr.Close()
-                cmd.CommandText = "UPDATE LBILL SET QUN='0' WHERE QUN='1'"
-                cmd.ExecuteNonQuery()
-                Dim NC As Integer = 0
-                While Not NC = ADCODE.Items.Count
-                    cmd.CommandText = "UPDATE LBILL SET QUN=1 WHERE ESL_NO='" & ADCODE.Items(NC) & "' AND BRAN='" & bran.Text & "' AND YEARN='" & YEARN.Text & "'"
-                    cmd.ExecuteNonQuery()
-                    NC += 1
-                End While
-            End If
+        '  Try
+        If branch_code.Text <> brans And lrcv = 0 Then Me.Text = "«·—Ã«¡ «Œ Ì«— «·›—⁄" : Exit Sub
+        If rpt = 0 Then MsgBox("·«  ÊÃœ ’·«ÕÌ…") : Exit Sub
+        If ADCODE.Items.Count > 0 Then
             dr.Close()
-            cmd.CommandText = "UPDATE lbill SET lbill.COMS = lcompany.COMS FROM lbill INNER JOIN lcompany ON lbill.COMPANY_CODE = lcompany.code AND lbill.COMPANY_NAME = lcompany.NAME WHERE  LBILL.esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'   "
+            cmd.CommandText = "UPDATE LBILL SET QUN='0' WHERE QUN='1'"
             cmd.ExecuteNonQuery()
+            Dim NC As Integer = 0
+            While Not NC = ADCODE.Items.Count
+                cmd.CommandText = "UPDATE LBILL SET QUN=1 WHERE ESL_NO='" & ADCODE.Items(NC) & "' AND BRAN='" & bran.Text & "' AND YEARN='" & YEARN.Text & "'"
+                cmd.ExecuteNonQuery()
+                NC += 1
+            End While
+        End If
+        dr.Close()
 
-            YYR = ""
-            b = ""
-            t = ""
-            nxx = ""
-            b = "lbill"
-            t = "" & t & ""
-            dr.Close()
-            cmd.CommandText = "select * from lcompany where inc>0"
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dr1.Close()
-                cmd1.CommandText = "update lbill set pinc=1 where company_code='" & dr("code") & "'"
-                cmd1.ExecuteNonQuery()
-            End While
-            dr.Close()
-            If rpt = 0 Then
-                If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
-                LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì—", 0, bran.Text)
-                Exit Sub
+        cmd.CommandText = "UPDATE lbill SET lbill.reg_code = lcompany.code FROM lbill INNER JOIN lcompany ON lbill.reg_name = lcompany.name  "
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "UPDATE lbill SET lbill.company_code = lcompany.code FROM lbill INNER JOIN lcompany ON lbill.company_name = lcompany.name  "
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "UPDATE lbill SET lbill.COMS = lcompany.COMS,lbill.COMS_company = lcompany.COMS FROM lbill INNER JOIN lcompany ON lbill.COMPANY_CODE = lcompany.code  WHERE  LBILL.esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'   "
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "UPDATE lbill SET lbill.COMS_doc = lcompany.COMS FROM lbill INNER JOIN lcompany ON lbill.reg_CODE = lcompany.code  WHERE  LBILL.esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'   "
+        cmd.ExecuteNonQuery()
+        YYR = ""
+        b = ""
+        t = ""
+        nxx = ""
+        b = "lbill"
+        t = "" & t & ""
+        dr.Close()
+        cmd.CommandText = "select * from lcompany where inc>0"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            dr1.Close()
+            cmd1.CommandText = "update lbill set pinc=1 where company_code='" & dr("code") & "'"
+            cmd1.ExecuteNonQuery()
+        End While
+        dr.Close()
+        If rpt = 0 Then
+            If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
+            LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì—", 0, bran.Text)
+            Exit Sub
+        End If
+        Dim rrr As Process = Process.Start(Application.StartupPath & "\bar.exe")
+        yy1()
+        Dim n As Integer = 0
+        ss = ""
+        ACdr.Close()
+        ACcmd.CommandText = "select * from srh where sort>0 order by sort"
+        ACdr = ACcmd.ExecuteReader
+        While ACdr.Read
+            If ss = "" Then ss = " order by " & ACdr("fld") & " " Else ss = ss & " , " & ACdr("fld") & " "
+        End While
+        Dim xaa As String = ""
+        If CTRL.Checked = True Then If trl1.Checked = True Then xaa = "and  trl='1'" Else xaa = " and  trl='0'"
+        If ctest_name.Checked = True Or ctest_ar.Checked = True Then
+            dr.Close() : cmd.CommandText = "SELECT     " & b & ".* FROM " & b & " INNER JOIN  LPATIEN ON " & b & ".pcode = LPATIEN.pcode INNER JOIN  " & t & " ON " & b & ".esl_no = " & t & ".esl_no " & yy & xaa & ss
+        Else
+            dr.Close() : cmd.CommandText = "SELECT     " & b & ".* FROM " & b & " INNER JOIN  LPATIEN ON " & b & ".pcode = LPATIEN.pcode  " & yy & xaa & ss
+        End If
+        adF31.SelectCommand = cmd
+        adF31.Fill(DBS, "F31")
+        F31 = DBS.Tables("F31")
+        DBS.Tables("F31").Clear()
+        adF31.Fill(DBS, "F31")
+        F31 = DBS.Tables("F31")
+        dr.Close()
+        cmd.CommandText = "select * from branch where name='" & branch_name.Text & "'"
+        dr = cmd.ExecuteReader
+        While dr.Read()
+            If dr("trl") > 0 And trl1.Checked = False And asm = 1 Then
+                RC = F31.NewRow
+                RC("usr") = "  "
+                RC("test") = "----------"
+                RC("eslb") = dr("trl")
+                RC("bon") = 0
+                RC("esl_no") = 0
+                RC("pname") = "»«ﬁÏ „‰ ﬁ»·"
+                RC("pay") = 0
+                RC("rest") = 0
+                RC("ptot") = 0
+                RC("company_name") = 0
+                F31.Rows.Add(RC)
             End If
-            Dim rrr As Process = Process.Start(Application.StartupPath & "\bar.exe")
+        End While
+        If RadioButton2.Checked = True Then
+            b = "lbill"
+            t = "lbill_test"
             yy1()
-            Dim n As Integer = 0
-            ss = ""
-            ACdr.Close()
-            ACcmd.CommandText = "select * from srh where sort>0 order by sort"
-            ACdr = ACcmd.ExecuteReader
-            While ACdr.Read
-                If ss = "" Then ss = " order by " & ACdr("fld") & " " Else ss = ss & " , " & ACdr("fld") & " "
-            End While
             If ctest_name.Checked = True Or ctest_ar.Checked = True Then
                 dr.Close() : cmd.CommandText = "SELECT     " & b & ".* FROM " & b & " INNER JOIN  LPATIEN ON " & b & ".pcode = LPATIEN.pcode INNER JOIN  " & t & " ON " & b & ".esl_no = " & t & ".esl_no " & yy & ss
             Else
                 dr.Close() : cmd.CommandText = "SELECT     " & b & ".* FROM " & b & " INNER JOIN  LPATIEN ON " & b & ".pcode = LPATIEN.pcode  " & yy & ss
             End If
-            Dim xaa As String = ""
-            If trl1.Checked = True Then xaa = "and  trl='1'" Else xaa = " and  trl='0'"
-
             adF31.SelectCommand = cmd
             adF31.Fill(DBS, "F31")
             F31 = DBS.Tables("F31")
-            DBS.Tables("F31").Clear()
-            adF31.Fill(DBS, "F31")
-            F31 = DBS.Tables("F31")
-            dr.Close()
-            cmd.CommandText = "select * from branch where name='" & branch_name.Text & "'"
-            dr = cmd.ExecuteReader
-            While dr.Read()
-                If dr("trl") > 0 And trl1.Checked = False And asm = 1 Then
-                    RC = F31.NewRow
-                    RC("usr") = "  "
-                    RC("test") = "----------"
-                    RC("eslb") = dr("trl")
-                    RC("bon") = 0
-                    RC("esl_no") = 0
-                    RC("pname") = "»«ﬁÏ „‰ ﬁ»·"
-                    RC("pay") = 0
-                    RC("rest") = 0
-                    RC("ptot") = 0
-                    RC("company_name") = 0
-                    F31.Rows.Add(RC)
-                End If
-            End While
-            If RadioButton2.Checked = True Then
-                b = "lbill"
-                t = "lbill_test"
-                yy1()
-                If ctest_name.Checked = True Or ctest_ar.Checked = True Then
-                    dr.Close() : cmd.CommandText = "SELECT     " & b & ".* FROM " & b & " INNER JOIN  LPATIEN ON " & b & ".pcode = LPATIEN.pcode INNER JOIN  " & t & " ON " & b & ".esl_no = " & t & ".esl_no " & yy & ss
-                Else
-                    dr.Close() : cmd.CommandText = "SELECT     " & b & ".* FROM " & b & " INNER JOIN  LPATIEN ON " & b & ".pcode = LPATIEN.pcode  " & yy & ss
-                End If
-                adF31.SelectCommand = cmd
-                adF31.Fill(DBS, "F31")
-                F31 = DBS.Tables("F31")
-            End If
-            F31D.DataSource = F31
-            tm = 4
+        End If
+        F31D.DataSource = F31
+        tm = 4
 
-            v = 0
-            If FESLT = 1 Then
-                While Not v = F31.Rows.Count
+        v = 0
+        If FESLT = 1 Then
+            While Not v = F31.Rows.Count
+                RC = F31.Rows(v)
+                RC.BeginEdit()
+                RC("eslb") = 0
+                Dim banq As Integer = RC("bank")
+                RC("bank") = 0
+                RC.EndEdit()
+                dr.Close()
+                cmd.CommandText = "select sum(tot) from lbill_esl where erbank=0 and yearn='" & F31.Rows(v).Item("yearn") & "' and esl_no='" & F31.Rows(v).Item("esl_no") & "' and rest=0 and bran='" & F31.Rows(v).Item("bran") & "'"
+                dr = cmd.ExecuteReader
+                dr.Read()
+                If dr.HasRows Then
+                    If IsDBNull(dr(0)) = False Then
+                        RC = F31.Rows(v)
+                        RC.BeginEdit()
+                        RC("eslb") = dr(0)
+                        RC.EndEdit()
+                    End If
+                End If
+                If banq > 0 Then
                     dr.Close()
-                    cmd.CommandText = "select sum(tot) from lbill_esl where yearn='" & YEARN.Text & "' and esl_no='" & F31.Rows(v).Item("esl_no") & "' and rest=0 and bran='" & F31.Rows(v).Item("bran") & "'"
+                    cmd.CommandText = "select sum(erbank) from lbill_esl where erbank>0 and yearn='" & F31.Rows(v).Item("yearn") & "' and esl_no='" & F31.Rows(v).Item("esl_no") & "' and rest=0 and bran='" & F31.Rows(v).Item("bran") & "'"
                     dr = cmd.ExecuteReader
                     dr.Read()
                     If dr.HasRows Then
                         If IsDBNull(dr(0)) = False Then
                             RC = F31.Rows(v)
                             RC.BeginEdit()
-                            RC("eslb") = dr(0)
+                            RC("bank") = dr(0)
                             RC.EndEdit()
                         End If
                     End If
-                    v = v + 1
-                End While
-                If ComboBox5.Text = "rest" Then
-                    dr.Close()
-                    Dim tas As String = ""
-                    Dim co As String = ""
-                    If CBRAN.Checked = True Then tas = " and bran='" & bran.Text & "'"
-                    If cCOMPANY_CODE.Checked = True Then co = " and company_code='" & COMPANY_CODE.Text & "'"
-                    If creg_code.Checked = True Then co = co & " and reg_code='" & REG_CODE.Text & "'"
-                    If cshift.Checked = True Then co = co & " and shift='" & shift.Text & "'"
-                    Dim aa2 As String = ""
-                    If cesl_date.Checked = True Then aa2 = " and sdate='" & ChangeFormat(esl_date.Value) & "'" Else aa2 = "and  sdate between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
-                    cmd.CommandText = "select * from v_esl where rest=1 " & co & xaa & aa2 & tas & " order by sdate "
-                    dr = cmd.ExecuteReader
-                    While dr.Read()
-                        RC = F31.NewRow
-                        RC("usr") = dr("restusr")
-                        If IsDBNull(dr("restdate")) = False Then RC("esl_time") = ChangeFormatall(dr("restdate"))
-                        RC("sprnt") = dr("sprnt")
-                        RC("test") = dr("test")
-                        If dr("tot1") > 0 Then RC("eslb") = dr("tot1") Else RC("eslb") = 0
-                        If dr("erbank") > 0 Then RC("bank") = dr("erbank") Else RC("bank") = 0
-                        RC("bon") = 0
-                        RC("esl_no") = dr("esl_no")
-                        RC("COMS") = dr("COMS")
-                        RC("esl_date") = dr("sdate")
-                        RC("pname") = "»«ﬁÏ  " & dr("pname")
-                        RC("pay") = dr("tot1")
-                        RC("rest") = 0
-                        RC("ptot") = 0
-                        RC("company_name") = dr("company_name")
-                        RC("reg_name") = dr("reg_name")
-                        F31.Rows.Add(RC)
-                    End While
                 End If
-            End If
-            Dim yys As String = ""
-            If cesl_date.Checked = False Then yys = " date1 between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'" Else yys = " date1 ='" & ChangeFormat(esl_date.Value) & "'"
-            If EXPENS.Checked = True And FESLT = 1 And asm = 1 Then
-                dr.Close()
-                cmd.CommandText = "select * from lcash where sub_code=4 and save_code='" & saven & "' and " & yys & "   " & xaa & " and branch_name='" & branch_name.Text & "'"
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    RC = F31.NewRow
-                    RC("usr") = dr("usr")
-                    RC("test") = "----------"
-                    RC("eslb") = -dr("cash")
-                    RC("bon") = 0
-                    RC("esl_no") = 0
-                    RC("esl_date") = dr("date1")
-                    RC("pname") = dr("notse")
-                    RC("pay") = -dr("cash")
-                    RC("rest") = 0
-                    RC("ptot") = 0
-                    RC("company_name") = dr("sub_name")
-                    F31.Rows.Add(RC)
-                End While
 
+                v = v + 1
+            End While
+            If f3type.Text = "rest" Then
                 dr.Close()
-                cmd.CommandText = "select * from lcash where sub_code=9 and save_code='" & saven & "' and  " & yys & "   " & xaa & " and branch_name='" & branch_name.Text & "'"
+                Dim tas As String = ""
+                Dim co As String = ""
+                If CBRAN.Checked = True Then tas = " and bran='" & bran.Text & "'"
+                If cCOMPANY_CODE.Checked = True Then co = " and company_code='" & COMPANY_CODE.Text & "'"
+                If creg_code.Checked = True Then co = co & " and reg_code='" & REG_CODE.Text & "'"
+                If cshift.Checked = True Then co = co & " and shift='" & shift.Text & "'"
+                Dim aa2 As String = ""
+                If cesl_date.Checked = True Then aa2 = " and sdate='" & ChangeFormat(esl_date.Value) & "'" Else aa2 = "and  sdate between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+                cmd.CommandText = "select * from v_esl where rest=1 " & co & xaa & aa2 & tas & " order by sdate "
                 dr = cmd.ExecuteReader
                 While dr.Read()
                     RC = F31.NewRow
-                    RC("usr") = dr("usr")
-                    RC("test") = "----------"
-                    RC("eslb") = -dr("cash")
+                    RC("usr") = dr("restusr")
+                    If IsDBNull(dr("restdate")) = False Then RC("esl_time") = ChangeFormatall(dr("restdate"))
+                    RC("sprnt") = dr("sprnt")
+                    RC("test") = dr("test")
+                    If dr("tot1") > 0 Then RC("eslb") = dr("tot1") Else RC("eslb") = 0
+                    If dr("erbank") > 0 Then RC("bank") = dr("erbank") Else RC("bank") = 0
                     RC("bon") = 0
-                    RC("esl_no") = 0
-                    RC("esl_date") = dr("date1")
-                    RC("pname") = dr("notse")
-                    RC("pay") = -dr("cash")
+                    RC("esl_no") = dr("esl_no")
+                    RC("COMS") = dr("COMS")
+                    RC("esl_date") = dr("sdate")
+                    RC("pname") = "»«ﬁÏ  " & dr("pname")
+                    RC("pay") = dr("tot1")
                     RC("rest") = 0
                     RC("ptot") = 0
-                    RC("company_name") = dr("sub_name")
+                    RC("company_name") = dr("company_name")
+                    RC("reg_name") = dr("reg_name")
                     F31.Rows.Add(RC)
                 End While
-                dr.Close()
-                cmd.CommandText = "select * from lcash where sub_code=11 and " & yys & "   " & xaa & " and branch_name='" & branch_name.Text & "' and save_code='" & saven & "'"
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    RC = F31.NewRow
-                    RC("usr") = dr("usr")
-                    RC("test") = "----------"
-                    RC("eslb") = -dr("cash")
-                    RC("bon") = 0
-                    RC("esl_no") = 0
-                    RC("esl_date") = dr("date1")
-                    RC("pname") = dr("notse")
-                    RC("pay") = -dr("cash")
-                    RC("rest") = 0
-                    RC("ptot") = 0
-                    RC("company_name") = dr("sub_name")
-                    F31.Rows.Add(RC)
-                End While
+            End If
+        End If
+        Dim yys As String = ""
+        If cesl_date.Checked = False Then yys = " date1 between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'" Else yys = " date1 ='" & ChangeFormat(esl_date.Value) & "'"
+        If EXPENS.Checked = True And FESLT = 1 And asm = 1 Then
+            dr.Close()
+            cmd.CommandText = "select * from lcash where sub_code=4 and save_code='" & saven & "' and " & yys & "   " & xaa & " and branch_name='" & branch_name.Text & "'"
+            dr = cmd.ExecuteReader
+            While dr.Read()
                 RC = F31.NewRow
-                RC("usr") = ""
+                RC("usr") = dr("usr")
                 RC("test") = "----------"
-                RC("eslb") = 0
+                RC("eslb") = -dr("cash")
                 RC("bon") = 0
-                RC("esl_no") = 1
-                'RC("esl_date") = ""
-                RC("pname") = ""
-                RC("pay") = 0
+                RC("esl_no") = 0
+                RC("esl_date") = dr("date1")
+                RC("pname") = dr("notse")
+                RC("pay") = -dr("cash")
                 RC("rest") = 0
                 RC("ptot") = 0
-                RC("company_name") = ""
+                RC("company_name") = dr("sub_name")
                 F31.Rows.Add(RC)
-            End If
-            TabControl2.SelectTab(1)
-            Dim x As Integer = 0
-            Dim asdm As Double = 0
-            While Not x = F31.Rows.Count
-                asdm = asdm + Val(nulls(F31.Rows(x).Item("eslb")) - nulls(F31.Rows(x).Item("ptot")))
-                x = x + 1
             End While
-            RSD.Text = asdm
-            'MsgBox(asdm)
 
-            If RP1.Checked = True Then
-                Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
-                If asm = 1 Then
-                    If rpt = 0 Then MsgBox("·«  ÊÃœ ’·«ÕÌ…") : Exit Sub
-                    If RadioButton2.Checked = True Then oj.Load(Application.StartupPath & "\bill edit.rpt") Else oj.Load(Application.StartupPath & "\bill.rpt")
-                ElseIf asm = 0 Then
-                    dr.Close()
-                    cmd.CommandText = "select * from lcompany where code='" & REG_CODE.Text & "'"
-                    dr = cmd.ExecuteReader
-                    dr.Read()
-                    x = 0
-                    While Not x = F31.Rows.Count
-                        RC = F31.Rows(x)
-                        RC.BeginEdit()
-                        RC("doc_per") = dr("add1")
-                        RC.EndEdit()
-                        x = x + 1
-                    End While
-                    oj.Load(Application.StartupPath & "\doc pers.rpt")
-                ElseIf asm = 4 Then
-                    If lcult1 = 0 Then oj.SetParameterValue("5", 0) Else oj.SetParameterValue("5", 0)
-                    oj.Load(Application.StartupPath & "\bill.rpt")
-                ElseIf asm = 6 Then
-                    oj.Load(Application.StartupPath & "\doc1.rpt")
-                ElseIf asm = 9 Then
-                    oj.Load(Application.StartupPath & "\docS.rpt")
-                ElseIf asm = 10 Then
-                    oj.Load(Application.StartupPath & "\labd.rpt")
-                ElseIf asm = 14 Then
-                    oj.Load(Application.StartupPath & "\labd1.rpt")
-                ElseIf asm = 7 Then
-                    oj.Load(Application.StartupPath & "\doc.rpt")
-                ElseIf asm = 5 Then
-                    oj.Load(Application.StartupPath & "\billm.rpt")
-                ElseIf asm = 11 Then
-                    oj.Load(Application.StartupPath & "\billy.rpt")
-                ElseIf asm = 12 Then
-                    oj.Load(Application.StartupPath & "\rcv.rpt")
-                ElseIf asm = 13 Then
-                    oj.Load(Application.StartupPath & "\doc2.rpt")
-                End If
-                oj.Database.Tables(0).SetDataSource(F31)
-                oj.SetParameterValue("1", " ﬁ—Ì— «· ›’Ì·Ï Œ·«· › —… „‰ ")
-                oj.SetParameterValue("2", d1.Value)
-                oj.SetParameterValue("3", d2.Value)
-                If ls = 0 Then oj.SetParameterValue("5", "0") Else oj.SetParameterValue("5", "1")
-                If mng = 1 Or (cesl_date.Checked = True And lp = 1) Then oj.SetParameterValue("118", 1) Else oj.SetParameterValue("118", 0)
-                If asm = 4 Then
-                    IO.File.Delete(Application.StartupPath & "\test\day.pdf")
-                    oj.ExportToDisk(CrystalDecisions.[Shared].ExportFormatType.PortableDocFormat, Application.StartupPath & "\test\day.pdf")
-                    ACdr.Close()
-                    ACcmd.CommandText = "insert into email(name) values ('\test\day.pdf')"
-                    ACcmd.ExecuteNonQuery()
-                Else
-                    rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
-                    rp.Show()
-                    rp.Focus()
-                End If
-            End If
-            fnor(3)
-            F31DTG()
-            rrr.Kill()
-            LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì—", 1, bran.Text)
-        Catch ex As Exception
-
-            Dim st As String = ex.Message
-            st = st.Replace("'", "-")
             dr.Close()
-            cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','f3','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
-            cmd.ExecuteNonQuery()
-            MsgBox(st) : If ex.Message = "Load report failed." Then End
-        End Try
+            cmd.CommandText = "select * from lcash where sub_code=9 and save_code='" & saven & "' and  " & yys & "   " & xaa & " and branch_name='" & branch_name.Text & "'"
+            dr = cmd.ExecuteReader
+            While dr.Read()
+                RC = F31.NewRow
+                RC("usr") = dr("usr")
+                RC("test") = "----------"
+                RC("eslb") = -dr("cash")
+                RC("bon") = 0
+                RC("esl_no") = 0
+                RC("esl_date") = dr("date1")
+                RC("pname") = dr("notse")
+                RC("pay") = -dr("cash")
+                RC("rest") = 0
+                RC("ptot") = 0
+                RC("company_name") = dr("sub_name")
+                F31.Rows.Add(RC)
+            End While
+            dr.Close()
+            cmd.CommandText = "select * from lcash where sub_code=11 and " & yys & "   " & xaa & " and branch_name='" & branch_name.Text & "' and save_code='" & saven & "'"
+            dr = cmd.ExecuteReader
+            While dr.Read()
+                RC = F31.NewRow
+                RC("usr") = dr("usr")
+                RC("test") = "----------"
+                RC("eslb") = -dr("cash")
+                RC("bon") = 0
+                RC("esl_no") = 0
+                RC("esl_date") = dr("date1")
+                RC("pname") = dr("notse")
+                RC("pay") = -dr("cash")
+                RC("rest") = 0
+                RC("ptot") = 0
+                RC("company_name") = dr("sub_name")
+                F31.Rows.Add(RC)
+            End While
+            RC = F31.NewRow
+            RC("usr") = ""
+            RC("test") = "----------"
+            RC("eslb") = 0
+            RC("bon") = 0
+            RC("esl_no") = 1
+            'RC("esl_date") = ""
+            RC("pname") = ""
+            RC("pay") = 0
+            RC("rest") = 0
+            RC("ptot") = 0
+            RC("company_name") = ""
+            F31.Rows.Add(RC)
+        End If
+        TabControl2.SelectTab(1)
+        Dim x As Integer = 0
+        Dim asdm As Double = 0
+        While Not x = F31.Rows.Count
+            asdm = asdm + Val(nulls(F31.Rows(x).Item("eslb")) - nulls(F31.Rows(x).Item("ptot")))
+            x = x + 1
+        End While
+        RSD.Text = asdm
+        'MsgBox(asdm)
+
+        If RP1.Checked = True Then
+            Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
+            If asm = 1 Then
+                If rpt = 0 Then MsgBox("·«  ÊÃœ ’·«ÕÌ…") : Exit Sub
+                If RadioButton2.Checked = True Then oj.Load(Application.StartupPath & "\bill edit.rpt") Else oj.Load(Application.StartupPath & "\bill.rpt")
+            ElseIf asm = 0 Then
+                dr.Close()
+                cmd.CommandText = "select * from lcompany where code='" & REG_CODE.Text & "'"
+                dr = cmd.ExecuteReader
+                dr.Read()
+                x = 0
+                While Not x = F31.Rows.Count
+                    RC = F31.Rows(x)
+                    RC.BeginEdit()
+                    RC("doc_per") = dr("add1")
+                    RC.EndEdit()
+                    x = x + 1
+                End While
+                oj.Load(Application.StartupPath & "\doc pers.rpt")
+            ElseIf asm = 4 Then
+                If lcult1 = 0 Then oj.SetParameterValue("5", 0) Else oj.SetParameterValue("5", 0)
+                oj.Load(Application.StartupPath & "\bill.rpt")
+            ElseIf asm = 6 Then
+                oj.Load(Application.StartupPath & "\doc1.rpt")
+            ElseIf asm = 15 Then
+                oj.Load(Application.StartupPath & "\comp1.rpt")
+            ElseIf asm = 9 Then
+                oj.Load(Application.StartupPath & "\docS.rpt")
+            ElseIf asm = 10 Then
+                oj.Load(Application.StartupPath & "\labd.rpt")
+            ElseIf asm = 14 Then
+                oj.Load(Application.StartupPath & "\labd1.rpt")
+            ElseIf asm = 7 Then
+                oj.Load(Application.StartupPath & "\doc.rpt")
+            ElseIf asm = 5 Then
+                oj.Load(Application.StartupPath & "\billm.rpt")
+            ElseIf asm = 11 Then
+                oj.Load(Application.StartupPath & "\billy.rpt")
+            ElseIf asm = 12 Then
+                oj.Load(Application.StartupPath & "\rcv.rpt")
+            ElseIf asm = 13 Then
+                oj.Load(Application.StartupPath & "\doc2.rpt")
+            End If
+            oj.Database.Tables(0).SetDataSource(F31)
+            oj.SetParameterValue("1", " ﬁ—Ì— «· ›’Ì·Ï Œ·«· › —… „‰ ")
+            oj.SetParameterValue("2", d1.Value)
+            oj.SetParameterValue("3", d2.Value)
+            If ls = 0 Then oj.SetParameterValue("5", "0") Else oj.SetParameterValue("5", "1")
+            If mng = 1 Or (cesl_date.Checked = True And lp = 1) Then oj.SetParameterValue("118", 1) Else oj.SetParameterValue("118", 0)
+            If asm = 4 Then
+                IO.File.Delete(Application.StartupPath & "\test\day.pdf")
+                oj.ExportToDisk(CrystalDecisions.[Shared].ExportFormatType.PortableDocFormat, Application.StartupPath & "\test\day.pdf")
+                ACdr.Close()
+                ACcmd.CommandText = "insert into email(name) values ('\test\day.pdf')"
+                ACcmd.ExecuteNonQuery()
+            Else
+                rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
+                rp.Show()
+                rp.Focus()
+            End If
+        End If
+
+        F31DTG()
+        rrr.Kill()
+        LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì—", 1, bran.Text)
+        fnor(3)
+        'Catch ex As Exception
+
+        '    Dim st As String = ex.Message
+        '    st = st.Replace("'", "-")
+        '    dr.Close()
+        '    cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','f3','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
+        '    cmd.ExecuteNonQuery()
+        '    MsgBox(st) : If ex.Message = "Load report failed." Then End
+        'End Try
 
     End Sub
     Public Sub F31DTG()
@@ -4522,15 +4586,15 @@ mali:
         cmd1.CommandText = "select * from lbill where rest<>0 and pcode='" & pcode.Text & "'"
         dr1 = cmd1.ExecuteReader
         If dr1.HasRows And msga = 1 Then
-            Dim xxaa As String = "«·»Ê«ﬁÏ «·ﬁœÌ„… ⁄·Ï «·„—Ì÷ øøøø"
+            Dim xxaa As String = " <<<< «·»Ê«ﬁÏ «·ﬁœÌ„… ⁄·Ï «·„—Ì÷ " & pname.Text
             xxaa = xxaa & Environment.NewLine
             While dr1.Read
                 xxaa = xxaa & Environment.NewLine & dr1("esl_date") & " ------>  " & dr1("rest")
             End While
 
-            MsgBox(xxaa, MsgBoxStyle.Critical)
+            MsgBox(xxaa, MsgBoxStyle.Critical, "«·»Ê«ﬁÏ «·„”Ã·… ⁄·Ï «·„—Ì÷")
         End If
-        LLOG("«” œ⁄«¡", esl_no.Text, "  «” œ⁄«¡ «”„ " & pname.Text, 1, bran.Text)
+
         dr.Close()
         cmd.CommandText = "select * from lpatien where pcode='" & pcode.Text & "'"
         dr = cmd.ExecuteReader
@@ -4823,159 +4887,160 @@ mali:
     Private Sub TestToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
     End Sub
-    Public Sub TESTS(ByVal typ As String)
-        'Try
-        If lres = 0 And typ <> "prnt" And typ <> "email" Then
-            If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
-            LLOG("⁄—÷ ‰ ÌÃ…", esl_no.Text, " ⁄—÷ ‰ ÌÃ… " & pname.Text, 0, bran.Text)
-            Exit Sub
-        End If
-        dr.Close()
-        Dim NN As Integer = 0
-        Dim NT As Integer = 0
-        rp.CrystalReportViewer1.ShowPrintButton = True
-        rp.CrystalReportViewer1.ShowExportButton = True
-
-        dr.Close()
-        cmd.CommandText = "select count(test_name),MAX(PRNTN) from  lbill_test where ESL_NO='" & Val(esl_no.Text) & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & "and qun=1 and sub<>1 AND CULT=0"
-        dr = cmd.ExecuteReader
-        dr.Read()
-        If dr.HasRows Then
-            Dim cc As Integer = 0
-            cc = dr(0)
-            NN = nulls(dr(1))
+    Public Sub TESTS(ByVal typ As String, ByVal logo As Int16)
+        Try
+            If lres = 0 And typ <> "prnt" And typ <> "email" Then
+                If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
+                LLOG("⁄—÷ ‰ ÌÃ…", esl_no.Text, " ⁄—÷ ‰ ÌÃ… " & pname.Text, 0, bran.Text)
+                Exit Sub
+            End If
             dr.Close()
-            cmd.CommandText = "update lbill set tnum='" & cc & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-            cmd.ExecuteNonQuery()
-        End If
-        If lres = 1 Then
-            NORE(1, 0)
-        End If
-        If CRES.Checked = False Then
-            Dim nss As Integer
-            nss = 0
-            While Not nss = testres.Rows.Count
-                testres.Rows(nss).BeginEdit()
-                If testres.Rows(nss).Item("res") = "-" Or testres.Rows(nss).Item("res") = " " Or testres.Rows(nss).Item("res") = "" Then
-                    If testres.Rows(nss).Item("sub") = 0 And testres.Rows(nss).Item("cult") = 0 Then
-                        testres.Rows(nss).Item("qun") = "0"
-                    End If
-                Else
-                    testres.Rows(nss).Item("qun") = "1"
-                End If
+            Dim NN As Integer = 0
+            Dim NT As Integer = 0
+            rp.CrystalReportViewer1.ShowPrintButton = True
+            rp.CrystalReportViewer1.ShowExportButton = True
 
-                testres.Rows(nss).EndEdit()
-                nss += 1
-            End While
-        End If
-
-        SAVERES(0, 0)
-
-        dr.Close()
-        DBS.Tables("esl").Clear()
-        cmdesl.Parameters.Clear()
-        cmdesl.CommandText = "pres"
-        cmdesl.CommandType = CommandType.StoredProcedure
-        cmdesl.Parameters.AddWithValue("esl_no", Val(esl_no.Text))
-        cmdesl.Parameters.AddWithValue("yearn", Val(YEARN.Text))
-        cmdesl.Parameters.AddWithValue("bran", bran.Text)
-        adesl.SelectCommand = cmdesl
-        adesl.Fill(DBS, "esl")
-        '====================HISTORY===========================
-        Dim NB As Integer = 0
-        While Not NB = DBS.Tables("esl").Rows.Count
-            If nulls(DBS.Tables("esl").Rows(NB).Item("PTHN")) = 1 Then
+            dr.Close()
+            cmd.CommandText = "select count(test_name),MAX(PRNTN) from  lbill_test where ESL_NO='" & Val(esl_no.Text) & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & "and qun=1 and sub<>1 AND CULT=0"
+            dr = cmd.ExecuteReader
+            dr.Read()
+            If dr.HasRows Then
+                Dim cc As Integer = 0
+                cc = dr(0)
+                NN = nulls(dr(1))
                 dr.Close()
-                cmd.CommandText = "SELECT * FROM LBILL_TEST WHERE ESL_NO<>'" & DBS.Tables("esl").Rows(0).Item("ESL_NO") & "' " & " and TDEL=0  and bran='" & bran.Text & "'" & " AND TEST_CODE='" & DBS.Tables("esl").Rows(NB).Item("TEST_CODE") & "' AND PCODE='" & DBS.Tables("esl").Rows(NB).Item("PCODE") & "' ORDER BY  ESL_DATE DESC"
-                dr = cmd.ExecuteReader
-                While dr.Read()
-                    DBS.Tables("esl").Rows(NB).BeginEdit()
-                    DBS.Tables("esl").Rows(NB).Item("PTH") = DBS.Tables("esl").Rows(NB).Item("PTH") & " (" & dr("ESL_DATE") & ">>" & dr("RES") & " )"
-                    DBS.Tables("esl").Rows(NB).EndEdit()
+                cmd.CommandText = "update lbill set tnum='" & cc & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+                cmd.ExecuteNonQuery()
+            End If
+            If lres = 1 Then
+                NORE(1, 0)
+            End If
+            If CRES.Checked = False Then
+                Dim nss As Integer
+                nss = 0
+                While Not nss = testres.Rows.Count
+                    testres.Rows(nss).BeginEdit()
+                    If testres.Rows(nss).Item("res") = "-" Or testres.Rows(nss).Item("res") = " " Or testres.Rows(nss).Item("res") = "" Then
+                        If testres.Rows(nss).Item("sub") = 0 And testres.Rows(nss).Item("cult") = 0 Then
+                            testres.Rows(nss).Item("qun") = "0"
+                        End If
+                    Else
+                        testres.Rows(nss).Item("qun") = "1"
+                    End If
+
+                    testres.Rows(nss).EndEdit()
+                    nss += 1
                 End While
             End If
-            If nulls(DBS.Tables("esl").Rows(NB).Item("res")) = "0" Then
-                ers.Rows.Add(nulls(DBS.Tables("esl").Rows(NB).Item("test_name")))
-                brpd.BackgroundColor = Color.Red
-            End If
-            NB = NB + 1
-        End While
-        brpd.DataSource = ers
-        '====================END===============================
-        If sprnt = 1 Then Me.Text = "«·—Ã«¡  ”œÌœ «·»«ﬁÏ"
-        If sprnt = 0 Then NT = 0
-        If sprnt = 1 And REST_PRNT = 1 Then NT = 0
-        If sprnt = 1 And REST_PRNT = 0 Then NT = 1
-        If DBS.Tables("esl").Rows.Count > 0 Then
-            Dim qqqq As String = ""
-            If typ = "email" Then
-                qqqq = ""
-            End If
 
-            Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
-            If SEP.Checked = True Then
-                oj.Load(Application.StartupPath & rptp.Text & qqqq & "\res.rpt")
-            ElseIf PANEL.Checked = True Then
-                oj.Load(Application.StartupPath & rptp.Text & qqqq & "\resP.rpt")
-            ElseIf GROP.Checked = True Then
+            SAVERES(0, 0)
 
-                oj.Load(Application.StartupPath & rptp.Text & qqqq & "\resg.rpt")
-            End If
-            oj.Database.Tables(0).SetDataSource(DBS.Tables("esl"))
-            oj.SetParameterValue("REF", ref1)
-            oj.SetParameterValue("11", 0)
-            If typ = "rpt" Then
-                ''If PV.Checked = True Then NT = 1
-                rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
-                If NT = 0 Then
+            dr.Close()
+            DBS.Tables("esl").Clear()
+            cmdesl.Parameters.Clear()
+            cmdesl.CommandText = "pres"
+            cmdesl.CommandType = CommandType.StoredProcedure
+            cmdesl.Parameters.AddWithValue("esl_no", Val(esl_no.Text))
+            cmdesl.Parameters.AddWithValue("yearn", Val(YEARN.Text))
+            cmdesl.Parameters.AddWithValue("bran", bran.Text)
+            adesl.SelectCommand = cmdesl
+            adesl.Fill(DBS, "esl")
+            '====================HISTORY===========================
+            Dim NB As Integer = 0
+            While Not NB = DBS.Tables("esl").Rows.Count
+                If nulls(DBS.Tables("esl").Rows(NB).Item("PTHN")) = 1 Then
+                    dr.Close()
+                    cmd.CommandText = "SELECT * FROM LBILL_TEST WHERE ESL_NO<>'" & DBS.Tables("esl").Rows(0).Item("ESL_NO") & "' " & " and TDEL=0  and bran='" & bran.Text & "'" & " AND TEST_CODE='" & DBS.Tables("esl").Rows(NB).Item("TEST_CODE") & "' AND PCODE='" & DBS.Tables("esl").Rows(NB).Item("PCODE") & "' ORDER BY  ESL_DATE DESC"
+                    dr = cmd.ExecuteReader
+                    While dr.Read()
+                        DBS.Tables("esl").Rows(NB).BeginEdit()
+                        DBS.Tables("esl").Rows(NB).Item("PTH") = DBS.Tables("esl").Rows(NB).Item("PTH") & " (" & dr("ESL_DATE") & ">>" & dr("RES") & " )"
+                        DBS.Tables("esl").Rows(NB).EndEdit()
+                    End While
+                End If
+                If nulls(DBS.Tables("esl").Rows(NB).Item("res")) = "0" Then
+                    ers.Rows.Add(nulls(DBS.Tables("esl").Rows(NB).Item("test_name")))
+                    brpd.BackgroundColor = Color.Red
+                End If
+                NB = NB + 1
+            End While
+            brpd.DataSource = ers
+            '====================END===============================
+            If sprnt = 1 Then Me.Text = "«·—Ã«¡  ”œÌœ «·»«ﬁÏ"
+            If sprnt = 0 Then NT = 0
+            If sprnt = 1 And REST_PRNT = 1 Then NT = 0
+            If sprnt = 1 And REST_PRNT = 0 Then NT = 1
+            If DBS.Tables("esl").Rows.Count > 0 Then
+                Dim qqqq As String = ""
+                If typ = "email" Then
+                    qqqq = ""
+                End If
+
+                Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
+                If SEP.Checked = True Then
+                    oj.Load(Application.StartupPath & rptp.Text & qqqq & "\res.rpt")
+                ElseIf PANEL.Checked = True Then
+                    oj.Load(Application.StartupPath & rptp.Text & qqqq & "\resP.rpt")
+                ElseIf GROP.Checked = True Then
+
+                    oj.Load(Application.StartupPath & rptp.Text & qqqq & "\resg.rpt")
+                End If
+                oj.Database.Tables(0).SetDataSource(DBS.Tables("esl"))
+                oj.SetParameterValue("REF", ref1)
+                oj.SetParameterValue("11", 0)
+                If typ = "rpt" Then
+                    ''If PV.Checked = True Then NT = 1
+                    rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
+                    If NT = 0 Then
+                        rp.CrystalReportViewer1.ShowPrintButton = True
+                        rp.CrystalReportViewer1.ShowExportButton = True
+                        dr.Close()
+                        If prnitnn = 1 Then
+                            cmd.CommandText = "update lbill set sprnt=sprnt+1 ,printtime='" & ChangeFormatall(Now) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+                            cmd.ExecuteNonQuery()
+                        End If
+                        LLOG("ÿ»«⁄…", esl_no.Text, " ÿ»«⁄… ‰ ÌÃ…   " & pname.Text, 1, bran.Text)
+                    Else
+                        'rp.CrystalReportViewer1.ShowPrintButton = False
+                        'rp.CrystalReportViewer1.ShowExportButton = False
+                        LLOG("⁄—÷", esl_no.Text, " ⁄—÷ ‰ ÌÃ… " & pname.Text, 1, bran.Text)
+
+                    End If
+                    If finals.Checked = False And NT = 0 And fath = 0 Then
+                        rp.CrystalReportViewer1.ShowPrintButton = False
+                        rp.CrystalReportViewer1.ShowExportButton = False
+                    End If
+                    If edt = 0 Or REST_PRNT = 0 And fath = 0 Then
+                        rp.CrystalReportViewer1.ShowPrintButton = False
+                        rp.CrystalReportViewer1.ShowExportButton = False
+                    End If
+                    rp.Show()
+
+                ElseIf typ = "prnt" And DBS.Tables("esl").Rows.Count > 0 And lpnum = 1 Then
+                    rppnt = 1
                     rp.CrystalReportViewer1.ShowPrintButton = True
                     rp.CrystalReportViewer1.ShowExportButton = True
+                    oj.PrintToPrinter(1, False, 0, 0)
                     dr.Close()
-                    If prnitnn = 1 Then
-                        cmd.CommandText = "update lbill set sprnt=sprnt+1 ,printtime='" & ChangeFormatall(Now) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                        cmd.ExecuteNonQuery()
-                    End If
-                    LLOG("ÿ»«⁄…", esl_no.Text, " ÿ»«⁄… ‰ ÌÃ…   " & pname.Text, 1, bran.Text)
-                Else
-                    'rp.CrystalReportViewer1.ShowPrintButton = False
-                    'rp.CrystalReportViewer1.ShowExportButton = False
-                    LLOG("⁄—÷", esl_no.Text, " ⁄—÷ ‰ ÌÃ… " & pname.Text, 1, bran.Text)
+                    cmd.CommandText = "update lbill_test set prnttime='" & ChangeFormatall(Now) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & "and qun=1 and sub<>1 and CULT<>1"
+                    cmd.ExecuteNonQuery()
+                    LLOG("ÿ»«⁄… ‰ ÌÃ…", esl_no.Text, " ÿ»«⁄… ‰ ÌÃ… " & pname.Text, 1, bran.Text)
 
+                ElseIf typ = "email" Then
+                    oj.SetParameterValue("11", 0)
+                    If logo = 1 Then oj.SetParameterValue("11", 1)
+                    oj.ExportToDisk(CrystalDecisions.[Shared].ExportFormatType.PortableDocFormat, SourceDirectory & "1.pdf")
                 End If
-                If finals.Checked = False And NT = 0 And fath = 0 Then
-                    rp.CrystalReportViewer1.ShowPrintButton = False
-                    rp.CrystalReportViewer1.ShowExportButton = False
-                End If
-                If edt = 0 Or REST_PRNT = 0 And fath = 0 Then
-                    rp.CrystalReportViewer1.ShowPrintButton = False
-                    rp.CrystalReportViewer1.ShowExportButton = False
-                End If
-                rp.Show()
-
-            ElseIf typ = "prnt" And DBS.Tables("esl").Rows.Count > 0 And lpnum = 1 Then
-                rppnt = 1
-                rp.CrystalReportViewer1.ShowPrintButton = True
-                rp.CrystalReportViewer1.ShowExportButton = True
-                oj.PrintToPrinter(1, False, 0, 0)
-                dr.Close()
-                cmd.CommandText = "update lbill_test set prnttime='" & ChangeFormatall(Now) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & "and qun=1 and sub<>1 and CULT<>1"
-                cmd.ExecuteNonQuery()
-                LLOG("ÿ»«⁄… ‰ ÌÃ…", esl_no.Text, " ÿ»«⁄… ‰ ÌÃ… " & pname.Text, 1, bran.Text)
-
-            ElseIf typ = "email" Then
-                oj.SetParameterValue("11", 1)
-                oj.ExportToDisk(CrystalDecisions.[Shared].ExportFormatType.PortableDocFormat, SourceDirectory & "1.pdf")
+            Else
             End If
-        Else
-        End If
-        'Catch ex As Exception
-        '    Dim st As String = ex.Message
-        '    st = st.Replace("'", "-")
-        '    dr.Close()
-        '    cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','print all','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
-        '    cmd.ExecuteNonQuery()
-        '    MsgBox(st) : If ex.Message = "Load report failed." Then End
-        'End Try
+        Catch ex As Exception
+            Dim st As String = ex.Message
+            st = st.Replace("'", "-")
+            dr.Close()
+            cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','print all','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
+            cmd.ExecuteNonQuery()
+            MsgBox(st) : If ex.Message = "Load report failed." Then End
+        End Try
     End Sub
     Public Sub NORE(ByVal SMSS As Integer, ByVal asss As Integer)
         On Error Resume Next
@@ -5633,7 +5698,7 @@ mali:
 
 
     End Sub
-    Public Sub prof(ByVal esln As String, ByVal typ As String, ByVal PRN As Integer)
+    Public Sub prof(ByVal esln As String, ByVal typ As String, ByVal PRN As Integer, ByVal logo As Int16)
 
         'On Error Resume Next
         Try
@@ -5648,8 +5713,6 @@ mali:
                 rp.CrystalReportViewer1.ShowExportButton = False
             End If
             dr.Close()
-
-
             Dim NT As Int16 = 0
             Dim NN As Integer = 0
             If sprnt = 1 Then Me.Text = "«·—Ã«¡  ”œÌœ «·»«ﬁÏ"
@@ -5662,7 +5725,6 @@ mali:
             Else
                 Exit Sub
             End If
-
             If sprnt = 0 Then NT = 0
             If sprnt = 1 And REST_PRNT = 1 Then NT = 0
             If sprnt = 1 And REST_PRNT = 0 Then NT = 1
@@ -5802,7 +5864,8 @@ mali:
                         oj.Load(Application.StartupPath & rptp.Text & "\res_sub.rpt")
                         oj.Database.Tables(0).SetDataSource(DBS.Tables("pro"))
                         oj.SetParameterValue("REF", ref1)
-                        oj.SetParameterValue("11", 1)
+                        oj.SetParameterValue("11", 0)
+                        If logo = 1 Then oj.SetParameterValue("11", 1)
                         oj.ExportToDisk(CrystalDecisions.[Shared].ExportFormatType.PortableDocFormat, SourceDirectory & "2.pdf")
                     End If
 
@@ -5817,9 +5880,6 @@ mali:
             MsgBox(st) : If ex.Message = "Load report failed." Then End
         End Try
     End Sub
-
-   
-
    
     Public Sub pthg()
         On Error Resume Next
@@ -6213,7 +6273,7 @@ mali:
 
 
 
-    Public Sub FCULT(ByVal MM As String)
+    Public Sub FCULT(ByVal MM As String ,logo as Int16)
         Try
             If lres = 0 And MM <> "prnt" And MM <> "email" Then
                 If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
@@ -6297,7 +6357,8 @@ mali:
                     oj.Load(Application.StartupPath & rptp.Text & "\res cult.rpt")
                     oj.Database.Tables(0).SetDataSource(DBS.Tables("cultf"))
                     oj.SetParameterValue("REF", ref1)
-                    oj.SetParameterValue("11", 1)
+                    oj.SetParameterValue("11", 0)
+                    If logo = 1 Then oj.SetParameterValue("11", 1)
                     oj.ExportToDisk(CrystalDecisions.[Shared].ExportFormatType.PortableDocFormat, SourceDirectory & "3.pdf")
                 End If
             End If
@@ -6905,9 +6966,9 @@ smm:
             ACdr.Close()
             ACcmd.CommandText = "delete * from email "
             ACcmd.ExecuteNonQuery()
-            TESTS("email")
-            prof(esl_no.Text, "email", 1)
-            FCULT("EMAIL")
+            TESTS("email", 0)
+            prof(esl_no.Text, "email", 1, 0)
+            FCULT("EMAIL", 0)
 
             If pemail.Text = "" Or pemail.Text = "0" Then
                 Dim v As String
@@ -7234,7 +7295,7 @@ mmm:
                 rp.CrystalReportViewer1.ShowPrintButton = True
                 rp.CrystalReportViewer1.ShowExportButton = True
             End If
-            prof(esl_no.Text, "rpt", 2)
+            prof(esl_no.Text, "rpt", 2, 0)
 
 
             fesl(0, 0)
@@ -9290,6 +9351,8 @@ KKK:
         cmd.ExecuteNonQuery()
         rrr.Kill()
         TPRICE()
+        ACcmd.CommandText = "update test_price set  tot=price" & BOOK_CODE.Text & ", labprice=price" & RC("BOOK_PRICE_CODE") & ""
+        ACcmd.ExecuteNonQuery()
         anew(1, 1)
 
     End Sub
@@ -9729,10 +9792,10 @@ KKK:
         dr = cmd.ExecuteReader
         dr.Read()
         If dr.HasRows = False Then
-            If msga = 1 Then
-                If lng = "AR" Then N = MsgBox(SAVEAR & " " & comment1.Text, MsgBoxStyle.YesNo) Else N = MsgBox(SAVEEN & " " & comment1.Text, MsgBoxStyle.YesNo)
-                If N = vbNo Then Exit Sub
-            End If
+            'If msga = 1 Then
+            '    If lng = "AR" Then N = MsgBox(SAVEAR & " " & comment1.Text, MsgBoxStyle.YesNo) Else N = MsgBox(SAVEEN & " " & comment1.Text, MsgBoxStyle.YesNo)
+            '    If N = vbNo Then Exit Sub
+            'End If
             dr.Close() : cmd.CommandText = "insert into lcomment  (NAME)  values ('" & Trim(comment1.Text) & "')"
             cmd.ExecuteNonQuery()
             comments.AutoCompleteCustomSource.Add(comments.Text)
@@ -9770,7 +9833,7 @@ KKK:
         Try
             If prnt = 0 Then
                 If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
-                LLOG(" ÿ»«⁄… »«—ﬂÊœ  Õ·Ì·", esl_no.Text, " ÿ»«⁄… »«—ﬂÊœ  Õ·Ì·" & pname.Text, 0, bran.Text)
+                LLOG("print barcode", esl_no.Text, " ÿ»«⁄… »«—ﬂÊœ  Õ·Ì·" & pname.Text, 0, bran.Text)
                 Exit Sub
             End If
             ACdr.Close()
@@ -9814,7 +9877,7 @@ mm:
                 nnw = nnw + 1
             End While
             bar.Rows.Clear()
-            LLOG(" ÿ»«⁄… »«—ﬂÊœ  Õ·Ì·", esl_no.Text, " ÿ»«⁄… »«—ﬂÊœ  Õ·Ì·" & pname.Text, 1, bran.Text)
+            LLOG("print barcode", esl_no.Text, " ÿ»«⁄… »«—ﬂÊœ  Õ·Ì·" & pname.Text, 1, bran.Text)
 
         Catch ex As Exception
             Dim st1 As String = "BAR"
@@ -9846,7 +9909,7 @@ mm:
         If esl_no.Text = "" Then Me.Text = "«·—Ã«¡ «Œ Ì«— «·«Ì’«·" : Exit Sub
         brpd.BackgroundColor = Color.White
         ers.Rows.Clear()
-        TESTS("rpt")
+        TESTS("rpt", 0)
         fres()
 
     End Sub
@@ -9855,7 +9918,7 @@ mm:
         If esl_no.Text = "" Then Me.Text = "«·—Ã«¡ «Œ Ì«— «·«Ì’«·" : Exit Sub
         ers.Rows.Clear()
         SAVERES(0, 0)
-        prof(esl_no.Text, "rpt", 1)
+        prof(esl_no.Text, "rpt", 1, 0)
         Dim m As String = "gtext"
         fres()
 
@@ -9923,7 +9986,7 @@ mm:
         If msga = 1 Then
             Me.Text = " „  ⁄„·Ì… Õ›Ÿ «·‰ ÌÃ…"
         End If
-        FCULT("RPT")
+        FCULT("RPT", 0)
 
     End Sub
     Public Sub savecult()
@@ -10026,7 +10089,7 @@ mm:             n = n + 1
         FPRINTV()
     End Sub
 
-   
+
 
     Private Sub ref_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles ref.MouseHover
         llname = "REF"
@@ -10096,6 +10159,74 @@ mm:
         printall()
 
     End Sub
+    Public Sub finalprint()
+        Dim xx As Integer = 0
+        If F31.Rows.Count <= 0 Then Me.Text = "«·—Ã«¡ «Œ Ì«— «·«Ì’«·« " : Exit Sub
+        While Not xx = F31.Rows.Count
+            If F31.Rows(xx).RowState = DataRowState.Deleted Then GoTo mmm
+            If nulls(F31.Rows(xx).Item("final")) = 0 Then GoTo mmm
+
+            Dim totx As Double = 0
+            Dim totz As Double = 0
+            Dim toty As Double = 0
+            esl_no.Text = F31.Rows(xx).Item("esl_no")
+            REST.Text = F31.Rows(xx).Item("rest")
+            dr.Close()
+            If FESLT = 1 Then
+                cmd.CommandText = "SELECT sum(tot) FROM lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+                dr = cmd.ExecuteReader
+                dr.Read()
+                totx = nulls(dr(0))
+                dr.Close()
+                cmd.CommandText = "select sum(test_price - (test_price * dis_n * .01)) from lbill_test where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and qun=0 and prntn > 0 and bran='" & bran.Text & "'"
+                dr = cmd.ExecuteReader
+                dr.Read()
+                toty = nulls(dr(0))
+                dr.Close()
+                cmd.CommandText = "select sum(test_price - (test_price * dis_n * .01)) from lbill_test where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and qun=1 and bran='" & bran.Text & "'"
+                dr = cmd.ExecuteReader
+                dr.Read()
+                totz = nulls(dr(0))
+                rppnt = 0
+            End If
+
+            If edt = 0 Then
+                If Val(totx * cash_per.Text * 0.01) >= (totz + toty) Or REST.Text = 0 Or mng = 1 Then
+                    TESTS("prnt", 0)
+                    prof(esl_no.Text, "prnt", 1, 0)
+                    FCULT("PRNT", 0)
+                End If
+            ElseIf REST.Text = 0 Or REST_PRNT = 1 Then
+                TESTS("prnt", 0)
+                prof(esl_no.Text, "prnt", 1, 0)
+                FCULT("PRNT", 0)
+            Else
+                MsgBox("«· Õ«·Ì· «· Ï  „ «Œ Ì«—Â« «ﬂ»— „‰ «·„»·€ «·„œ›Ê⁄", MsgBoxStyle.Critical)
+            End If
+
+
+            dr.Close()
+            cmd.CommandText = "update lbill_test  set prntn=prntn+1 where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & "and qun=1"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "update lbill set sprnt=sprnt+1 ,printtime='" & ChangeFormatall(Now) & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            dr.Close()
+
+            LLOG("ÿ»«⁄… ‰ ÌÃ… «· Õ«·Ì·", esl_no.Text, "ÿ»«⁄… ‰ ÌÃ… «· Õ«·Ì·  " & F31.Rows(xx).Item("pname"), 1, bran.Text)
+
+mmm:
+            xx = xx + 1
+        End While
+
+
+        docs = 0
+
+
+        MsgBox(" „  ⁄„·Ì… «·ÿ»«⁄…")
+
+    End Sub
+
+
     Public Sub printall()
         Try
             SAVERES(1, 0)
@@ -10132,14 +10263,14 @@ mm:
 
                 If edt = 0 Then
                     If Val(totx * cash_per.Text * 0.01) >= (totz + toty) Or REST.Text = 0 Or mng = 1 Then
-                        TESTS("prnt")
-                        prof(esl_no.Text, "prnt", 1)
-                        FCULT("PRNT")
+                        TESTS("prnt", 0)
+                        prof(esl_no.Text, "prnt", 1, 0)
+                        FCULT("PRNT", 0)
                     End If
                 ElseIf REST.Text = 0 Or REST_PRNT = 1 Then
-                    TESTS("prnt")
-                    prof(esl_no.Text, "prnt", 1)
-                    FCULT("PRNT")
+                    TESTS("prnt", 0)
+                    prof(esl_no.Text, "prnt", 1, 0)
+                    FCULT("PRNT", 0)
                 Else
                     MsgBox("«· Õ«·Ì· «· Ï  „ «Œ Ì«—Â« «ﬂ»— „‰ «·„»·€ «·„œ›Ê⁄", MsgBoxStyle.Critical)
                 End If
@@ -10190,15 +10321,14 @@ mmm:
     End Sub
 
     Private Sub GlassButton69_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton69.Click
-        Dim N1 As String
+        'Dim N1 As String
         Dim aww As String = ""
         If PORV <> "" Then aww = " st=1, "
         SAVERES(1, 0)
-
-        If msga = 1 Then
-            N1 = MsgBox("SAVE COMMENT TO " & mtest.Text, MsgBoxStyle.YesNo)
-            If N1 = vbNo Then Exit Sub
-        End If
+        'If msga = 1 Then
+        '    N1 = MsgBox("SAVE COMMENT TO " & mtest.Text, MsgBoxStyle.YesNo)
+        '    If N1 = vbNo Then Exit Sub
+        'End If
         If subres.Rows.Count > 0 Then
             dr1.Close()
             cmd1.CommandText = "update LBILL_TESTSUB set " & aww & " note='" & comment1.Text & "' where ESL_NO='" & subres.Rows(0).Item("ESL_NO") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and   MTEST_CODE='" & subres.Rows(0).Item("MTEST_CODE") & "'"
@@ -10208,11 +10338,10 @@ mmm:
                 cmd.CommandText = " update lbill set st=2 where st=0 and ESL_NO='" & testres.Rows(0).Item("ESL_NO") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
                 cmd.ExecuteNonQuery()
             End If
-
             GlassButton50_Click(QQ35, e)
-            If msga = 1 Then
-                If lng = "AR" Then Me.Text = " „  ⁄„·Ì… «·Õ›Ÿ »‰Ã«Õ" Else Me.Text = "IT'S SAVED"
-            End If
+            'If msga = 1 Then
+            '    If lng = "AR" Then Me.Text = " „  ⁄„·Ì… «·Õ›Ÿ »‰Ã«Õ" Else Me.Text = "IT'S SAVED"
+            'End If
         End If
 
     End Sub
@@ -10940,8 +11069,8 @@ mv:
                         cmd1.CommandText = "update LBILL_TEST set " & aww & " qun='" & testres.Rows(NB).Item("qun") & "',tsq='" & testres.Rows(NB).Item("tsq") & "'  where ESL_NO='" & testres.Rows(0).Item("ESL_NO") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " AND TEST_CODE='" & testres.Rows(NB).Item("TEST_CODE") & "'"
                         cmd1.ExecuteNonQuery()
                         ali = 1
-                    ElseIf testres.Rows(NB).Item("tsq") <> testres.Rows(NB).Item("tsq1") Then
-                        cmd1.CommandText = "update LBILL_TEST set  tsq='" & testres.Rows(NB).Item("tsq") & "' where ESL_NO='" & testres.Rows(0).Item("ESL_NO") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " AND TEST_CODE='" & testres.Rows(NB).Item("TEST_CODE") & "'"
+                    ElseIf nulls(testres.Rows(NB).Item("tsq")) <> nulls(testres.Rows(NB).Item("tsq1")) Then
+                        cmd1.CommandText = "update LBILL_TEST set  tsq='" & testres.Rows(NB).Item("tsq") & "' " & aww & " where ESL_NO='" & testres.Rows(0).Item("ESL_NO") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " AND TEST_CODE='" & testres.Rows(NB).Item("TEST_CODE") & "'"
                         cmd1.ExecuteNonQuery()
                         ali = 1
                     End If
@@ -10984,7 +11113,6 @@ mv:
                     cmd1.ExecuteNonQuery()
                     ali = 1
                 End If
-
                 aax = subres.Rows(NB).Item("mTEST_NAME")
                 NB = NB + 1
             End While
@@ -10997,7 +11125,6 @@ mv:
             End If
 
             If ali = 1 And PORV.Length < 10 Then
-
                 dr.Close()
                 cmd.CommandText = " update lbill set st=2 where st=0 and ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
                 cmd.ExecuteNonQuery()
@@ -11007,7 +11134,7 @@ mv:
                 cmd.CommandText = " update lbill set FS=1 where  ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
                 cmd.ExecuteNonQuery()
             End If
-            If onl = 1 Then pau()
+
         Catch ex As Exception
             Dim st As String = ex.Message
             st = st.Replace("'", "-")
@@ -11597,7 +11724,7 @@ mmm:
     End Sub
 
 
-    Private Sub FUNCTIONToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FUNCTIONToolStripMenuItem.Click
+    Private Sub FUNCTIONToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         NORE(1, 0)
         NORE(2, 0)
         fnor(1)
@@ -11618,7 +11745,7 @@ mmm:
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If ccname = COMPANY_name.Text Then
-           
+
         End If
         Timer1.Stop()
     End Sub
@@ -11656,7 +11783,7 @@ mmm:
 
     End Sub
 
-   
+
 
     Private Sub YoutubeToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Process.Start("https://www.youtube.com/user/ASILITEG")
@@ -11983,7 +12110,7 @@ mmm:
     End Sub
 
     Private Sub Label10_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label10.Click
-
+        bon.Text = 0
     End Sub
 
     Private Sub Label10_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles Label10.MouseHover
@@ -13039,11 +13166,6 @@ mmm:
 
 
 
-    Private Sub FUNCTIONToolStripMenuItem_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs) Handles FUNCTIONToolStripMenuItem.MouseHover
-        llname = "FUNCTIONToolStripMenuItem"
-        llnamear = FUNCTIONToolStripMenuItem.Text
-
-    End Sub
 
     Private Sub HideItemToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HideItemToolStripMenuItem.Click
         Dim n As String = InputBox("enter password", , "0")
@@ -13912,7 +14034,7 @@ mmm:
 
     End Sub
 
-    
+
 
     Private Sub CheckBox1_MouseHover(ByVal sender As Object, ByVal e As System.EventArgs)
         llname = "CheckBox1"
@@ -14015,6 +14137,7 @@ mm:
     End Sub
 
     Private Sub PrintDocument1_PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
+        On Error Resume Next
         Dim f As New Font("arial", 6, FontStyle.Regular)
         Dim f1 As New Font("arial", 10, FontStyle.Regular)
         Dim f2 As New Font("arial", 22, FontStyle.Regular)
@@ -14107,9 +14230,9 @@ mm:
                 cmd.CommandText = " update lbill set st=1 where st=0 and ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
                 cmd.ExecuteNonQuery()
             End If
-            LLOG(" ’ÊÌ—", esl_no.Text, " ”Õ» —Ê‘ Â " & pname.Text, 1, bran.Text)
+            LLOG("scan", esl_no.Text, " ”Õ» —Ê‘ Â " & pname.Text, 1, bran.Text)
         End If
-        
+
     End Sub
     Private Sub SCANNERIMAGEToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
@@ -14117,7 +14240,7 @@ mm:
     End Sub
 
     Private Sub GlassButton87_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton87.Click
-       
+
         Dim n As String = InputBox("enter password", , "0")
         If n <> 5011545 Then Exit Sub
         dr.Close()
@@ -14244,7 +14367,7 @@ mm:
     End Sub
 
 
-  
+
 
     Private Sub HIDEToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
@@ -14293,13 +14416,13 @@ mm:
             FSAVEV()
             If fchk = 1 Then
                 If sbar = 1 Then FBARR() : FBARS()
-                If sbar = 1 And pap > 0 Then docs = 0 : barname()
+                If sbar = 1 And pap > 0 Then docs = 0 : barname(pap)
                 If sbill = 1 Then FPESL("esl")
                 If slist = 1 Then FWORKSHEET()
                 If sscan = 1 Then
                     If prnt = 0 Then
                         If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
-                        LLOG(" ’ÊÌ—", esl_no.Text, " ”Õ» ’Ê—… «·—Ê‘ Â " & pname.Text, 0, bran.Text)
+
                         Exit Sub
                     End If
                     FSCAN()
@@ -14775,7 +14898,7 @@ mm:
 
     End Sub
 
-  
+
 
     Private Sub esld_CellEndEdit(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles esld.CellEndEdit
         'ESLBILL.Text = 0
@@ -14838,7 +14961,7 @@ mm:
             oj.SetParameterValue("ss", ss)
             rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
             If vv.Checked = True Then rp.Show() : rp.Focus() Else oj.PrintToPrinter(1, False, 0, 0)
-            LLOG("ÿ»«⁄…", esl_no.Text, " ÿ»«⁄… ÃÊ» «Ê—œ— " & pname.Text, 1, bran.Text)
+            LLOG("print", esl_no.Text, " ÿ»«⁄… ÃÊ» «Ê—œ— " & pname.Text, 1, bran.Text)
         Catch ex As Exception
             Dim st1 As String = "WORK SHEET"
             Dim st As String = ex.Message
@@ -14849,7 +14972,7 @@ mm:
             MsgBox(st) : If ex.Message = "Load report failed." Then End
         End Try
     End Sub
-   
+
     Private Sub GlassButton94_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton94.Click
         Try
             Dim N As String = MsgBox("Â·  „ «· ”·Ì„ «·‰ ÌÃ… ··„—Ì÷ " & " " & pname.Text, MsgBoxStyle.YesNo)
@@ -14909,10 +15032,10 @@ mm:
         '    n = n + 1
         'End While
     End Sub
-    Public Sub barname()
+    Public Sub barname(ByVal num As Integer)
         If prnt = 0 Then
             If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
-            LLOG("ÿ»«⁄… »«—ﬂÊœ «”„", esl_no.Text, "  ÿ»«⁄… »«—ﬂÊœ «”„ " & pname.Text, 0, bran.Text)
+            LLOG("print barcode", esl_no.Text, "  ÿ»«⁄… »«—ﬂÊœ «”„ " & pname.Text, 0, bran.Text)
             Exit Sub
         End If
         ACdr.Close()
@@ -14924,16 +15047,16 @@ mm:
         PrintDialog1.PrinterSettings.PrinterName = ACdr("prnt")
         PrintDialog1.Document = PrintDocument1
         Dim n As Integer = 0
-        While Not n = pap
+        While Not n = num
             docs = 0
             PrintDocument1.Print()
             n = n + 1
         End While
-        LLOG("ÿ»«⁄… »«—ﬂÊœ «”„", esl_no.Text, "  ÿ»«⁄… »«—ﬂÊœ «”„ " & pname.Text, 0, bran.Text)
+        LLOG("print barcode", esl_no.Text, "  ÿ»«⁄… »«—ﬂÊœ «”„ " & pname.Text, 0, bran.Text)
 
     End Sub
     Private Sub GlassButton98_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq59.Click
-        docs = 0 : barname()
+        docs = 0 : barname(1)
     End Sub
 
     Private Sub GlassButton99_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq28.Click
@@ -15122,6 +15245,108 @@ mm:
             cmd1.ExecuteNonQuery()
         End While
     End Sub
+
+    Public Sub lab_in_out()
+        INPU.TextBox1.Text = Nothing
+        INPU.ShowDialog()
+        Dim S1 As Integer = INPU.TextBox1.Text
+        If S1 <> 205 Then Exit Sub
+        yy = ""
+        If CBRAN.Checked = True Then
+            yy = yy & "  " & " and  bran='" & bran.Text & "'"
+        End If
+        
+        dr.Close()
+        cmd.CommandText = "update lbill_test set t=0 where esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+        cmd.ExecuteNonQuery()
+        FRC = BILL.Select("qun='1'")
+        Dim t As String = 0
+        While Not t = FRC.Length
+            RC = FRC(t)
+            cmd.CommandText = "update lbill_test set t=1 where test_name='" & RC("test_name") & "' and esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+            cmd.ExecuteNonQuery()
+            t = t + 1
+        End While
+        If FRC.Length <= 0 Then
+            cmd.CommandText = "update lbill_test set t=1 where esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+            cmd.ExecuteNonQuery()
+        End If
+
+        Dim yyy1 As String = ""
+        If ctest.Checked = True Then yyy1 = " and test_name='" & test.Text & "'"
+        dr1.Close()
+        cmd1.CommandText = "update lbill_test set lab='0',labprice='0' WHERE t=1 and esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' " & yy
+        cmd1.ExecuteNonQuery()
+        Dim pr1, pr2, lab As Integer
+        FRC = BOOK.Select("code='2'")
+        If FRC.Length <= 0 Then
+        Else
+            RC = FRC(0)
+            BOOK_CODE.Text = RC("name")
+            BOOK_CODE.Text = RC("code")
+        End If
+        dr.Close()
+        cmd.CommandText = "select * from ltest where lab=1 " & yyy1
+        dr = cmd.ExecuteReader
+        While dr.Read
+            pr1 = 0
+            pr2 = 0
+            lab = 0
+            dr1.Close()
+            cmd1.CommandText = "select * from ltest_price where test_code='" & dr("test_code") & "' and book_price_code=2 order by book_price_code "
+            dr1 = cmd1.ExecuteReader
+            dr1.Read()
+            If dr1.HasRows = True Then
+                If dr1("book_price_code") = 1 Then pr1 = dr1("tot") Else pr2 = dr1("tot")
+            End If
+            dr1.Close()
+            cmd1.CommandText = "select * from ltest_price where test_code='" & dr("test_code") & "' and book_price_code=1 order by book_price_code "
+            dr1 = cmd1.ExecuteReader
+            dr1.Read()
+            If dr1.HasRows = True Then
+                If dr1("book_price_code") = 1 Then pr1 = dr1("tot") Else pr2 = dr1("tot")
+            End If
+            lab = dr("lab")
+            dr1.Close()
+            cmd1.CommandText = "update lbill_test set lab='" & lab & "',labprice='" & pr2 & "',test_price='" & pr1 & "' where test_code='" & dr("test_code") & "' AND esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+            cmd1.ExecuteNonQuery()
+        End While
+        dr.Close()
+        cmd.CommandText = "select * from ltest where lab=0" & yyy1
+        dr = cmd.ExecuteReader
+        While dr.Read
+            pr1 = 0
+            dr1.Close()
+            cmd1.CommandText = "select * from ltest_price where test_code='" & dr("test_code") & "' and book_price_code=1 order by book_price_code "
+            dr1 = cmd1.ExecuteReader
+            dr1.Read()
+            If dr1.HasRows = True Then
+                If dr1("book_price_code") = 1 Then pr1 = dr1("tot") Else pr2 = dr1("tot")
+            End If
+            dr1.Close()
+            cmd1.CommandText = "update lbill_test set test_price='" & pr1 & "' where test_code='" & dr("test_code") & "' AND esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+            cmd1.ExecuteNonQuery()
+        End While
+        Dim nnnn As String = ""
+        dr.Close()
+        cmd.CommandText = "select sum(labprice) as labprice ,esl_no,sum(test_price) as test_price from lbill_test  where tdel=0 AND esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' group by esl_no"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            nnnn = ""
+            Dim nss As Double = 0
+            nss = 0
+            dr1.Close()
+            cmd1.CommandText = "select test_name ,esl_no,lab,labprice from lbill_test where esl_no='" & dr("esl_no") & "' and lab=1 group by test_name ,esl_no,lab,labprice"
+            dr1 = cmd1.ExecuteReader
+            While dr1.Read
+                nnnn = nnnn & " +  " & dr1("test_name")
+                nss = dr1("labprice") + nss
+            End While
+            dr1.Close()
+            cmd1.CommandText = "update lbill set lab_name='" & BOOK_name.Text & "',lab_code='2',labtest='" & nnnn & "',ptot='" & nss & "',ppay='" & nss & "',tot='" & dr("test_price") & "' where esl_no='" & dr("esl_no") & "'"
+            cmd1.ExecuteNonQuery()
+        End While
+    End Sub
     Private Sub  ⁄œÌ·«·⁄Ì‰…ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         'Dim n As String = InputBox("«œŒ· ‰Ê⁄ «·⁄Ì‰… ·· Õ·Ì·")
         dr1.Close()
@@ -15136,8 +15361,34 @@ mm:
 
         fesl(1, 0)
     End Sub
+    Public Sub newicome(ByVal t As Integer)
+        comlab1 = 0
+        comlaa = 0
+        tfinal.Rows.Clear()
+        If cesl_date.Checked = True Then
+            icomeloop(t)
+        Else
+            Dim stratday As Date = d1.Value
+            cesl_date.Checked = True
+            While Not stratday >= d2.Value
+                esl_date.Value = stratday
+                icomeloop(t)
+                stratday = stratday.AddDays(1)
+            End While
+            cesl_date.Checked = False
+        End If
+        Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
+        oj.Load(Application.StartupPath & "\gens.rpt")
+        oj.Database.Tables(0).SetDataSource(tfinal)
+        oj.SetParameterValue("sdt", esl_date.Value)
+        If fath = 0 Then oj.SetParameterValue("qw1", comlab1) : oj.SetParameterValue("laa", comlaa)
+        If fath = 1 Then
+            If mng = 0 Then oj.SetParameterValue("1", 0) Else oj.SetParameterValue("1", 1)
+        End If
+        rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
+        rp.Show() : rp.Focus()
+    End Sub
 
-   
     Public Sub incomet(ByVal t As Integer)
         Dim acc As String = ""
         If t = 2 Then
@@ -15155,8 +15406,9 @@ mm:
         End If
         RP1.Checked = False
         Dim nr As Double = 0
-        yy = ""
+        yy = " and yearn='" & YEARN.Text & "'"
         Dim nxx As String = ""
+
         If cesl_date.Checked = True Then
             yy = yy & "  " & " and esl_date='" & ChangeFormat(esl_date.Value) & "'"
             YYN = "esl_date"
@@ -15183,10 +15435,14 @@ mm:
             cmd1.ExecuteNonQuery()
         End While
         dr.Close()
-        cmd.CommandText = "SELECT   * from lbill where pcanc=0 and bdel=0 and esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'" & yy & acc
+        cmd.CommandText = "UPDATE lbill_esl SET lbill_esl.rest =0  FROM lbill_esl INNER JOIN lbill ON lbill_esl.esl_no = lbill.esl_no and lbill_esl.sdate = lbill.esl_date and lbill_esl.yearn = lbill.yearn where lbill.yearn='" & YEARN.Text & "'"
+        cmd.ExecuteNonQuery()
+
+        dr.Close()
+        cmd.CommandText = "SELECT   * from lbill where pcanc=0 and bdel=0 and esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' " & yy & acc
         dr = cmd.ExecuteReader
         '================================================================
-        tfinal.Rows.Clear()
+
         While dr.Read
             nr = 0
             RC = tfinal.NewRow
@@ -15228,7 +15484,7 @@ mm:
             If n = 0 Then n = 1
             n = n + nx
             dr1.Close()
-            cmd1.CommandText = "select * from lbill_test where esl_no='" & dr("esl_no") & "' and lab=1 and tdel=0"
+            cmd1.CommandText = "select * from lbill_test  where esl_no='" & dr("esl_no") & "'  and yearn='" & YEARN.Text & "' and lab=1 and tdel=0"
             dr1 = cmd1.ExecuteReader
             While dr1.Read
                 If TESTSH = 1 Then
@@ -15261,7 +15517,7 @@ mm:
                 RC.EndEdit()
             End If
             If fath = 0 Then
-                FRC = temp.Select("esl_no='" & dr("esl_no") & "'")
+                FRC = F31.Select("esl_no='" & dr("esl_no") & "'")
                 If FRC.Length > 0 Then
                     RC = tfinal.Rows(nx)
                     RC.BeginEdit()
@@ -15277,7 +15533,7 @@ mm:
                 End If
             End If
             dr2.Close()
-            cmd2.CommandText = "update lbill_esl set sdate='" & ChangeFormat(dr("esl_date")) & "' where  esl_no='" & dr("esl_no") & "' and rest=0"
+            cmd2.CommandText = "update lbill_esl set sdate='" & ChangeFormat(dr("esl_date")) & "' where  esl_no='" & dr("esl_no") & "'  and yearn='" & YEARN.Text & "' and rest=0"
             cmd2.ExecuteNonQuery()
             cmd2.CommandText = "select sum(tot),sdate from lbill_esl where yearn='" & YEARN.Text & "' and esl_no='" & dr("esl_no") & "' " & nxx & " group by sdate"
             dr2 = cmd2.ExecuteReader
@@ -15295,7 +15551,7 @@ mm:
         End While
         If nxx <> "" Then
             dr.Close()
-            cmd.CommandText = "select * from v_esl where rest=1 and sdate='" & ChangeFormat(esl_date.Value) & "'" & acc
+            cmd.CommandText = "select * from v_esl where rest=1  and yearn='" & YEARN.Text & "' and sdate='" & ChangeFormat(esl_date.Value) & "'" & acc
             dr = cmd.ExecuteReader
             While dr.Read()
                 RC = tfinal.NewRow
@@ -15367,8 +15623,8 @@ mm:
         Dim lab1 As Integer = 0
         Dim laa As Integer = 0
         Dim nnn As Integer = 0
-        While Not nnn = temp.Rows.Count
-            lab1 = lab1 + temp.Rows(nnn).Item("ptot")
+        While Not nnn = F31.Rows.Count
+            lab1 = lab1 + F31.Rows(nnn).Item("ptot")
             nnn += 1
         End While
         nnn = 0
@@ -15391,7 +15647,8 @@ mm:
         rp.Show() : rp.Focus()
 
     End Sub
-    
+
+   
     Private Sub GlassButton103_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         On Error Resume Next
         dr.Close() : cmd.Connection = CN
@@ -15448,9 +15705,9 @@ mm:
         FILLA("lcomment", "NAME")
     End Sub
 
-    
 
-   
+
+
 
 
 
@@ -15634,13 +15891,17 @@ mm:
 
 
     Private Sub GlassButton105_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton105.Click
+        v_log()
+
+    End Sub
+    Public Sub v_log()
         If mng = 0 Then
             If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
             LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì— „—«ﬁ»… «·„” Œœ„Ì‰", 0, bran.Text)
             Exit Sub
         End If
         Dim rrr As Process = Process.Start(Application.StartupPath & "\bar.exe")
-        Dim yy As String = "where date1 between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' "
+        Dim yy As String = "where date1 between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' and bran='" & bran.Text & "'"
         If cuser.Checked = True Then
             yy = yy & " and usr='" & USR & "'"
         End If
@@ -15679,7 +15940,6 @@ mm:
         rrr.Kill()
 
     End Sub
-
     Private Sub GlassButton129_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton129.Click
         Dim n As String = InputBox("enter password", , "0")
         If n <> 5011545 Then Exit Sub
@@ -15708,7 +15968,7 @@ mm:
             cmd.ExecuteNonQuery()
             cmd.CommandText = "update lbill_test set qun=1 WHERE ESL_NO='" & Val(esl_no.Text) & "'  and test_name='" & Ntest_NAME.Text & "'"
             cmd.ExecuteNonQuery()
-            prof(esl_no.Text, "prnt", 1)
+            prof(esl_no.Text, "prnt", 1, 0)
             cmd.CommandText = "update lbill_test set qun=1 WHERE ESL_NO='" & Val(esl_no.Text) & "'"
             cmd.ExecuteNonQuery()
             CRES.Checked = False
@@ -15876,6 +16136,8 @@ mm:
     End Sub
 
     Private Sub save_name_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles save_name.SelectedIndexChanged
+        On Error Resume Next
+
         If save_name.Focused = False Then Exit Sub
         If save_name.Text = "" Then Exit Sub
         If ldelg = 0 Then
@@ -15938,69 +16200,6 @@ mm:
     End Sub
 
     Private Sub GlassButton141_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton141.Click
-        If ls = 0 Then Exit Sub
-        Dim NNN As Double = InputBox("«œŒ· ﬁÌ„… «· ÕÊÌ·")
-        dr.Close()
-        cmd.CommandText = "select * from lsave where CODE='" & saven & "'"
-        dr = cmd.ExecuteReader
-        While dr.Read
-            save_name.Text = dr("NAME")
-        End While
-        Dim s2 As Integer = 0
-
-        dr.Close()
-        Dim D As Date = Now
-        time1.Text = D.Hour.ToString & " : " & D.Minute.ToString
-        date1.Text = D.Date.ToShortDateString
-        cash.Text = -1 * Val(REST.Text)
-        crd.Text = 0
-        dr.Close()
-        cmd.CommandText = "select * from lsub where sub_code='102'"
-        dr = cmd.ExecuteReader
-        dr.Read()
-        If dr("flg") = 1 Then flg.Checked = True Else flg.Checked = False
-        main_code.Text = dr("main_code")
-        main_name.Text = dr("main_name")
-        dr.Close()
-        cmd.CommandText = "select * from lsub where sub_code='102'"
-        dr = cmd.ExecuteReader
-        dr.Read()
-        sub_name.Text = dr("sub_name")
-        ACdr.Close()
-        ACcmd.CommandText = "select * from srv "
-        ACdr = ACcmd.ExecuteReader
-        ACdr.Read()
-        If ACdr("CASH") > 0 Then
-            id.Text = ACdr("CASH")
-        End If
-        cesl_date.Checked = True
-        RP1.Checked = False
-        dr.Close()
-        cmd.CommandText = "insert into lcash ([main_name],[main_code],[sub_code],[sub_name],[flg],[cash],[crd],[time1],[date1],[id],[notse],usr,shift,SAVE_NAME,SAVE_CODE) values ('" & main_name.Text & " ','" & main_code.Text & "','" & sub_code.Text & "','" & sub_name.Text & "','-1','" & NNN & "','0','" & time1.Text & "','" & ChangeFormat(esl_date.Value) & "','" & id.Text & "','  Õ”«» ÌÊ„  ÕÊÌ·   " & esl_date.Value.Date & "  „‰ «·Œ“Ì‰… " & save_name.Text & "','" & USR & "','" & SHF & "','" & save_name.Text & "','" & save_code.Text & "' )"
-        cmd.ExecuteNonQuery()
-        dr.Close()
-        cmd.CommandText = "select * from lsub where sub_code='101'"
-        dr = cmd.ExecuteReader
-        dr.Read()
-        If dr("flg") = 1 Then flg.Checked = True Else flg.Checked = False
-        main_code.Text = dr("main_code")
-        main_name.Text = dr("main_name")
-        dr.Close()
-        cmd.CommandText = "select * from lsub where sub_code='101'"
-        dr = cmd.ExecuteReader
-        dr.Read()
-        sub_name.Text = dr("sub_name")
-        dr.Close()
-        FCASH1()
-        dr.Close()
-        cmd.CommandText = "SELECT SUM (PTOT) FROM LBILL WHERE ESL_DATE='" & ChangeFormat(esl_date.Value) & "'"
-        dr = cmd.ExecuteReader
-        While dr.Read
-            dr1.Close()
-            cmd1.CommandText = "insert into lcash ([main_name],[main_code],[sub_code],[sub_name],[flg],[cash],[crd],[time1],[date1],[id],[notse],usr,shift,SAVE_NAME,SAVE_CODE) values ('" & main_name.Text & " ','" & main_code.Text & "','" & sub_code.Text & "','" & sub_name.Text & "','1','" & NNN & "','0','" & time1.Text & "','" & ChangeFormat(esl_date.Value) & "','" & id.Text & "','   —ÕÌ· «·Ï «·Œ“Ì‰…     " & save1_name.Text & "','" & USR & "','" & SHF & "','" & save1_name.Text & "','" & save1_code.Text & "' )"
-            cmd1.ExecuteNonQuery()
-        End While
-        If lng = "AR" Then Me.Text = " „  ⁄„·Ì… «·Õ›Ÿ »‰Ã«Õ" Else Me.Text = "IT'S SAVED"
 
     End Sub
 
@@ -16108,7 +16307,7 @@ mm:
         ffinal.Checked = True
         finals.Checked = True
         dr.Close()
-        ComboBox5.Text = "not print"
+        f3type.Text = "not print"
         f3(1)
         Dim SS As Integer = 0
         While Not SS = F31.Rows.Count
@@ -16518,7 +16717,7 @@ mm:
     End Sub
 
     Private Sub GlassButton147_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq25.Click
-        
+
         FPESL("esl")
     End Sub
     Public Sub FPESL(ByVal rpt As String)
@@ -16547,7 +16746,7 @@ mm:
             oj.SetParameterValue("a", esla)
             rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
             If vv.Checked = True Then rp.Show() : rp.Focus() Else oj.PrintToPrinter(1, False, 0, 0)
-            LLOG("ÿ»«⁄…", esl_no.Text, " ÿ»«⁄… «Ì’«· " & pname.Text, 1, bran.Text)
+            LLOG("print", esl_no.Text, " ÿ»«⁄… «Ì’«· " & pname.Text, 1, bran.Text)
         Catch ex As Exception
             Dim st1 As String = "PRINT BILL"
             Dim st As String = ex.Message
@@ -16567,11 +16766,13 @@ mm:
         End If
 
     End Sub
-   
+
     Public Sub UPDATEBILL()
         Try
             If lp = 1 Then
-                esl_cash(3)
+                cmdb.DataAdapter = adeslb
+                adeslb.Update(DBS, "eslb")
+                esl_cash(2)
                 ACdr.Close()
                 ACcmd.CommandText = "SELECT sum(tot),sum(erbank) FROM esl  "
                 ACdr = ACcmd.ExecuteReader
@@ -16603,7 +16804,7 @@ mm:
         cmd.ExecuteNonQuery()
     End Sub
 
-    
+
 
     Private Sub s12_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles s12.TextChanged
 
@@ -17424,7 +17625,7 @@ mm:
         End Try
     End Sub
 
-    
+
 
     Private Sub «÷«›…ÃœÌœToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         GroupBox1.Visible = Not GroupBox1.Visible
@@ -17493,7 +17694,6 @@ mm:
     Private Sub GlassButton2_Click_4(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq160.Click
         Try
             esla = 1
-
             dr.Close()
             DBS.Tables("esl").Clear()
             cmdesl.Parameters.Clear()
@@ -17552,7 +17752,17 @@ mm:
         rrr.Kill()
         If SSFINAL = 1 Then
             Dim yas As String = MsgBox("will you print final", MsgBoxStyle.YesNo)
-            If yas = vbYes Then GlassButton100_Click(QQ42, e)
+            If yas = vbYes Then
+                f3type.Text = "not print"
+                ffinal.Checked = True
+                finals.Checked = True
+                RP1.Checked = True
+                f3(1)
+                f3type.Text = "rest"
+                ffinal.Checked = False
+                finals.Checked = False
+                finalprint()
+            End If
         End If
         MsgBox("ALL DATA IS UPTO DATE THANKS " & USR, MsgBoxStyle.Information)
     End Sub
@@ -17578,264 +17788,27 @@ mm:
                     Exit Try
                 End Try
             End If
-            SDR.Close()
-            sdr1.Close()
-            dr.Close()
-            dr1.Close()
+
             Dim oer As System.IO.FileStream
             Dim rer As IO.StreamReader
             dr.Close()
             Dim n As Integer = 0
             Dim n11 As Integer = 0
-            cmd.CommandText = " update lbill set st=1 where st=1 and  " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            n = cmd.ExecuteNonQuery
-            cmd.CommandText = "select * from lbill  where st=1 and  " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & " order by esl_no"
-            dr = cmd.ExecuteReader
-            ACdr.Close()
-            n = n + 1
-            Dim t As String = ""
-            While dr.Read
-                n11 = n11 + 1
-                If n11 > n Then n11 = n - 1
-                ncode.Text = (n11 / n)
-                ACcmd.CommandText = "update srv set pass11='" & (n11 / n) * 100 & "'"
-                ACcmd.ExecuteNonQuery()
-                SCMD.CommandText = "delete from lbill where ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                SCMD.ExecuteNonQuery()
-                SCMD.CommandText = "delete from lbillemage where ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                SCMD.ExecuteNonQuery()
-                SCMD.CommandText = "delete from lbill_ESL where ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                SCMD.ExecuteNonQuery()
-                SCMD.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,labd,dev) VALUES ('" & dr("esl_date") & "' , '" & dr("esl_no") & "' , '" & dr("pname") & "' , '" & dr("reg_name") & "' , '" & dr("doc_name") & "' , '" & dr("book_code") & "' , '" & dr("book_name") & "' , '" & dr("company_code") & "' , '" & dr("company_name") & "' , '" & dr("doc_code") & "' , '" & dr("pcode") & "' , '" & dr("ptype") & "' , '" & dr("page") & "' , '" & dr("pid") & "' , '" & dr("depn") & "' , '" & dr("reg_code") & "' , '" & dr("esl_time") & "' , '" & dr("crd_per") & "' , '" & dr("crd_v") & "' , '" & dr("cash_per") & "' , '" & dr("cash_v") & "' , '" & dr("bon") & "' , '" & dr("pay") & "' , '" & dr("rest") & "' , '" & dr("tot") & "' , '" & dr("nik") & "' , '" & dr("test") & "' , '" & dr("diss") & "' , '" & dr("USR") & "' , '" & dr("SHIFT") & "' , '" & dr("rcv_date") & "' , '" & dr("rcv") & "' , '" & dr("fastv") & "' , '" & dr("hrcvv") & "' , '" & dr("rcvv") & "' , '" & dr("rcvn") & "' , '" & dr("fastn") & "' , '" & dr("cfast") & "' , '" & dr("chrcv") & "' , '" & dr("totv") & "' , '" & dr("ty") & "' , '" & dr("doc_per") & "' , '" & dr("branch_name") & "' , '" & dr("branch_code") & "' , '" & dr("pemail") & "' , '" & dr("dissn") & "' , '" & dr("notes") & "' , '" & dr("tblg") & "' , '" & dr("sprnt") & "' , '" & dr("pyear") & "' , '" & dr("lab_name") & "' , '" & dr("lab_code") & "' , '" & dr("ptot") & "' , '" & dr("ppay") & "' , '" & dr("prest") & "' , '" & dr("labprice") & "' , '" & dr("labtest") & "' , '" & dr("tnum") & "' , '" & dr("nnik") & "' , '" & dr("qun") & "' , '" & dr("testpro") & "' , '" & dr("rcv_time") & "' , '" & dr("pinc") & "' , '" & dr("pcrd") & "' , '" & dr("pcanc") & "' , '" & dr("YEARN") & "' , '" & dr("ESLBILL") & "' , '" & dr("urgant") & "' , '" & dr("final") & "' , '" & dr("bdel") & "' , '" & dr("bdelusr") & "' , '" & dr("bdeldate") & "' , '" & dr("eslb") & "' , '" & dr("bran") & "' , '" & dr("printtime") & "' , '0' , '" & dr("brans") & "'  , '" & dr("sampl") & "' , '" & dr("sampldate") & "' , '" & dr("samplusr") & "' , '" & dr("restusr") & "' , '" & dr("restdate") & "' , '" & dr("trl") & "' , '" & dr("fs") & "', '" & dr("labd") & "', '" & dr("dev") & "')"
-                SCMD.ExecuteNonQuery()
-                dr1.Close()
-                cmd1.CommandText = "select * from lbillimage where ESL_NO='" & dr("esl_no") & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "INSERT INTO [lbillimage] ([no],[esl_no],[yearn],[code],[IIMAGE],[bran],[st],usr) VALUES ('" & dr1("no") & "' , '" & dr1("esl_no") & "' , '" & dr1("yearn") & "' , '" & dr1("code") & "' , '" & dr1("IIMAGE") & "' , '" & dr1("bran") & "' , '" & dr1("st") & "', '" & dr1("usr") & "')"
-                    SCMD.ExecuteNonQuery()
-                    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
-                    Dim ImageFromDB As New Bitmap(newMstream)
-                    PictureBox1.Image = ImageFromDB
-                    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
-                    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("esl_no"))
-                    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr("esl_no"), System.Drawing.Imaging.ImageFormat.Jpeg)
-                    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr("esl_no"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-                    rer = New IO.StreamReader(oer)
-                    Dim FileByteArrayr1(oer.Length - 1) As Byte
-                    oer.Read(FileByteArrayr1, 0, oer.Length)
-                    Dim AAAAA1 As String = ""
-                    Dim Sql1 As String = "update  lbillimage set image = ? " & AAAAA1 & "  where  ESL_NO='" & Val(dr("esl_no")) & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-                    SCMD.CommandText = Sql1
-                    SCMD.Parameters.Clear()
-                    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
-                    SCMD.ExecuteNonQuery()
-                End While
-                dr1.Close()
-                cmd1.CommandText = "select * from lbill_CID where ESL_NO='" & dr("esl_no") & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "INSERT INTO [lbill_CID] ([no],[esl_no],[yearn],[code],[IIMAGE],[bran],usr) VALUES ('" & dr1("no") & "' , '" & dr1("esl_no") & "' , '" & dr1("yearn") & "' , '" & dr1("code") & "' , '" & dr1("IIMAGE") & "' , '" & dr1("bran") & "', '" & dr1("usr") & "')"
-                    SCMD.ExecuteNonQuery()
-                    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
-                    Dim ImageFromDB As New Bitmap(newMstream)
-                    PictureBox1.Image = ImageFromDB
-                    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
-                    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("esl_no"))
-                    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr("esl_no"), System.Drawing.Imaging.ImageFormat.Jpeg)
-                    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr("esl_no"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-                    rer = New IO.StreamReader(oer)
-                    Dim FileByteArrayr1(oer.Length - 1) As Byte
-                    oer.Read(FileByteArrayr1, 0, oer.Length)
-                    Dim AAAAA1 As String = ""
-                    Dim Sql1 As String = "update  lbill_CID set image = ? " & AAAAA1 & "  where  ESL_NO='" & Val(dr("esl_no")) & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-                    SCMD.CommandText = Sql1
-                    SCMD.Parameters.Clear()
-                    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
-                    SCMD.ExecuteNonQuery()
-                End While
-                dr1.Close()
-                cmd1.CommandText = "select * from lbill_cmt where ESL_NO='" & dr("esl_no") & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "INSERT INTO [lbill_cmt] ([no],[esl_no],[yearn],[code],[IIMAGE],[bran],usr) VALUES ('" & dr1("no") & "' , '" & dr1("esl_no") & "' , '" & dr1("yearn") & "' , '" & dr1("code") & "' , '" & dr1("IIMAGE") & "' , '" & dr1("bran") & "', '" & dr1("usr") & "' )"
-                    SCMD.ExecuteNonQuery()
-                    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
-                    Dim ImageFromDB As New Bitmap(newMstream)
-                    PictureBox1.Image = ImageFromDB
-                    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
-                    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("esl_no"))
-                    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr("esl_no"), System.Drawing.Imaging.ImageFormat.Jpeg)
-                    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr("esl_no"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-                    rer = New IO.StreamReader(oer)
-                    Dim FileByteArrayr1(oer.Length - 1) As Byte
-                    oer.Read(FileByteArrayr1, 0, oer.Length)
-                    Dim AAAAA1 As String = ""
-                    Dim Sql1 As String = "update  lbill_cmt set image = ? " & AAAAA1 & "  where  ESL_NO='" & Val(dr("esl_no")) & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-                    SCMD.CommandText = Sql1
-                    SCMD.Parameters.Clear()
-                    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
-                    SCMD.ExecuteNonQuery()
-                End While
-                dr1.Close()
-                cmd1.CommandText = "select * from LPATIEN where pcode='" & dr("pcode") & "'"
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "delete  from LPATIEN where pcode='" & dr("pcode") & "'"
-                    SCMD.ExecuteNonQuery()
-                    SCMD.CommandText = "INSERT INTO [LPATIEN]([pname],[pcode],[ptype],[pbrith_date],[page],[pphone],[pmobile],[pgover],[pcity],[pstreet],[pemail],[pid],[book_code],[book_name],[company_code],[company_name],[Pnik],[PYEAR],[YAER],[YEAR],[reg_code],[reg_name],[st]) VALUES ('" & dr1("pname") & "' , '" & dr1("pcode") & "' , '" & dr1("ptype") & "' , '" & dr1("pbrith_date") & "' , '" & dr1("page") & "' , '" & dr1("pphone") & "' , '" & dr1("pmobile") & "' , '" & dr1("pgover") & "' , '" & dr1("pcity") & "' , '" & dr1("pstreet") & "' , '" & dr1("pemail") & "' , '" & dr1("pid") & "' , '" & dr1("book_code") & "' , '" & dr1("book_name") & "' , '" & dr1("company_code") & "' , '" & dr1("company_name") & "' , '" & dr1("Pnik") & "' , '" & dr1("PYEAR") & "' , '" & dr1("YAER") & "' , '" & dr1("YEAR") & "' , '" & dr1("reg_code") & "' , '" & dr1("reg_name") & "' , '" & dr1("st") & "')"
-                    SCMD.ExecuteNonQuery()
-                End While
-om:
-                dr1.Close()
-                cmd1.CommandText = "select * from LBILL_CULT_DET where ESL_NO='" & dr("esl_no") & "'    and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "delete from LBILL_CULT_DET  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                    SCMD.ExecuteNonQuery()
-                    SCMD.CommandText = "delete from LBILL_CULT  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                    SCMD.ExecuteNonQuery()
-                    SCMD.CommandText = "INSERT INTO [LBILL_CULT_DET]([test_name],[test_code],[esl_no],[NOTE],[SPECIMEN],[DIRECT_ FILM],[PUS_CELLS],[RBCs],[OTHERS],[CULTURE_CONDITIONS],[GROWTH_OF],[VAIBLE_COUNT],[COUNT_IS],[epithelial],[num],[YEARN],[bran],[st])VALUES ('" & dr1("test_name") & "' , '" & dr1("test_code") & "' , '" & dr1("esl_no") & "' , '" & dr1("NOTE") & "' , '" & dr1("SPECIMEN") & "' , '" & dr1("DIRECT_ FILM") & "' , '" & dr1("PUS_CELLS") & "' , '" & dr1("RBCs") & "' , '" & dr1("OTHERS") & "' , '" & dr1("CULTURE_CONDITIONS") & "' , '" & dr1("GROWTH_OF") & "' , '" & dr1("VAIBLE_COUNT") & "' , '" & dr1("COUNT_IS") & "' , '" & dr1("epithelial") & "' , '" & dr1("num") & "' , '" & dr1("YEARN") & "' , '" & dr1("bran") & "' , '0')"
-                    SCMD.ExecuteNonQuery()
-                End While
-                dr1.Close()
-                cmd1.CommandText = "select * from LBILL_CULT where ESL_NO='" & dr("esl_no") & "' and st=1 and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "INSERT INTO [LBILL_CULT]([test_name],[test_code],[esl_no],[name1],[NAME2],[NAME3],[VIRUS],[VIRUSC],[so],[YEARN],[bran],[st]) VALUES ('" & dr1("test_name") & "' , '" & dr1("test_code") & "' , '" & dr1("esl_no") & "' , '" & dr1("name1") & "' , '" & dr1("NAME2") & "' , '" & dr1("NAME3") & "' , '" & dr1("VIRUS") & "' , '" & dr1("VIRUSC") & "' , '" & dr1("so") & "' , '" & dr1("YEARN") & "' , '" & dr1("bran") & "' , '0')"
-                    SCMD.ExecuteNonQuery()
-                End While
-                dr1.Close()
-                SCMD.CommandText = "delete from lbill_esl  where ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                SCMD.ExecuteNonQuery()
-                cmd1.CommandText = "select * from lbill_esl where ESL_NO='" & dr("esl_no") & "'   and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "INSERT INTO [lbill_esl]([esl_no],[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[id],[bran],[st],[trl],usr,erbank)VALUES ('" & dr1("esl_no") & "' , '" & dr1("bill") & "' , '" & dr1("yearn") & "' , '" & dr1("sdate") & "' , '" & dr1("rest") & "' , '" & dr1("billrest") & "' , '" & dr1("TOT") & "' , '" & dr1("qun") & "' , '" & nulls(dr1("id")) & "' , '" & dr1("bran") & "' , '0' , '" & dr1("trl") & "', '" & dr1("usr") & "', '" & dr1("erbank") & "')"
-                    SCMD.ExecuteNonQuery()
-                End While
-                SCMD.CommandText = "INSERT INTO [lbillemage]([esl_no],[yearn],[bran])VALUES ('" & dr("esl_no") & "' , '" & dr("yearn") & "' , '" & dr("bran") & "' )"
-                SCMD.ExecuteNonQuery()
-                dr1.Close()
-                cmd1.CommandText = "select * from lbill_test where ESL_NO='" & dr("esl_no") & "'  and st=1  and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "delete from lbill_test  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                    SCMD.ExecuteNonQuery()
-                    SCMD.CommandText = "INSERT INTO [lbill_test]([qun],[pthn],[ds],[test_name],[res],[test_code],[test_ar],[test_price],[tot1],[ref],[esl_no],[esl_date],[sub],[pname],[pcode],[page],[ptype],[cult],[fres],[rcv_date],[rcv],[note],[NOTEN],[NORB],[NORE],[UNIT],[take],[gr_name],[gr_code],[s],[p],[gname],[GCODE],[t],[TBLG],[tblgtime],[tblgusr],[prntn],[lab],[labprice],[so],[RSO],[comment],[HOMS],[BAR],[dis_n],[uadd],[uadddate],[YEARN],[urem],[uremdate],[tdel],[sres],[TOT2],[prnttime],[pth],[rsv],[rsvp],[QUN1],[id],[bran],[st],[trl],notesp,notesg,usr,tsq,pricep) VALUES ('" & dr1("qun") & "' , '" & dr1("pthn") & "' , '" & dr1("ds") & "' , '" & dr1("test_name") & "' , '" & dr1("res") & "' , '" & dr1("test_code") & "' , '" & dr1("test_ar") & "' , '" & dr1("test_price") & "' , '" & dr1("tot1") & "' , '" & dr1("ref") & "' , '" & dr1("esl_no") & "' , '" & dr1("esl_date") & "' , '" & dr1("sub") & "' , '" & dr1("pname") & "' , '" & dr1("pcode") & "' , '" & dr1("page") & "' , '" & dr1("ptype") & "' , '" & dr1("cult") & "' , '" & dr1("fres") & "' , '" & dr1("rcv_date") & "' , '" & dr1("rcv") & "' , '" & dr1("note") & "' , '" & dr1("NOTEN") & "' , '" & dr1("NORB") & "' , '" & dr1("NORE") & "' , '" & dr1("UNIT") & "' , '" & dr1("take") & "' , '" & dr1("gr_name") & "' , '" & dr1("gr_code") & "' , '" & dr1("s") & "' , '" & dr1("p") & "' , '" & dr1("gname") & "' , '" & dr1("GCODE") & "' , '" & dr1("t") & "' , '" & dr1("TBLG") & "' , '" & dr1("tblgtime") & "' , '" & dr1("tblgusr") & "' , '" & dr1("prntn") & "' , '" & dr1("lab") & "' , '" & dr1("labprice") & "' , '" & dr1("so") & "' , '" & dr1("RSO") & "' , '" & dr1("comment") & "' , '" & dr1("HOMS") & "' , '" & dr1("BAR") & "' , '" & dr1("dis_n") & "' , '" & dr1("uadd") & "' , '" & dr1("uadddate") & "' , '" & dr1("YEARN") & "' , '" & dr1("urem") & "' , '" & dr1("uremdate") & "' , '" & dr1("tdel") & "' , '" & dr1("sres") & "' , '" & dr1("TOT2") & "' , '" & dr1("prnttime") & "' , '" & dr1("pth") & "' , '" & dr1("rsv") & "' , '" & dr1("rsvp") & "' , '" & dr1("QUN1") & "' , '" & nulls(dr1("id")) & "' , '" & dr1("bran") & "' , '0' , '" & dr1("trl") & "', '" & dr1("notesp") & "', '" & dr1("notesg") & "', '" & dr1("usr") & "', '" & dr1("tsq") & "', '" & dr1("pricep") & "')"
-                    SCMD.ExecuteNonQuery()
-                End While
-                dr1.Close()
-                cmd1.CommandText = "select * from lbill_testsub where ESL_NO='" & dr("esl_no") & "'  and st=1  and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                dr1 = cmd1.ExecuteReader
-                While dr1.Read
-                    SCMD.CommandText = "delete from lbill_testsub  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                    SCMD.ExecuteNonQuery()
-                    SCMD.CommandText = "INSERT INTO [lbill_testsub]([qun],[pthn],[test_name],[res],[res1],[res2],[so],[test_code],[test_ar],[ref],[esl_no],[mtest_code],[mtest_name],[ds],[rcv],[note],[NOTEN],[NORB],[NORE],[q],[absu],[ref1],[p],[unit],[rso],[YEARN],[re1],[re2],[ds1],[pth],[rsv],[rsvp],[rsv1],[QUN1],[RDS],[bran],[st],usr) VALUES ('" & dr1("qun") & "' , '" & dr1("pthn") & "' , '" & dr1("test_name") & "' , '" & dr1("res") & "' , '" & dr1("res1") & "' , '" & dr1("res2") & "' , '" & dr1("so") & "' , '" & dr1("test_code") & "' , '" & dr1("test_ar") & "' , '" & dr1("ref") & "' , '" & dr1("esl_no") & "' , '" & dr1("mtest_code") & "' , '" & dr1("mtest_name") & "' , '" & dr1("ds") & "' , '" & dr1("rcv") & "' , '" & dr1("note") & "' , '" & dr1("NOTEN") & "' , '" & dr1("NORB") & "' , '" & dr1("NORE") & "' , '" & dr1("q") & "' , '" & dr1("absu") & "' , '" & dr1("ref1") & "' , '" & dr1("p") & "' , '" & dr1("unit") & "' , '" & dr1("rso") & "' , '" & dr1("YEARN") & "' , '" & dr1("re1") & "' , '" & dr1("re2") & "' , '" & dr1("ds1") & "' , '" & dr1("pth") & "' , '" & dr1("rsv") & "' , '" & dr1("rsvp") & "' , '" & dr1("rsv1") & "' , '" & dr1("QUN1") & "' , '" & dr1("RDS") & "' , '" & dr1("bran") & "' , '" & dr1("st") & "', '" & dr1("usr") & "')"
-                    SCMD.ExecuteNonQuery()
-                End While
-                dr1.Close()
-                sdr1.Close()
-                If dr("st") = 2 Then GoTo lin
-            End While
-           
-          
-            n = n + 1
-            dr.Close()
-            cmd.CommandText = "select * from lbill where st='2' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-            dr = cmd.ExecuteReader
-            While dr.Read
-                GoTo om
-lin:
-            End While
-            dr.Close()
-            cmd1.CommandText = "update lbill set st=0 where    " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update lbill_ESL set st=0 where    " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update lbill_test set st=0  where    " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update lbill_testsub set st=0 where   " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update LBILL_CULT set st=0 where   " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            cmd1.ExecuteNonQuery()
-            cmd1.CommandText = "update LBILL_CULT_DET set st=0 where    " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            cmd1.ExecuteNonQuery()
-            'dr.Close()
-            'SDR.Close()
-            'SCMD.CommandText = "SELECT * FROM LBILLEMAGE WHERE IMAGE IS NULL  "
-            'SDR = SCMD.ExecuteReader
-            'While SDR.Read
-            '    If IO.File.Exists(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("BRAN")) = False Then
-            '        Dim W As Integer = Convert.ToInt32("150")
-            '        Dim H As Integer = Convert.ToInt32("37")
-            '        bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
-            '        Dim type As BarcodeLib.TYPE = BarcodeLib.TYPE.UNSPECIFIED
-            '        type = BarcodeLib.TYPE.CODE128
-            '        bar1.IncludeLabel = True
-            '        barco.Image = bar1.Encode(type, n11 & SDR("BRAN").ToString.Trim & SDR("ESL_NO").ToString.Trim, W, H)
-            '        IO.File.Delete(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"))
-            '        barco.Image.Save(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), System.Drawing.Imaging.ImageFormat.Jpeg)
-            '    End If
-            '    Dim oer1 As System.IO.FileStream
-            '    Dim rer1 As IO.StreamReader
-            '    oer1 = New IO.FileStream(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-            '    rer1 = New IO.StreamReader(oer1)
-            '    Dim FileByteArrayr(oer1.Length - 1) As Byte
-            '    oer1.Read(FileByteArrayr, 0, oer1.Length)
-            '    sdr1.Close()
-            '    Dim AAAAA As String = ""
-            '    Dim Sql As String = "update  lbillemage set image = ? " & AAAAA & "  where  ESL_NO='" & Val(SDR("esl_no")) & "' and " & "yearn='" & Val(SDR("YEARN")) & "' and bran='" & SDR("BRAN") & "'"
-            '    scmd1.CommandText = Sql
-            '    scmd1.Parameters.Clear()
-            '    scmd1.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer1.Length).Value = FileByteArrayr
-            '    scmd1.ExecuteNonQuery()
-            '    n11 += 1
-            'End While
-            'dr1.Close()
-            'cmd1.CommandText = "select * from llogsheet where ST='1' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-            'dr1 = cmd1.ExecuteReader
-            'While dr1.Read
-            '    SDR.Close()
-            '    SCMD.CommandText = "INSERT INTO llogsheet ([no],[yearn],[code],[bran],esl_date) VALUES ('" & dr1("no") & "'  , '" & dr1("yearn") & "' , '" & dr1("code") & "'  , '" & dr1("bran") & "', '" & dr1("esl_date") & "' )"
-            '    SCMD.ExecuteNonQuery()
-            '    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
-            '    Dim ImageFromDB As New Bitmap(newMstream)
-            '    PictureBox1.Image = ImageFromDB
-            '    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
-            '    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("code"))
-            '    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr1("code"), System.Drawing.Imaging.ImageFormat.Jpeg)
-            '    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr1("code"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-            '    rer = New IO.StreamReader(oer)
-            '    Dim FileByteArrayr1(oer.Length - 1) As Byte
-            '    oer.Read(FileByteArrayr1, 0, oer.Length)
-            '    Dim AAAAA1 As String = ""
-            '    Dim Sql1 As String = "update  llogsheet set image = ? " & AAAAA1 & "  where  code='" & Val(dr1("code")) & "' and esl_date='" & dr1("esl_date") & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
-            '    SCMD.CommandText = Sql1
-            '    SCMD.Parameters.Clear()
-            '    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
-            '    SCMD.ExecuteNonQuery()
-            'End While
-            'dr1.Close()
-            'cmd.CommandText = "update llogsheet set st=0 "
-            'cmd.ExecuteNonQuery()
-
-            
-
-            '==================================================================dawnload============================
+            Dim n1 As Integer = 0
             n = 0
             n11 = 0
+            '==================================================================dawnload============================
             SDR.Close()
             sdr1.Close()
             dr.Close()
             dr1.Close()
-            SCMD.CommandText = " update lbill set st=1 where st=1 and  " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            SCMD.CommandText = " update lbill set st=1 where st=1 and  yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
             n = SCMD.ExecuteNonQuery
             SDR.Close()
             sdr1.Close()
             dr.Close()
             dr1.Close()
-            SCMD.CommandText = "select * from lbill where st='1' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+            SCMD.CommandText = "select * from lbill where st<>'0' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
             SDR = SCMD.ExecuteReader
             While SDR.Read
                 ncode.Text = (n11 / n)
@@ -17844,62 +17817,74 @@ lin:
                 ACdr.Close()
                 ACcmd.CommandText = "update srv set pass11='" & (n11 / n) * 100 & "'"
                 ACcmd.ExecuteNonQuery()
-
-                cmd.CommandText = "delete from lbill where ESL_NO='" & SDR("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-                cmd.ExecuteNonQuery()
-                cmd.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[fnd],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,dev) VALUES ('" & SDR("esl_date") & "' , '" & SDR("esl_no") & "' , '" & SDR("pname") & "' , '" & SDR("reg_name") & "' , '" & SDR("doc_name") & "' , '" & SDR("book_code") & "' , '" & SDR("book_name") & "' , '" & SDR("company_code") & "' , '" & SDR("company_name") & "' , '" & SDR("doc_code") & "' , '" & SDR("pcode") & "' , '" & SDR("ptype") & "' , '" & SDR("page") & "' , '" & SDR("pid") & "' , '" & SDR("depn") & "' , '" & SDR("reg_code") & "' , '" & SDR("esl_time") & "' , '" & SDR("crd_per") & "' , '" & SDR("crd_v") & "' , '" & SDR("cash_per") & "' , '" & SDR("cash_v") & "' , '" & SDR("bon") & "' , '" & SDR("pay") & "' , '" & SDR("rest") & "' , '" & SDR("tot") & "' , '" & SDR("nik") & "' , '" & SDR("test") & "' , '" & SDR("diss") & "' , '" & SDR("USR") & "' , '" & SDR("SHIFT") & "' , '" & SDR("rcv_date") & "' , '" & SDR("rcv") & "' , '" & SDR("fastv") & "' , '" & SDR("hrcvv") & "' , '" & SDR("rcvv") & "' , '" & SDR("rcvn") & "' , '" & SDR("fastn") & "' , '" & SDR("cfast") & "' , '" & SDR("chrcv") & "' , '" & SDR("totv") & "' , '" & SDR("ty") & "' , '" & SDR("doc_per") & "' , '" & SDR("branch_name") & "' , '" & SDR("branch_code") & "' , '" & SDR("pemail") & "' , '" & SDR("dissn") & "' , '" & SDR("notes") & "' , '" & SDR("tblg") & "' , '" & SDR("sprnt") & "' , '" & SDR("pyear") & "' , '" & SDR("lab_name") & "' , '" & SDR("lab_code") & "' , '" & SDR("ptot") & "' , '" & SDR("ppay") & "' , '" & SDR("prest") & "' , '" & SDR("labprice") & "' , '" & SDR("labtest") & "' , '" & SDR("tnum") & "' , '" & SDR("nnik") & "' , '" & SDR("qun") & "' , '" & SDR("testpro") & "' , '" & SDR("rcv_time") & "' , '" & SDR("pinc") & "' , '" & SDR("pcrd") & "' , '" & SDR("pcanc") & "' , '" & SDR("YEARN") & "' , '" & SDR("ESLBILL") & "' , '" & SDR("urgant") & "' , '" & SDR("final") & "' , '" & SDR("bdel") & "' , '" & SDR("bdelusr") & "' , '" & SDR("bdeldate") & "' , '" & SDR("eslb") & "' , '" & SDR("bran") & "' , '" & SDR("printtime") & "' , '0' , '" & SDR("brans") & "' , '" & SDR("fnd") & "' , '" & SDR("sampl") & "' , '" & SDR("sampldate") & "' , '" & SDR("samplusr") & "' , '" & SDR("restusr") & "' , '" & SDR("restdate") & "' , '" & SDR("trl") & "', '" & SDR("trl") & "', '" & SDR("dev") & "')"
-                cmd.ExecuteNonQuery()
-                sdr1.Close()
+                'cmd.CommandText = "delete from lbill where ESL_NO='" & SDR("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                'cmd.ExecuteNonQuery()
+                'cmd.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[fnd],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,dev) VALUES ('" & SDR("esl_date") & "' , '" & SDR("esl_no") & "' , '" & SDR("pname") & "' , '" & SDR("reg_name") & "' , '" & SDR("doc_name") & "' , '" & SDR("book_code") & "' , '" & SDR("book_name") & "' , '" & SDR("company_code") & "' , '" & SDR("company_name") & "' , '" & SDR("doc_code") & "' , '" & SDR("pcode") & "' , '" & SDR("ptype") & "' , '" & SDR("page") & "' , '" & SDR("pid") & "' , '" & SDR("depn") & "' , '" & SDR("reg_code") & "' , '" & SDR("esl_time") & "' , '" & SDR("crd_per") & "' , '" & SDR("crd_v") & "' , '" & SDR("cash_per") & "' , '" & SDR("cash_v") & "' , '" & SDR("bon") & "' , '" & SDR("pay") & "' , '" & SDR("rest") & "' , '" & SDR("tot") & "' , '" & SDR("nik") & "' , '" & SDR("test") & "' , '" & SDR("diss") & "' , '" & SDR("USR") & "' , '" & SDR("SHIFT") & "' , '" & SDR("rcv_date") & "' , '" & SDR("rcv") & "' , '" & SDR("fastv") & "' , '" & SDR("hrcvv") & "' , '" & SDR("rcvv") & "' , '" & SDR("rcvn") & "' , '" & SDR("fastn") & "' , '" & SDR("cfast") & "' , '" & SDR("chrcv") & "' , '" & SDR("totv") & "' , '" & SDR("ty") & "' , '" & SDR("doc_per") & "' , '" & SDR("branch_name") & "' , '" & SDR("branch_code") & "' , '" & SDR("pemail") & "' , '" & SDR("dissn") & "' , '" & SDR("notes") & "' , '" & SDR("tblg") & "' , '" & SDR("sprnt") & "' , '" & SDR("pyear") & "' , '" & SDR("lab_name") & "' , '" & SDR("lab_code") & "' , '" & SDR("ptot") & "' , '" & SDR("ppay") & "' , '" & SDR("prest") & "' , '" & SDR("labprice") & "' , '" & SDR("labtest") & "' , '" & SDR("tnum") & "' , '" & SDR("nnik") & "' , '" & SDR("qun") & "' , '" & SDR("testpro") & "' , '" & SDR("rcv_time") & "' , '" & SDR("pinc") & "' , '" & SDR("pcrd") & "' , '" & SDR("pcanc") & "' , '" & SDR("YEARN") & "' , '" & SDR("ESLBILL") & "' , '" & SDR("urgant") & "' , '" & SDR("final") & "' , '" & SDR("bdel") & "' , '" & SDR("bdelusr") & "' , '" & SDR("bdeldate") & "' , '" & SDR("eslb") & "' , '" & SDR("bran") & "' , '" & SDR("printtime") & "' , '0' , '" & SDR("brans") & "' , '" & SDR("fnd") & "' , '" & SDR("sampl") & "' , '" & SDR("sampldate") & "' , '" & SDR("samplusr") & "' , '" & SDR("restusr") & "' , '" & SDR("restdate") & "' , '" & SDR("trl") & "', '" & SDR("trl") & "', '" & SDR("dev") & "')"
+                'cmd.ExecuteNonQuery()
 lm:
+               
+                line_st = 1
                 sdr1.Close()
-                scmd1.CommandText = "select * from LBILL_CULT_DET where ESL_NO='" & SDR("esl_no") & "' and st=1  and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                scmd1.CommandText = "select * from LBILL_CULT_DET where ESL_NO='" & SDR("esl_no") & "' and st=1  and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                 sdr1 = scmd1.ExecuteReader
                 While sdr1.Read
-                    cmd.CommandText = "delete from LBILL_CULT_DET  where test_code='" & sdr1("test_code") & "' and ESL_NO='" & SDR("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    cmd.CommandText = "delete from LBILL_CULT_DET  where test_code='" & sdr1("test_code") & "' and ESL_NO='" & SDR("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                     cmd.ExecuteNonQuery()
-                    cmd.CommandText = "delete from LBILL_CULT  where test_code='" & sdr1("test_code") & "' and ESL_NO='" & SDR("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    cmd.CommandText = "delete from LBILL_CULT  where test_code='" & sdr1("test_code") & "' and ESL_NO='" & SDR("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                     cmd.ExecuteNonQuery()
                     cmd.CommandText = "INSERT INTO [LBILL_CULT_DET]([test_name],[test_code],[esl_no],[NOTE],[SPECIMEN],[DIRECT_ FILM],[PUS_CELLS],[RBCs],[OTHERS],[CULTURE_CONDITIONS],[GROWTH_OF],[VAIBLE_COUNT],[COUNT_IS],[epithelial],[num],[YEARN],[bran],[st])VALUES ('" & sdr1("test_name") & "' , '" & sdr1("test_code") & "' , '" & sdr1("esl_no") & "' , '" & sdr1("NOTE") & "' , '" & sdr1("SPECIMEN") & "' , '" & sdr1("DIRECT_ FILM") & "' , '" & sdr1("PUS_CELLS") & "' , '" & sdr1("RBCs") & "' , '" & sdr1("OTHERS") & "' , '" & sdr1("CULTURE_CONDITIONS") & "' , '" & sdr1("GROWTH_OF") & "' , '" & sdr1("VAIBLE_COUNT") & "' , '" & sdr1("COUNT_IS") & "' , '" & sdr1("epithelial") & "' , '" & sdr1("num") & "' , '" & sdr1("YEARN") & "' , '" & sdr1("bran") & "' , '0')"
                     cmd.ExecuteNonQuery()
                 End While
                 sdr1.Close()
-                scmd1.CommandText = "select * from LBILL_CULT where ESL_NO='" & SDR("esl_no") & "' and st=1 and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                line_st = 2
+                scmd1.CommandText = "select * from LBILL_CULT where ESL_NO='" & SDR("esl_no") & "' and st=1 and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                 sdr1 = scmd1.ExecuteReader
                 While sdr1.Read
                     cmd.CommandText = "INSERT INTO [LBILL_CULT]([test_name],[test_code],[esl_no],[name1],[NAME2],[NAME3],[VIRUS],[VIRUSC],[so],[YEARN],[bran],[st]) VALUES ('" & sdr1("test_name") & "' , '" & sdr1("test_code") & "' , '" & sdr1("esl_no") & "' , '" & sdr1("name1") & "' , '" & sdr1("NAME2") & "' , '" & sdr1("NAME3") & "' , '" & sdr1("VIRUS") & "' , '" & sdr1("VIRUSC") & "' , '" & sdr1("so") & "' , '" & sdr1("YEARN") & "' , '" & sdr1("bran") & "' , '0')"
                     cmd.ExecuteNonQuery()
                 End While
+                
                 sdr1.Close()
-                scmd1.CommandText = "select * from lbill_test where ESL_NO='" & SDR("esl_no") & "'  and st=1  and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                line_st = 3
+                scmd1.CommandText = "select * from lbill_test where ESL_NO='" & SDR("esl_no") & "'  and st=1  and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                 sdr1 = scmd1.ExecuteReader
                 While sdr1.Read
-                    cmd.CommandText = "delete from lbill_test  where test_code='" & sdr1("test_code") & "' and ESL_NO='" & SDR("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    cmd.CommandText = "delete from lbill_test  where  test_code='" & sdr1("test_code") & "'  and ESL_NO='" & SDR("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                     cmd.ExecuteNonQuery()
                     cmd.CommandText = "INSERT INTO [lbill_test]([qun],[pthn],[ds],[test_name],[res],[test_code],[test_ar],[test_price],[tot1],[ref],[esl_no],[esl_date],[sub],[pname],[pcode],[page],[ptype],[cult],[fres],[rcv_date],[rcv],[note],[NOTEN],[NORB],[NORE],[UNIT],[take],[gr_name],[gr_code],[s],[p],[gname],[GCODE],[t],[TBLG],[tblgtime],[tblgusr],[prntn],[lab],[labprice],[so],[RSO],[comment],[HOMS],[BAR],[dis_n],[uadd],[uadddate],[YEARN],[urem],[uremdate],[tdel],[sres],[TOT2],[prnttime],[pth],[rsv],[rsvp],[QUN1],[id],[bran],[st],[trl],pricep) VALUES ('" & sdr1("qun") & "' , '" & sdr1("pthn") & "' , '" & sdr1("ds") & "' , '" & sdr1("test_name") & "' , '" & sdr1("res") & "' , '" & sdr1("test_code") & "' , '" & sdr1("test_ar") & "' , '" & sdr1("test_price") & "' , '" & sdr1("tot1") & "' , '" & sdr1("ref") & "' , '" & sdr1("esl_no") & "' , '" & sdr1("esl_date") & "' , '" & sdr1("sub") & "' , '" & sdr1("pname") & "' , '" & sdr1("pcode") & "' , '" & sdr1("page") & "' , '" & sdr1("ptype") & "' , '" & sdr1("cult") & "' , '" & sdr1("fres") & "' , '" & sdr1("rcv_date") & "' , '" & sdr1("rcv") & "' , '" & sdr1("note") & "' , '" & sdr1("NOTEN") & "' , '" & sdr1("NORB") & "' , '" & sdr1("NORE") & "' , '" & sdr1("UNIT") & "' , '" & sdr1("take") & "' , '" & sdr1("gr_name") & "' , '" & sdr1("gr_code") & "' , '" & sdr1("s") & "' , '" & sdr1("p") & "' , '" & sdr1("gname") & "' , '" & sdr1("GCODE") & "' , '" & sdr1("t") & "' , '" & sdr1("TBLG") & "' , '" & sdr1("tblgtime") & "' , '" & sdr1("tblgusr") & "' , '" & sdr1("prntn") & "' , '" & sdr1("lab") & "' , '" & sdr1("labprice") & "' , '" & sdr1("so") & "' , '" & sdr1("RSO") & "' , '" & sdr1("comment") & "' , '" & sdr1("HOMS") & "' , '" & sdr1("BAR") & "' , '" & sdr1("dis_n") & "' , '" & sdr1("uadd") & "' , '" & sdr1("uadddate") & "' , '" & sdr1("YEARN") & "' , '" & sdr1("urem") & "' , '" & sdr1("uremdate") & "' , '" & sdr1("tdel") & "' , '" & sdr1("sres") & "' , '" & sdr1("TOT2") & "' , '" & sdr1("prnttime") & "' , '" & sdr1("pth") & "' , '" & sdr1("rsv") & "' , '" & sdr1("rsvp") & "' , '" & sdr1("QUN1") & "' , '" & nulls(sdr1("id")) & "' , '" & sdr1("bran") & "' , '0' , '" & sdr1("trl") & "', '" & sdr1("pricep") & "')"
                     cmd.ExecuteNonQuery()
                 End While
                 sdr1.Close()
-                scmd1.CommandText = "select * from lbill_testsub where ESL_NO='" & SDR("esl_no") & "'  and st=1  and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+               
+                line_st = 4
+                scmd1.CommandText = "select * from lbill_testsub where ESL_NO='" & SDR("esl_no") & "'  and st=1  and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                 sdr1 = scmd1.ExecuteReader
                 While sdr1.Read
-                    cmd.CommandText = "delete from lbill_testsub  where test_code='" & sdr1("test_code") & "' and ESL_NO='" & SDR("esl_no") & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    cmd.CommandText = "delete from lbill_testsub  where test_code='" & sdr1("test_code") & "' and ESL_NO='" & SDR("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
                     cmd.ExecuteNonQuery()
                     cmd.CommandText = "INSERT INTO [lbill_testsub]([qun],[pthn],[test_name],[res],[res1],[res2],[so],[test_code],[test_ar],[ref],[esl_no],[mtest_code],[mtest_name],[ds],[rcv],[note],[NOTEN],[NORB],[NORE],[q],[absu],[ref1],[p],[unit],[rso],[YEARN],[re1],[re2],[ds1],[pth],[rsv],[rsvp],[rsv1],[QUN1],[RDS],[bran],[st]) VALUES ('" & sdr1("qun") & "' , '" & sdr1("pthn") & "' , '" & sdr1("test_name") & "' , '" & sdr1("res") & "' , '" & sdr1("res1") & "' , '" & sdr1("res2") & "' , '" & sdr1("so") & "' , '" & sdr1("test_code") & "' , '" & sdr1("test_ar") & "' , '" & sdr1("ref") & "' , '" & sdr1("esl_no") & "' , '" & sdr1("mtest_code") & "' , '" & sdr1("mtest_name") & "' , '" & sdr1("ds") & "' , '" & sdr1("rcv") & "' , '" & sdr1("note") & "' , '" & sdr1("NOTEN") & "' , '" & sdr1("NORB") & "' , '" & sdr1("NORE") & "' , '" & sdr1("q") & "' , '" & sdr1("absu") & "' , '" & sdr1("ref1") & "' , '" & sdr1("p") & "' , '" & sdr1("unit") & "' , '" & sdr1("rso") & "' , '" & sdr1("YEARN") & "' , '" & sdr1("re1") & "' , '" & sdr1("re2") & "' , '" & sdr1("ds1") & "' , '" & sdr1("pth") & "' , '" & sdr1("rsv") & "' , '" & sdr1("rsvp") & "' , '" & sdr1("rsv1") & "' , '" & sdr1("QUN1") & "' , '" & sdr1("RDS") & "' , '" & sdr1("bran") & "' , '" & sdr1("st") & "')"
                     cmd.ExecuteNonQuery()
                 End While
                 sdr1.Close()
-                If SDR("st") = 2 Then GoTo lout
+                dr.Close()
+
+                cmd.CommandText = "update  lbill set final='" & SDR("final") & "' where ESL_NO='" & SDR("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+                cmd.ExecuteNonQuery()
+                ' If SDR("st") = 2 Then GoTo lout
             End While
-           
+
+            '            sdr1.Close()
+            '            SDR.Close()
+            '            line_st = 5
+            '            SCMD.CommandText = "select * from lbill where st='2' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+            '            SDR = SCMD.ExecuteReader
+            '            While SDR.Read
+            '                GoTo lm
+            'lout:
+            '            End While
+
             sdr1.Close()
-            SDR.Close()
-            SCMD.CommandText = "select * from lbill where st='2' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
-            SDR = SCMD.ExecuteReader
-            While SDR.Read
-                GoTo lm
-lout:
-            End While
-            sdr1.Close()
+            line_st = 6
             scmd1.CommandText = "update lbill set st=0 where  yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
             scmd1.ExecuteNonQuery()
             scmd1.CommandText = "update lbill_ESL set st=0 where    yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
@@ -17925,7 +17910,7 @@ lout:
             'cmd.CommandText = "update llog set st=0 "
             'cmd.ExecuteNonQuery()
             'dr1.Close()
-            'cmd1.CommandText = "select * from BRANIMAGE where ST='1' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+            'cmd1.CommandText = "select * from BRANIMAGE where ST='1' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
             'dr1 = cmd1.ExecuteReader
             'While dr1.Read
             '    SDR.Close()
@@ -17949,9 +17934,261 @@ lout:
             '    SCMD.ExecuteNonQuery()
             'End While
 
+            '==========================================================upload to main================================
+            SDR.Close()
+            sdr1.Close()
+            dr.Close()
+            dr1.Close()
+            n = 0
+            n1 = 0
+            line_st = 7
+            cmd.CommandText = " update lbill set st=1 where st=1 and  yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            n = cmd.ExecuteNonQuery
+            cmd.CommandText = "select * from lbill  where st=1 and  yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & " order by esl_no"
+            dr = cmd.ExecuteReader
+            ACdr.Close()
+            n = n + 1
+            Dim t As String = ""
+            While dr.Read
+                n11 = n11 + 1
+                If n11 > n Then n11 = n - 1
+                ncode.Text = (n11 / n)
+                ACcmd.CommandText = "update srv set pass11='" & (n11 / n) * 100 & "'"
+                ACcmd.ExecuteNonQuery()
+                line_st = 8
+                SCMD.CommandText = "delete from lbill where ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                SCMD.ExecuteNonQuery()
+                SCMD.CommandText = "delete from lbillemage where ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                SCMD.ExecuteNonQuery()
+                SCMD.CommandText = "delete from lbill_ESL where ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                SCMD.ExecuteNonQuery()
+                SCMD.CommandText = "INSERT INTO lbill ([esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[st],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],fs,labd,dev) VALUES ('" & dr("esl_date") & "' , '" & dr("esl_no") & "' , '" & dr("pname") & "' , '" & dr("reg_name") & "' , '" & dr("doc_name") & "' , '" & dr("book_code") & "' , '" & dr("book_name") & "' , '" & dr("company_code") & "' , '" & dr("company_name") & "' , '" & dr("doc_code") & "' , '" & dr("pcode") & "' , '" & dr("ptype") & "' , '" & dr("page") & "' , '" & dr("pid") & "' , '" & dr("depn") & "' , '" & dr("reg_code") & "' , '" & dr("esl_time") & "' , '" & dr("crd_per") & "' , '" & dr("crd_v") & "' , '" & dr("cash_per") & "' , '" & dr("cash_v") & "' , '" & dr("bon") & "' , '" & dr("pay") & "' , '" & dr("rest") & "' , '" & dr("tot") & "' , '" & dr("nik") & "' , '" & dr("test") & "' , '" & dr("diss") & "' , '" & dr("USR") & "' , '" & dr("SHIFT") & "' , '" & dr("rcv_date") & "' , '" & dr("rcv") & "' , '" & dr("fastv") & "' , '" & dr("hrcvv") & "' , '" & dr("rcvv") & "' , '" & dr("rcvn") & "' , '" & dr("fastn") & "' , '" & dr("cfast") & "' , '" & dr("chrcv") & "' , '" & dr("totv") & "' , '" & dr("ty") & "' , '" & dr("doc_per") & "' , '" & dr("branch_name") & "' , '" & dr("branch_code") & "' , '" & dr("pemail") & "' , '" & dr("dissn") & "' , '" & dr("notes") & "' , '" & dr("tblg") & "' , '" & dr("sprnt") & "' , '" & dr("pyear") & "' , '" & dr("lab_name") & "' , '" & dr("lab_code") & "' , '" & dr("ptot") & "' , '" & dr("ppay") & "' , '" & dr("prest") & "' , '" & dr("labprice") & "' , '" & dr("labtest") & "' , '" & dr("tnum") & "' , '" & dr("nnik") & "' , '" & dr("qun") & "' , '" & dr("testpro") & "' , '" & dr("rcv_time") & "' , '" & dr("pinc") & "' , '" & dr("pcrd") & "' , '" & dr("pcanc") & "' , '" & dr("YEARN") & "' , '" & dr("ESLBILL") & "' , '" & dr("urgant") & "' , '" & dr("final") & "' , '" & dr("bdel") & "' , '" & dr("bdelusr") & "' , '" & dr("bdeldate") & "' , '" & dr("eslb") & "' , '" & dr("bran") & "' , '" & dr("printtime") & "' , '0' , '" & dr("brans") & "'  , '" & dr("sampl") & "' , '" & dr("sampldate") & "' , '" & dr("samplusr") & "' , '" & dr("restusr") & "' , '" & dr("restdate") & "' , '" & dr("trl") & "' , '" & dr("fs") & "', '" & dr("labd") & "', '" & dr("dev") & "')"
+                SCMD.ExecuteNonQuery()
+                dr1.Close()
+                line_st = 9
+                cmd1.CommandText = "select * from lbillimage where ESL_NO='" & dr("esl_no") & "' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "INSERT INTO [lbillimage] ([no],[esl_no],[yearn],[code],[IIMAGE],[bran],[st],usr) VALUES ('" & dr1("no") & "' , '" & dr1("esl_no") & "' , '" & dr1("yearn") & "' , '" & dr1("code") & "' , '" & dr1("IIMAGE") & "' , '" & dr1("bran") & "' , '" & dr1("st") & "', '" & dr1("usr") & "')"
+                    SCMD.ExecuteNonQuery()
+                    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
+                    Dim ImageFromDB As New Bitmap(newMstream)
+                    PictureBox1.Image = ImageFromDB
+                    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
+                    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("esl_no"))
+                    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr("esl_no"), System.Drawing.Imaging.ImageFormat.Jpeg)
+                    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr("esl_no"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                    rer = New IO.StreamReader(oer)
+                    Dim FileByteArrayr1(oer.Length - 1) As Byte
+                    oer.Read(FileByteArrayr1, 0, oer.Length)
+                    Dim AAAAA1 As String = ""
+                    Dim Sql1 As String = "update  lbillimage set image = ? " & AAAAA1 & "  where  ESL_NO='" & Val(dr("esl_no")) & "' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+                    SCMD.CommandText = Sql1
+                    SCMD.Parameters.Clear()
+                    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
+                    SCMD.ExecuteNonQuery()
+                End While
+                dr1.Close()
+                line_st = 10
+                cmd1.CommandText = "select * from lbill_CID where ESL_NO='" & dr("esl_no") & "' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "INSERT INTO [lbill_CID] ([no],[esl_no],[yearn],[code],[IIMAGE],[bran],usr) VALUES ('" & dr1("no") & "' , '" & dr1("esl_no") & "' , '" & dr1("yearn") & "' , '" & dr1("code") & "' , '" & dr1("IIMAGE") & "' , '" & dr1("bran") & "', '" & dr1("usr") & "')"
+                    SCMD.ExecuteNonQuery()
+                    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
+                    Dim ImageFromDB As New Bitmap(newMstream)
+                    PictureBox1.Image = ImageFromDB
+                    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
+                    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("esl_no"))
+                    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr("esl_no"), System.Drawing.Imaging.ImageFormat.Jpeg)
+                    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr("esl_no"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                    rer = New IO.StreamReader(oer)
+                    Dim FileByteArrayr1(oer.Length - 1) As Byte
+                    oer.Read(FileByteArrayr1, 0, oer.Length)
+                    Dim AAAAA1 As String = ""
+                    Dim Sql1 As String = "update  lbill_CID set image = ? " & AAAAA1 & "  where  ESL_NO='" & Val(dr("esl_no")) & "' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+                    SCMD.CommandText = Sql1
+                    SCMD.Parameters.Clear()
+                    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
+                    SCMD.ExecuteNonQuery()
+                End While
+                dr1.Close()
+                line_st = 12
+                cmd1.CommandText = "select * from lbill_cmt where ESL_NO='" & dr("esl_no") & "' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "INSERT INTO [lbill_cmt] ([no],[esl_no],[yearn],[code],[IIMAGE],[bran],usr) VALUES ('" & dr1("no") & "' , '" & dr1("esl_no") & "' , '" & dr1("yearn") & "' , '" & dr1("code") & "' , '" & dr1("IIMAGE") & "' , '" & dr1("bran") & "', '" & dr1("usr") & "' )"
+                    SCMD.ExecuteNonQuery()
+                    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
+                    Dim ImageFromDB As New Bitmap(newMstream)
+                    PictureBox1.Image = ImageFromDB
+                    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
+                    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("esl_no"))
+                    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr("esl_no"), System.Drawing.Imaging.ImageFormat.Jpeg)
+                    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr("esl_no"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                    rer = New IO.StreamReader(oer)
+                    Dim FileByteArrayr1(oer.Length - 1) As Byte
+                    oer.Read(FileByteArrayr1, 0, oer.Length)
+                    Dim AAAAA1 As String = ""
+                    Dim Sql1 As String = "update  lbill_cmt set image = ? " & AAAAA1 & "  where  ESL_NO='" & Val(dr("esl_no")) & "' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+                    SCMD.CommandText = Sql1
+                    SCMD.Parameters.Clear()
+                    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
+                    SCMD.ExecuteNonQuery()
+                End While
+                dr1.Close()
+                line_st = 13
+                cmd1.CommandText = "select * from LPATIEN where pcode='" & dr("pcode") & "'"
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "delete  from LPATIEN where pcode='" & dr("pcode") & "'"
+                    SCMD.ExecuteNonQuery()
+                    SCMD.CommandText = "INSERT INTO [LPATIEN]([pname],[pcode],[ptype],[pbrith_date],[page],[pphone],[pmobile],[pgover],[pcity],[pstreet],[pemail],[pid],[book_code],[book_name],[company_code],[company_name],[Pnik],[PYEAR],[YAER],[YEAR],[reg_code],[reg_name],[st]) VALUES ('" & dr1("pname") & "' , '" & dr1("pcode") & "' , '" & dr1("ptype") & "' , '" & dr1("pbrith_date") & "' , '" & dr1("page") & "' , '" & dr1("pphone") & "' , '" & dr1("pmobile") & "' , '" & dr1("pgover") & "' , '" & dr1("pcity") & "' , '" & dr1("pstreet") & "' , '" & dr1("pemail") & "' , '" & dr1("pid") & "' , '" & dr1("book_code") & "' , '" & dr1("book_name") & "' , '" & dr1("company_code") & "' , '" & dr1("company_name") & "' , '" & dr1("Pnik") & "' , '" & dr1("PYEAR") & "' , '" & dr1("YAER") & "' , '" & dr1("YEAR") & "' , '" & dr1("reg_code") & "' , '" & dr1("reg_name") & "' , '" & dr1("st") & "')"
+                    SCMD.ExecuteNonQuery()
+                End While
+om:
+                dr1.Close()
+                line_st = 14
+                cmd1.CommandText = "select * from LBILL_CULT_DET where ESL_NO='" & dr("esl_no") & "'    and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "delete from LBILL_CULT_DET  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    SCMD.ExecuteNonQuery()
+                    SCMD.CommandText = "delete from LBILL_CULT  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    SCMD.ExecuteNonQuery()
+                    SCMD.CommandText = "INSERT INTO [LBILL_CULT_DET]([test_name],[test_code],[esl_no],[NOTE],[SPECIMEN],[DIRECT_ FILM],[PUS_CELLS],[RBCs],[OTHERS],[CULTURE_CONDITIONS],[GROWTH_OF],[VAIBLE_COUNT],[COUNT_IS],[epithelial],[num],[YEARN],[bran],[st])VALUES ('" & dr1("test_name") & "' , '" & dr1("test_code") & "' , '" & dr1("esl_no") & "' , '" & dr1("NOTE") & "' , '" & dr1("SPECIMEN") & "' , '" & dr1("DIRECT_ FILM") & "' , '" & dr1("PUS_CELLS") & "' , '" & dr1("RBCs") & "' , '" & dr1("OTHERS") & "' , '" & dr1("CULTURE_CONDITIONS") & "' , '" & dr1("GROWTH_OF") & "' , '" & dr1("VAIBLE_COUNT") & "' , '" & dr1("COUNT_IS") & "' , '" & dr1("epithelial") & "' , '" & dr1("num") & "' , '" & dr1("YEARN") & "' , '" & dr1("bran") & "' , '0')"
+                    SCMD.ExecuteNonQuery()
+                End While
+                dr1.Close()
+                line_st = 15
+                cmd1.CommandText = "select * from LBILL_CULT where ESL_NO='" & dr("esl_no") & "' and st=1 and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "INSERT INTO [LBILL_CULT]([test_name],[test_code],[esl_no],[name1],[NAME2],[NAME3],[VIRUS],[VIRUSC],[so],[YEARN],[bran],[st]) VALUES ('" & dr1("test_name") & "' , '" & dr1("test_code") & "' , '" & dr1("esl_no") & "' , '" & dr1("name1") & "' , '" & dr1("NAME2") & "' , '" & dr1("NAME3") & "' , '" & dr1("VIRUS") & "' , '" & dr1("VIRUSC") & "' , '" & dr1("so") & "' , '" & dr1("YEARN") & "' , '" & dr1("bran") & "' , '0')"
+                    SCMD.ExecuteNonQuery()
+                End While
+                dr1.Close()
+                line_st = 16
+                SCMD.CommandText = "delete from lbill_esl  where ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                SCMD.ExecuteNonQuery()
+                cmd1.CommandText = "select * from lbill_esl where ESL_NO='" & dr("esl_no") & "'   and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "INSERT INTO [lbill_esl]([esl_no],[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[id],[bran],[st],[trl],usr,erbank)VALUES ('" & dr1("esl_no") & "' , '" & dr1("bill") & "' , '" & dr1("yearn") & "' , '" & dr1("sdate") & "' , '" & dr1("rest") & "' , '" & dr1("billrest") & "' , '" & dr1("TOT") & "' , '" & dr1("qun") & "' , '" & nulls(dr1("id")) & "' , '" & dr1("bran") & "' , '0' , '" & dr1("trl") & "', '" & dr1("usr") & "', '" & dr1("erbank") & "')"
+                    SCMD.ExecuteNonQuery()
+                End While
+                SCMD.CommandText = "INSERT INTO [lbillemage]([esl_no],[yearn],[bran])VALUES ('" & dr("esl_no") & "' , '" & dr("yearn") & "' , '" & dr("bran") & "' )"
+                SCMD.ExecuteNonQuery()
+                dr1.Close()
+
+                line_st = 17
+                cmd1.CommandText = "select * from lbill_test where ESL_NO='" & dr("esl_no") & "'  and st=1  and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "delete from lbill_test  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    SCMD.ExecuteNonQuery()
+                    SCMD.CommandText = "INSERT INTO [lbill_test]([qun],[pthn],[ds],[test_name],[res],[test_code],[test_ar],[test_price],[tot1],[ref],[esl_no],[esl_date],[sub],[pname],[pcode],[page],[ptype],[cult],[fres],[rcv_date],[rcv],[note],[NOTEN],[NORB],[NORE],[UNIT],[take],[gr_name],[gr_code],[s],[p],[gname],[GCODE],[t],[TBLG],[tblgtime],[tblgusr],[prntn],[lab],[labprice],[so],[RSO],[comment],[HOMS],[BAR],[dis_n],[uadd],[uadddate],[YEARN],[urem],[uremdate],[tdel],[sres],[TOT2],[prnttime],[pth],[rsv],[rsvp],[QUN1],[id],[bran],[st],[trl],notesp,notesg,usr,tsq,pricep) VALUES ('" & dr1("qun") & "' , '" & dr1("pthn") & "' , '" & dr1("ds") & "' , '" & dr1("test_name") & "' , '" & dr1("res") & "' , '" & dr1("test_code") & "' , '" & dr1("test_ar") & "' , '" & dr1("test_price") & "' , '" & dr1("tot1") & "' , '" & dr1("ref") & "' , '" & dr1("esl_no") & "' , '" & dr1("esl_date") & "' , '" & dr1("sub") & "' , '" & dr1("pname") & "' , '" & dr1("pcode") & "' , '" & dr1("page") & "' , '" & dr1("ptype") & "' , '" & dr1("cult") & "' , '" & dr1("fres") & "' , '" & dr1("rcv_date") & "' , '" & dr1("rcv") & "' , '" & dr1("note") & "' , '" & dr1("NOTEN") & "' , '" & dr1("NORB") & "' , '" & dr1("NORE") & "' , '" & dr1("UNIT") & "' , '" & dr1("take") & "' , '" & dr1("gr_name") & "' , '" & dr1("gr_code") & "' , '" & dr1("s") & "' , '" & dr1("p") & "' , '" & dr1("gname") & "' , '" & dr1("GCODE") & "' , '" & dr1("t") & "' , '" & dr1("TBLG") & "' , '" & dr1("tblgtime") & "' , '" & dr1("tblgusr") & "' , '" & dr1("prntn") & "' , '" & dr1("lab") & "' , '" & dr1("labprice") & "' , '" & dr1("so") & "' , '" & dr1("RSO") & "' , '" & dr1("comment") & "' , '" & dr1("HOMS") & "' , '" & dr1("BAR") & "' , '" & dr1("dis_n") & "' , '" & dr1("uadd") & "' , '" & dr1("uadddate") & "' , '" & dr1("YEARN") & "' , '" & dr1("urem") & "' , '" & dr1("uremdate") & "' , '" & dr1("tdel") & "' , '" & dr1("sres") & "' , '" & dr1("TOT2") & "' , '" & dr1("prnttime") & "' , '" & dr1("pth") & "' , '" & dr1("rsv") & "' , '" & dr1("rsvp") & "' , '" & dr1("QUN1") & "' , '" & nulls(dr1("id")) & "' , '" & dr1("bran") & "' , '0' , '" & dr1("trl") & "', '" & dr1("notesp") & "', '" & dr1("notesg") & "', '" & dr1("usr") & "', '" & dr1("tsq") & "', '" & dr1("pricep") & "')"
+                    SCMD.ExecuteNonQuery()
+                End While
+                dr1.Close()
+                line_st = 18
+                cmd1.CommandText = "select * from lbill_testsub where ESL_NO='" & dr("esl_no") & "'  and st=1  and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                dr1 = cmd1.ExecuteReader
+                While dr1.Read
+                    SCMD.CommandText = "delete from lbill_testsub  where test_code='" & dr1("test_code") & "' and ESL_NO='" & dr("esl_no") & "' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+                    SCMD.ExecuteNonQuery()
+                    SCMD.CommandText = "INSERT INTO [lbill_testsub]([qun],[pthn],[test_name],[res],[res1],[res2],[so],[test_code],[test_ar],[ref],[esl_no],[mtest_code],[mtest_name],[ds],[rcv],[note],[NOTEN],[NORB],[NORE],[q],[absu],[ref1],[p],[unit],[rso],[YEARN],[re1],[re2],[ds1],[pth],[rsv],[rsvp],[rsv1],[QUN1],[RDS],[bran],[st],usr) VALUES ('" & dr1("qun") & "' , '" & dr1("pthn") & "' , '" & dr1("test_name") & "' , '" & dr1("res") & "' , '" & dr1("res1") & "' , '" & dr1("res2") & "' , '" & dr1("so") & "' , '" & dr1("test_code") & "' , '" & dr1("test_ar") & "' , '" & dr1("ref") & "' , '" & dr1("esl_no") & "' , '" & dr1("mtest_code") & "' , '" & dr1("mtest_name") & "' , '" & dr1("ds") & "' , '" & dr1("rcv") & "' , '" & dr1("note") & "' , '" & dr1("NOTEN") & "' , '" & dr1("NORB") & "' , '" & dr1("NORE") & "' , '" & dr1("q") & "' , '" & dr1("absu") & "' , '" & dr1("ref1") & "' , '" & dr1("p") & "' , '" & dr1("unit") & "' , '" & dr1("rso") & "' , '" & dr1("YEARN") & "' , '" & dr1("re1") & "' , '" & dr1("re2") & "' , '" & dr1("ds1") & "' , '" & dr1("pth") & "' , '" & dr1("rsv") & "' , '" & dr1("rsvp") & "' , '" & dr1("rsv1") & "' , '" & dr1("QUN1") & "' , '" & dr1("RDS") & "' , '" & dr1("bran") & "' , '" & dr1("st") & "', '" & dr1("usr") & "')"
+                    SCMD.ExecuteNonQuery()
+                End While
+                dr1.Close()
+                sdr1.Close()
+                If dr("st") = 2 Then GoTo lin
+            End While
+            n = n + 1
+            dr.Close()
+            line_st = 19
+            cmd.CommandText = "select * from lbill where st='2' " & " and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+            dr = cmd.ExecuteReader
+            While dr.Read
+                GoTo om
+lin:
+            End While
+            dr.Close()
+            line_st = 20
+            cmd1.CommandText = "update lbill set st=0 where    yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.ExecuteNonQuery()
+            cmd1.CommandText = "update lbill_ESL set st=0 where    yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.ExecuteNonQuery()
+            cmd1.CommandText = "update lbill_test set st=0  where    yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.ExecuteNonQuery()
+            cmd1.CommandText = "update lbill_testsub set st=0 where   yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.ExecuteNonQuery()
+            cmd1.CommandText = "update LBILL_CULT set st=0 where   yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.ExecuteNonQuery()
+            cmd1.CommandText = "update LBILL_CULT_DET set st=0 where    yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            cmd1.ExecuteNonQuery()
+            'dr.Close()
+            'SDR.Close()
+            'SCMD.CommandText = "SELECT * FROM LBILLEMAGE WHERE IMAGE IS NULL  "
+            'SDR = SCMD.ExecuteReader
+            'While SDR.Read
+            '    If IO.File.Exists(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("BRAN")) = False Then
+            '        Dim W As Integer = Convert.ToInt32("150")
+            '        Dim H As Integer = Convert.ToInt32("37")
+            '        bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
+            '        Dim type As BarcodeLib.TYPE = BarcodeLib.TYPE.UNSPECIFIED
+            '        type = BarcodeLib.TYPE.CODE128
+            '        bar1.IncludeLabel = True
+            '        barco.Image = bar1.Encode(type, n11 & SDR("BRAN").ToString.Trim & SDR("ESL_NO").ToString.Trim, W, H)
+            '        IO.File.Delete(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"))
+            '        barco.Image.Save(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), System.Drawing.Imaging.ImageFormat.Jpeg)
+            '    End If
+            '    Dim oer1 As System.IO.FileStream
+            '    Dim rer1 As IO.StreamReader
+            '    oer1 = New IO.FileStream(Application.StartupPath & "\esl\" & n11 & SDR("BRAN") & SDR("ESL_NO"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+            '    rer1 = New IO.StreamReader(oer1)
+            '    Dim FileByteArrayr(oer1.Length - 1) As Byte
+            '    oer1.Read(FileByteArrayr, 0, oer1.Length)
+            '    sdr1.Close()
+            '    Dim AAAAA As String = ""
+            '    Dim Sql As String = "update  lbillemage set image = ? " & AAAAA & "  where  ESL_NO='" & Val(SDR("esl_no")) & "' and yearn='" & Val(SDR("YEARN")) & "' and bran='" & SDR("BRAN") & "'"
+            '    scmd1.CommandText = Sql
+            '    scmd1.Parameters.Clear()
+            '    scmd1.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer1.Length).Value = FileByteArrayr
+            '    scmd1.ExecuteNonQuery()
+            '    n11 += 1
+            'End While
+            'dr1.Close()
+            'cmd1.CommandText = "select * from llogsheet where ST='1' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'" & ""
+            'dr1 = cmd1.ExecuteReader
+            'While dr1.Read
+            '    SDR.Close()
+            '    SCMD.CommandText = "INSERT INTO llogsheet ([no],[yearn],[code],[bran],esl_date) VALUES ('" & dr1("no") & "'  , '" & dr1("yearn") & "' , '" & dr1("code") & "'  , '" & dr1("bran") & "', '" & dr1("esl_date") & "' )"
+            '    SCMD.ExecuteNonQuery()
+            '    Dim newMstream As New System.IO.MemoryStream(CType(dr1.Item("image"), Byte()))
+            '    Dim ImageFromDB As New Bitmap(newMstream)
+            '    PictureBox1.Image = ImageFromDB
+            '    t = Now.DayOfYear & Now.Hour & Now.Minute & Now.Second
+            '    IO.File.Delete(Application.StartupPath & "\images\" & t & dr1("code"))
+            '    PictureBox1.Image.Save(Application.StartupPath & "\images\" & t & dr1("code"), System.Drawing.Imaging.ImageFormat.Jpeg)
+            '    oer = New IO.FileStream(Application.StartupPath & "\images\" & t & dr1("code"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+            '    rer = New IO.StreamReader(oer)
+            '    Dim FileByteArrayr1(oer.Length - 1) As Byte
+            '    oer.Read(FileByteArrayr1, 0, oer.Length)
+            '    Dim AAAAA1 As String = ""
+            '    Dim Sql1 As String = "update  llogsheet set image = ? " & AAAAA1 & "  where  code='" & Val(dr1("code")) & "' and esl_date='" & dr1("esl_date") & "' and yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text.Trim & "'"
+            '    SCMD.CommandText = Sql1
+            '    SCMD.Parameters.Clear()
+            '    SCMD.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
+            '    SCMD.ExecuteNonQuery()
+            'End While
+            'dr1.Close()
+            'cmd.CommandText = "update llogsheet set st=0 "
+            'cmd.ExecuteNonQuery()
             dr.Close()
             sdr1.Close()
             SDR.Close()
+            line_st = 21
             upd()
         Catch ex As Exception
             Dim st As String = ex.Message
@@ -17959,9 +18196,10 @@ lout:
             dr.Close()
             cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','online','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
             cmd.ExecuteNonQuery()
-            MsgBox(st) : If ex.Message = "Load report failed." Then End
+            MsgBox(ex.StackTrace & ex.Message & ">>>>>>" & line_st) : If ex.Message = "Load report failed." Then End
         End Try
     End Sub
+
     Public Sub upd()
         If FESLT = 1 Then
             Dim nsd As Integer = 0
@@ -18486,20 +18724,35 @@ mmm:
 
         cmd.CommandText = "CREATE TABLE lcom_test  (test_name varchar(50), test_code int , price int NOT NULL DEFAULT '0', lab int NOT NULL DEFAULT '0',com_name [nvarchar](200) NULL,com_code int)"
         cmd.ExecuteNonQuery()
-
         cmd.CommandText = "CREATE TABLE [dbo].[lblock]([pname] [nvarchar](200) NULL,[pcode] [nvarchar](50) NULL,[comment] [nvarchar](500) NULL,[type] [int] NOT NULL DEFAULT '0',[pmobile] [int] NOT NULL DEFAULT '0')"
         cmd.ExecuteNonQuery()
-        
         cmd.CommandText = "ALTER TABLE lcompany ADD address  nvarchar(max) , price_name  int,oprice_name  nvarchar(50),price_diss INT NOT NULL DEFAULT '0',oprice_diss INT NOT NULL DEFAULT '0',tah_form  nvarchar(MAX),tah_exp  nvarchar(50),tah_date  nvarchar(50),emp_cash  nvarchar(50),fam_cash  nvarchar(50),HC  nvarchar(MAX),out_date  nvarchar(MAX) "
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD labin  INT  "
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lcompany ADD lbill_esl  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lcompany ADD coms  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbill ADD coms_company  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbill ADD coms_doc  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lbill_esl ADD erbank  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
+        'cmd.CommandText = "update branch set msga=1"
+        'cmd.ExecuteNonQuery()
+
+        cmd.CommandText = "ALTER TABLE lbill_test ADD IMAGE	image ,IMGN	int NOT NULL DEFAULT '0',IMGNO	numeric(18, 0) NOT NULL DEFAULT '0',timagen	int NOT NULL DEFAULT '0',final	int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbill_testdel ADD IMAGE	image ,IMGN	int NOT NULL DEFAULT '0',IMGNO	numeric(18, 0) NOT NULL DEFAULT '0',timagen	int NOT NULL DEFAULT '0',final	int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
+
         cmd.CommandText = "ALTER TABLE lbilldel ADD dev  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE branch ADD esln  int NOT NULL DEFAULT '1'"
+        cmd.ExecuteNonQuery()
+     
         cmd.CommandText = "ALTER TABLE ltest ADD cal  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lbill ADD dev  int NOT NULL DEFAULT '0'"
@@ -18538,14 +18791,20 @@ mmm:
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE branch ADD subres  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lcash ADD emp_code  int NOT NULL DEFAULT '0',st  int NOT NULL DEFAULT '0',emp_name varchar(50) NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE branch ADD savenew   int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
-        cmd.CommandText = "ALTER TABLE branch ADD subres  LABOUT NOT NULL DEFAULT '0'"
+        cmd.CommandText = "ALTER TABLE branch ADD subres  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
-        cmd.CommandText = "ALTER TABLE branch ADD wuser  [nvarchar](50) NOT NULL DEFAULT '0',wpass  [nvarchar](50) NOT NULL DEFAULT '0'"
+        cmd.CommandText = "ALTER TABLE branch ADD visa int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE branch ADD site_save  [nvarchar](100) NOT NULL DEFAULT '0',site NOT NULL DEFAULT '0',site_save  [nvarchar](100) NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
 
         cmd.CommandText = "ALTER TABLE branch ADD online  int NOT NULL DEFAULT '0'"
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE branch ADD CTRL  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE branch ADD PMOBILE  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
@@ -18558,6 +18817,12 @@ mmm:
         cmd.CommandText = "ALTER TABLE lbill ADD wid   varchar(50) NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE branch ADD EMAILB  varchar(2000) "
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE branch ADD EMAIL  varchar(2000) "
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbill_esl ADD usr  varchar(2000) "
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "ALTER TABLE lbill_test ADD usr  varchar(2000) "
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE lbill ADD WEB  varchar(50) NOT NULL DEFAULT '0' "
         cmd.ExecuteNonQuery()
@@ -18622,11 +18887,8 @@ mmm:
         ACcmd.ExecuteNonQuery()
         ACcmd.CommandText = "ALTER TABLE TEST_PRICE ADD pricep  Number"
         ACcmd.ExecuteNonQuery()
-
         ACcmd.CommandText = "ALTER TABLE esl ADD erbank  Number"
         ACcmd.ExecuteNonQuery()
-
-
         ACcmd.CommandText = "ALTER TABLE TEST_PRICE ADD cal Number NOT NULL DEFAULT '0'"
         ACcmd.ExecuteNonQuery()
         ACcmd.CommandText = "ALTER TABLE TEST_PRICE ADD pricev Number"
@@ -18635,10 +18897,8 @@ mmm:
         ACcmd.ExecuteNonQuery()
         ACcmd.CommandText = "ALTER TABLE TEST_PRICE ADD lck Number NOT NULL DEFAULT '0'"
         ACcmd.ExecuteNonQuery()
-
         ACcmd.CommandText = "ALTER TABLE TEST_SUB ADD RST Number NOT NULL DEFAULT '0'"
         ACcmd.ExecuteNonQuery()
-
         dr.Close()
         cmd.CommandText = "ALTER TABLE lbill_test ADD pricep  int NOT NULL DEFAULT '0'"
         cmd.ExecuteNonQuery()
@@ -18663,85 +18923,7 @@ mmm:
         cmd.ExecuteNonQuery()
         cmd.CommandText = "ALTER TABLE erloge ADD PRIMARY KEY (KY)"
         cmd.ExecuteNonQuery()
-        '================================================================================
-        ''dr.Close()
-        ''cmd.CommandText = "UPDATE lbill SET lbill.pmobile = LPATIEN.pmobile FROM lbill INNER JOIN LPATIEN ON lbill.pcode = LPATIEN.pcode and lbill.pname = LPATIEN.pname "
-        ''cmd.ExecuteNonQuery()
-        ' ''cmd.CommandText = "CREATE TABLE lbillemage([esl_no] [numeric](18, 0) NULL,[yearn] [int] NULL,[bran] [varchar](50) NULL,[image] [image] NULL,[ky] [numeric](18, 0) IDENTITY(1,1) NOT NULL,CONSTRAINT [PK_lbillemage] PRIMARY KEY CLUSTERED) "
-        ' ''cmd.ExecuteNonQuery()
-        ''cmd.CommandText = "INSERT INTO LBILLEMAGE (ESL_NO,BRAN,YEARN) SELECT ESL_NO,BRAN,YEARN FROM LBILL "
-        ''cmd.ExecuteNonQuery()
-        ''cmd.CommandText = "UPDATE lbill SET lbill.REG_CODE = LPATIEN.REG_CODE,lbill.COMPANY_CODE = LPATIEN.COMPANY_CODE,lbill.REG_NAME = LPATIEN.REG_NAME,lbill.COMPANY_NAME = LPATIEN.COMPANY_NAME FROM LPATIEN INNER JOIN ltest ON LPATIEN.PCODE = LBILL.PCODE"
-        ''MsgBox(cmd.ExecuteNonQuery())
-
-        'cmd.CommandText = "ALTER TABLE lbill add   fs int "
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE lbill add   utc int"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE lbill add   utn int"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE lbill add   ucash int"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE ltest DROP COLUMN  st"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  ltest ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  LSUBTEST ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  ltest_price ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lnstest ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lntest ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  LGTEST ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  LGr ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  users ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lgroup ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lgroup_price ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lgroup_test ADD BRAN  varchar(2000)"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  ltest ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  LSUBTEST ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lbill ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  Lbill_TEST ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  Lbill_TESTsub ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  Lbill_cult ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  Lbill_cult_det ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  Lbill_esl ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  LbillemAGE ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  ltest_price ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lnstest ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lntest ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  LGTEST ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  LGr ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  users ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lgroup ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lgroup_price ADD ST INT"
-        'cmd.ExecuteNonQuery()
-        'cmd.CommandText = "ALTER TABLE  lgroup_test ADD ST INT"
-        'cmd.ExecuteNonQuery()
+      
         MsgBox("ITS OK ALLAH")
     End Sub
 
@@ -18834,7 +19016,7 @@ mmm:
         dr.Close()
         cmd.CommandText = "BACKUP DATABASE [ASILLAB] TO  DISK = N'E:\techno\asil" & Now.DayOfYear & "' WITH NOFORMAT, INIT,  NAME = N'ASILLAB-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10"
         cmd.ExecuteNonQuery()
-        cmd.CommandText = "BACKUP DATABASE [ASILLAB] TO  DISK = N'D:\asil" & Now.DayOfYear & "' WITH NOFORMAT, INIT,  NAME = N'ASILLAB-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10"
+        cmd.CommandText = "BACKUP DATABASE [ASILLAB] TO  DISK = N'D:\backup\asil" & Now.DayOfYear & "' WITH NOFORMAT, INIT,  NAME = N'ASILLAB-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10"
         cmd.ExecuteNonQuery()
 
         MsgBox("backup done ")
@@ -18911,14 +19093,17 @@ mmm:
 
     Private Sub qq61_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq61.Click
         dr.Close()
-        cmd.CommandText = "select * from lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
+        cmd.CommandText = "select * from lbill where ESL_NO='" & Val(esl_no.Text) & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
         dr = cmd.ExecuteReader
-        dr.Read()
-        ttrest = dr("rest")
-        REST.Text = dr("rest")
-        If REST.Text = 0 Then MsgBox("·« ÌÊÃœ »«ﬁÏ ⁄·Ï «·„—Ì÷") : Exit Sub
-        ttpricenew.Focus()
-        grest.Visible = Not grest.Visible
+        If dr.HasRows Then
+            dr.Read()
+            ttrest = dr("rest")
+            REST.Text = dr("rest")
+            If REST.Text = 0 Then MsgBox("·« ÌÊÃœ »«ﬁÏ ⁄·Ï «·„—Ì÷") : Exit Sub
+            ttpricenew.Focus()
+            grest.Visible = Not grest.Visible
+        End If
+
     End Sub
     Public Sub RESTF(ByVal TB As Integer)
         If esl_no.Text = "" Then Exit Sub : MsgBox("«·—Ã«¡ «Œ Ì«— «·«Ì’«·")
@@ -18936,7 +19121,12 @@ mmm:
         cmd.CommandText = "select MAX(BILL),sum(erbank) from lbill_esl where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
         dr = cmd.ExecuteReader
         dr.Read()
-        If dr.HasRows = True Then BILL1 = nulls(dr(0)) + 1 Else BILL1 = 1
+        If ESLNN = 1 Then
+            BILL1 = InputBox("«œŒ· —ﬁ„ «·«Ì’«·", )
+        Else
+            If dr.HasRows = True Then BILL1 = nulls(dr(0)) + 1 Else BILL1 = 1
+
+        End If
 
         Dim s1 As String = BILL1
         Dim s2 As Integer = 0
@@ -19138,7 +19328,6 @@ mm:
                 page.Text = nulls(RC("AGE"))
                 If nulls(RC("ESL")) = 0 Then fesl_no() Else esl_no.Text = nulls(RC("ESL"))
                 pcode.Text = 0
-
                 If UCase(nulls(RC("TYPE"))) = "M" Then
                     PNIK.Text = "«” «–"
                     ptype.Text = "MALE"
@@ -19147,67 +19336,26 @@ mm:
                     ptype.Text = "FEMALE"
                 End If
                 pmobile.Text = nulls(RC("ID"))
-                FSAVEV()
-                dr.Close()
+                pid.Text = nulls(RC("ID"))
 
+                FSAVEV(1)
+                dr.Close()
                 If CheckBox1.Checked = True Then FBARR() : FBARS()
                 If CheckBox15.Checked = True Then
-                    dr.Close() : cmd.CommandText = "SELECT  * from v_lab where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " AND tdel=0"
-                    adesl.SelectCommand = cmd
-                    adesl.Fill(DBS, "esl")
-                    esl = DBS.Tables("esl")
-                    DBS.Tables("esl").Clear()
-                    adesl.Fill(DBS, "esl")
-                    esl = DBS.Tables("esl")
-                    brpd.DataSource = esl
-                    Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
-                    oj.Load(Application.StartupPath & rptp.Text & "\esl.rpt")
-                    oj.Database.Tables(0).SetDataSource(esl)
-                    rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
-                    oj.PrintToPrinter(1, False, 0, 0)
+                    FPESL("esl")
                 End If
                 If CheckBox2.Checked = True Then
-                    dr.Close()
-                    cmd.CommandText = "select count(esl_no) from lbill where pcode='" & pcode.Text & "'"
-                    dr = cmd.ExecuteReader
-                    dr.Read()
-                    If dr.HasRows = True Then
-                        If dr(0) > 1 Then ss = "Â–« «·„—Ì÷ ”»ﬁ “Ì«— Â ·‰« „‰ ﬁ»· «·—Ã«¡ «· «»⁄…"
-                    End If
-                    dr.Close() : cmd.CommandText = "SELECT  * from v_lab where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' AND tdel=0"
-                    adesl.SelectCommand = cmd
-                    adesl.Fill(DBS, "esl")
-                    esl = DBS.Tables("esl")
-                    DBS.Tables("esl").Clear()
-                    adesl.Fill(DBS, "esl")
-                    esl = DBS.Tables("esl")
-                    brpd.DataSource = esl
-                    Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
-                    oj.Load(Application.StartupPath & rptp.Text & "\work sheet.rpt")
-                    oj.Database.Tables(0).SetDataSource(esl)
-                    oj.SetParameterValue("ss", ss)
-                    rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
-                    oj.PrintToPrinter(1, False, 0, 0)
+                    FWORKSHEET()
                 End If
-
             End If
-
             naa = naa + 1
             CODEE.Text = esl_no.Text
         End While
-
-        'qq3.Visible = False
     End Sub
 
 
     Private Sub QQ5_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles QQ5.Click
-        ACdr.Close()
-        ACcmd.CommandText = "select * from srv"
-        ACdr = ACcmd.ExecuteReader
-        ACdr.Read()
-        PrintPreviewDialog1.Document = PrintDocument1
-        PrintDialog1.PrinterSettings.PrinterName = ACdr("prnt")
-        PrintDialog1.Document = PrintDocument1
+       
         RP1.Checked = False
         CCODE.Checked = True
         f3(1)
@@ -19218,76 +19366,53 @@ mm:
         While Not NAA > CODEE.Text
             RC = F31.Rows(x)
             esl_no.Text = NAA
-            pname.Text = RC("pname")
-            page.Text = RC("page")
-            docs = 0
-            Dim W As Integer = Convert.ToInt32("150")
-            Dim H As Integer = Convert.ToInt32("37")
-            bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
-            Dim type As BarcodeLib.TYPE = BarcodeLib.TYPE.UNSPECIFIED
-            type = BarcodeLib.TYPE.CODE128
-            bar1.IncludeLabel = True
-            bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
-            type = BarcodeLib.TYPE.CODE128
-            bar1.IncludeLabel = True
-            If bran.Text = "0" Then barco.Image = bar1.Encode(type, Me.esl_no.Text.Trim(), W, H) Else barco.Image = bar1.Encode(type, Me.bran.Text.Trim + Me.esl_no.Text.Trim(), W, H)
-            SSSS = 0
-            nnq = 0
-            nnw = 0
-            FBARR()
-
-            While Not nnw = bar.Rows.Count
-                nnq = 0
-mm:
-                If bar.Rows(nnw).Item("qun") > 0 And nnq < bar.Rows(nnw).Item("qun") Then
-                    docs = 1
-                    PrintDocument1.Print()
-                    SSSS = +1
-                    nnq = nnq + 1
-                    GoTo mm
-                End If
-                nnw = nnw + 1
-            End While
+            fesl(0, 0)
+            FBARR() : FBARS()
             NAA = NAA + 1
-
             x = x + 1
         End While
         'QQ5.Visible = False
     End Sub
 
     Private Sub QQ6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles QQ6.Click
-        Dim DD As String = MsgBox("Â·  —Ìœ Õ–› ﬂ· «·„ﬂ Ê» ø", MsgBoxStyle.YesNo)
-        If DD = vbNo Then Exit Sub
-
+        On Error Resume Next
+        adptt.Fill(DBS, "ptt")
+        ptt = DBS.Tables("ptt")
         ACdr.Close()
-        ACcmd.CommandText = "delete * from zzz"
-        ACcmd.ExecuteNonQuery()
         cmdptt.Connection = ACcn
         cmdptt.CommandText = "select * from PATCH_SAVE "
         adptt.SelectCommand = cmdptt
         adptt.Fill(DBS, "ptt")
-
+        DBS.Tables("ptt").Clear()
+        adptt.Fill(DBS, "ptt")
         ptt = DBS.Tables("ptt")
         brpd.DataSource = ptt
-        'ptt.Rows.Clear()
-        'ptt.Columns.Add("a")
-        'ACdr.Close()
-        'ACcmd.CommandText = "select * from PATCH_SAVE"
-        'ACdr = ACcmd.ExecuteReader
-        'While ACdr.Read
-        '    RC = ptt.NewRow
-        '    RC("sen") = ACdr("name")
-        '    RC("mod") = 0
-        '    RC("ress") = 0
-        '    RC("mob") = ACdr("id")
-        '    ptt.Rows.Add(RC)
-        'End While
+        brpd.Columns("ID1").Visible = False
+        brpd.Columns("age").Width = 30
+        brpd.Columns("type").Width = 30
+        brpd.Columns("esl").Width = 50
+        TabPage10.Show()
         flng("AR")
 
     End Sub
 
     Private Sub GlassButton6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GlassButton6.Click
-        GroupBox10.Visible = False
+        dr.Close()
+        cmd.CommandText = "delete from lbill where ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "delete from lbill_ESL where  ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "'  " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "delete from lbill_test  where  ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "'  " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "delete from lbill_testsub where  ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "'  " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "delete from LBILL_CULT where  ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "'  " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "delete from LBILL_CULT_DET where  ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "'  " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "delete from lbillemage where  ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "'  " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+        cmd.ExecuteNonQuery()
+        cmd.CommandText = "DELETE FROM lbillImage where  ESL_NO>='" & CODEB.Text & "' and ESL_NO<='" & CODEE.Text & "'  " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
     End Sub
 
     Private Sub REFRESHToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles REFRESHToolStripMenuItem.Click
@@ -19327,6 +19452,7 @@ mm:
             cmd.ExecuteNonQuery()
             xpname = pname.Text
             PSAVE()
+            LLOG("edit visit ", esl_no.Text, "  ⁄œÌ· “Ì«—…  " & pname.Text, 1, bran.Text)
             MsgBox(" „  ⁄œÌ· «·„—Ì÷", MsgBoxStyle.Information)
             fesl(0, 0)
         Catch ex As Exception
@@ -19356,13 +19482,13 @@ mm:
             LLOG("⁄—÷", 0, " ﬁ—Ì— ‰”»… «·ÿ»Ì»" & COMPANY_name.Text, 0, bran.Text)
             Exit Sub
         End If
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
         f3(6)
 
     End Sub
 
     Private Sub qq2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qq2.Click
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
         f3(7)
     End Sub
 
@@ -19534,9 +19660,9 @@ mm:
 
     Private Sub qqq6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles qqq6.Click
 
-        ComboBox5.Text = "print"
+        f3type.Text = "print"
         f3(1)
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
 
     End Sub
 
@@ -19739,9 +19865,9 @@ mm1:
     Private Sub FINDTESTToolStripMenuItem_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FINDTESTToolStripMenuItem.Click
         ctest.Checked = True
         test.Text = Ntest_NAME.Text
-        ComboBox5.Text = "all"
+        f3type.Text = "all"
         f3(1)
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
         ctest.Checked = False
     End Sub
 
@@ -19813,7 +19939,7 @@ mm1:
         SCMD.CommandText = "select * from ltest "
         SDR = SCMD.ExecuteReader
         While SDR.Read
-            cmd.CommandText = "INSERT INTO ltest ([TEST_NAME],[short],[lab],[gso],[RSO],[SO],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],[TEST_CODE],[AR],[GCODE],[GNAME],[SUB],[CULT],[nor],[qun],[w],[gr_name],[gr_code],[color],[res],[notes]) VALUES ('" & SDR("TEST_NAME") & "','" & SDR("short") & "','" & SDR("lab") & "','" & SDR("gso") & "','" & SDR("RSO") & "','" & SDR("SO") & "','" & SDR("KID_N") & "','" & SDR("KID_TYPE") & "','" & SDR("ResultAfter") & "','" & SDR("NormalRange") & "','" & SDR("TEST_CODE") & "','" & SDR("AR") & "','" & SDR("GCODE") & "','" & SDR("GNAME") & "','" & SDR("SUB") & "','" & SDR("CULT") & "','" & SDR("nor") & "','" & SDR("qun") & "','" & SDR("w") & "','" & SDR("gr_name") & "','" & SDR("gr_code") & "','" & SDR("color") & "','" & SDR("res") & "','" & SDR("notes") & "') "
+            cmd.CommandText = "INSERT INTO ltest ([TEST_NAME],[short],[lab],[gso],[RSO],[SO],[KID_N],[KID_TYPE],[ResultAfter],[NormalRange],[TEST_CODE],[AR],[GCODE],[GNAME],[SUB],[CULT],[nor],[qun],[w],[gr_name],[gr_code],[color],[res],[notes],cal) VALUES ('" & SDR("TEST_NAME") & "','" & SDR("short") & "','" & SDR("lab") & "','" & SDR("gso") & "','" & SDR("RSO") & "','" & SDR("SO") & "','" & SDR("KID_N") & "','" & SDR("KID_TYPE") & "','" & SDR("ResultAfter") & "','" & SDR("NormalRange") & "','" & SDR("TEST_CODE") & "','" & SDR("AR") & "','" & SDR("GCODE") & "','" & SDR("GNAME") & "','" & SDR("SUB") & "','" & SDR("CULT") & "','" & SDR("nor") & "','" & SDR("qun") & "','" & SDR("w") & "','" & SDR("gr_name") & "','" & SDR("gr_code") & "','" & SDR("color") & "','" & SDR("res") & "','" & SDR("notes") & "','" & SDR("cal") & "') "
             cmd.ExecuteNonQuery()
         End While
         dr.Close()
@@ -20457,7 +20583,7 @@ mm1:
                     cmd.CommandText = " update lbill set st=1 where st=0 and ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
                     cmd.ExecuteNonQuery()
                 End If
-                Me.Text = " „  ⁄„·Ì… «·Õ›Ÿ"
+                LLOG("scan", esl_no.Text, " ”Õ»  ÕÊÌ· " & pname.Text, 1, bran.Text)
             Else
                 dr.Close() : cmd.CommandText = "SELECT  lbill_cmt.IIMAGE, lbill.bran, lbill.esl_no, lbill.YEARN, lbill_cmt.no, lbill_cmt.code, lbill.pname,lbill.reg_name, lbill.company_name,lbill.pcode, lbill.ptype, lbill.page, lbill.pid, lbill.esl_time, lbill.reg_code, lbill.crd_per, lbill_cmt.image,  lbill.branch_name FROM  lbill_cmt INNER JOIN lbill ON lbill_cmt.esl_no = lbill.esl_no AND lbill_cmt.yearn = lbill.YEARN AND lbill_cmt.bran = lbill.bran where lbill.ESL_NO='" & esl_no.Text & "' " & " and lbill.yearn='" & Val(YEARN.Text) & "' and lbill.bran='" & bran.Text & "'"
                 adpv1.SelectCommand = cmd
@@ -20548,7 +20674,7 @@ mm:         Exit Sub
                     cmd.CommandText = " update lbill set st=1 where st=0 and ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "' and yearn='" & YEARN.Text & "'"
                     cmd.ExecuteNonQuery()
                 End If
-                Me.Text = " „  ⁄„·Ì… «·Õ›Ÿ"
+                LLOG("scan", esl_no.Text, " ”Õ» »ÿ«ﬁ… " & pname.Text, 1, bran.Text)
             Else
                 dr.Close() : cmd.CommandText = "SELECT  lbill_cid.IIMAGE, lbill.bran, lbill.esl_no, lbill.YEARN, lbill_cid.no, lbill_cid.code, lbill.pname,lbill.reg_name, lbill.company_name,lbill.pcode, lbill.ptype, lbill.page, lbill.pid, lbill.esl_time, lbill.reg_code, lbill.crd_per, lbill_cid.image,  lbill.branch_name FROM  lbill_cid INNER JOIN lbill ON lbill_cid.esl_no = lbill.esl_no AND lbill_cid.yearn = lbill.YEARN AND lbill_cid.bran = lbill.bran where lbill.ESL_NO='" & esl_no.Text & "' " & " and lbill.yearn='" & Val(YEARN.Text) & "' and lbill.bran='" & bran.Text & "'"
                 adpv1.SelectCommand = cmd
@@ -20593,7 +20719,7 @@ mm:         Exit Sub
             If vv.Checked = False Then
                 dr.Close()
                 ACdr.Close()
-               
+
                 If rfile.Checked = True Then
                     OpenFileDialog1.ShowDialog()
                     picup.ImageLocation = OpenFileDialog1.FileName
@@ -20626,7 +20752,7 @@ mm:         Exit Sub
                 cmd.Parameters.Add("@no", System.Data.OleDb.OleDbType.VarChar, 100).Value = oer.Length
                 cmd.ExecuteNonQuery()
                 dr.Close()
-                Me.Text = " „  ⁄„·Ì… «·Õ›Ÿ"
+                LLOG("scan", esl_no.Text, " log sheet" & pname.Text, 1, bran.Text)
             Else
                 If cesl_date.Checked = True Then
                     yy = " esl_date ='" & ChangeFormat(esl_date.Value) & "' "
@@ -20814,48 +20940,48 @@ mm:         Exit Sub
             While SDR.Read()
                 n11 += 1
                 ccode = SDR("code")
-                'cmd.CommandText = "delete from LCOMPANY where code='" & ccode & "'"
-                'cmd.ExecuteNonQuery()
-                'cmd.CommandText = "delete from  LCOMPANY_image where code='" & ccode & "'"
-                'cmd.ExecuteNonQuery()
+            
                 cmd.CommandText = "insert into Lcompany (code,name,[book_price_code],[book_price_name],[ph],[ch] ,[pp],[cp],[ps],[cs],[pw],[cw],diss,[add1],email,tel,DOC,lab,inc,crd,canc,BRAN,name1,name2,name3,tel1,tel2,tel3,email1,email2,email3,test,cond,web,result,[address],[price_name],[oprice_name],[price_diss],[oprice_diss],[tah_form],[tah_exp],[tah_date],[emp_cash],[fam_cash],[HC],[out_date])  values ('" & SDR("code") & "','" & SDR("name") & "','" & SDR("book_price_code") & "','" & SDR("book_price_name") & "','" & SDR("ph") & "','" & SDR("ch") & "','" & SDR("pp") & "','" & SDR("cp") & "','" & SDR("ps") & "','" & SDR("cs") & "','" & SDR("pw") & "','" & SDR("cw") & "','" & SDR("diss") & "','" & SDR("add1") & "','" & SDR("email") & "','" & SDR("tel") & "','" & SDR("DOC") & "','" & SDR("lab") & "','" & SDR("inc") & "','" & SDR("crd") & "','" & SDR("canc") & "','" & SDR("BRAN") & "','" & SDR("name1") & "','" & SDR("name2") & "','" & SDR("name3") & "','" & SDR("tel1") & "','" & SDR("tel2") & "','" & SDR("tel3") & "','" & SDR("email1") & "','" & SDR("email2") & "','" & SDR("email3") & "','" & SDR("test") & "','" & SDR("cond") & "','" & SDR("web") & "','" & SDR("result") & "','" & SDR("address") & "','" & SDR("price_name") & "','" & SDR("oprice_name") & "','" & SDR("price_diss") & "','" & SDR("oprice_diss") & "','" & SDR("tah_form") & "','" & SDR("tah_exp") & "','" & SDR("tah_date") & "','" & SDR("emp_cash") & "','" & SDR("fam_cash") & "','" & SDR("HC") & "','" & SDR("out_date") & "')"
                 cmd.ExecuteNonQuery()
 
-                scmd1.CommandText = "select * from Lcompany_image where company_code='" & ccode & "'"
-                sdr1 = scmd1.ExecuteReader
-                While sdr1.Read
-                    n11 += 1
-                    dr.Close()
-                    cmd.CommandText = "INSERT INTO [Lcompany_image] (CODE,company_name,company_code ) values ('" & sdr1("code") & "','" & sdr1("company_name") & "','" & sdr1("company_code") & "')"
-                    cmd.ExecuteNonQuery()
-                    Dim newMstream As New System.IO.MemoryStream(CType(sdr1.Item("image"), Byte()))
-                    Dim ImageFromDB As New Bitmap(newMstream)
-                    PictureBox1.Image = ImageFromDB
-                    IO.File.Delete(Application.StartupPath & "\images" & n11 & sdr1("CODE"))
-                    PictureBox1.Image.Save(Application.StartupPath & "\images" & n11 & sdr1("CODE"), System.Drawing.Imaging.ImageFormat.Jpeg)
-                    PictureBox1.Image.Save(Application.StartupPath & "\images\" & n11 & SDR("CODE"), System.Drawing.Imaging.ImageFormat.Jpeg)
-                    oer = New IO.FileStream(Application.StartupPath & "\images\" & n11 & SDR("CODE"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
-                    rer = New IO.StreamReader(oer)
-                    Dim FileByteArrayr1(oer.Length - 1) As Byte
-                    oer.Read(FileByteArrayr1, 0, oer.Length)
-                    Dim AAAAA1 As String = ""
-                    Dim Sql1 As String = "update  Lcompany_image set image = ? " & AAAAA1 & "  where  code='" & Val(sdr1("CODE")) & "' and company_CODE='" & sdr1("company_code") & "'"
-                    cmd.CommandText = Sql1
-                    cmd.Parameters.Clear()
-                    cmd.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
-                    cmd.ExecuteNonQuery()
-                End While
+                'scmd1.CommandText = "select * from Lcompany_image where company_code='" & ccode & "'"
+                'sdr1 = scmd1.ExecuteReader
+                'While sdr1.Read
+                '    n11 += 1
+                '    dr.Close()
+                '    cmd.CommandText = "INSERT INTO [Lcompany_image] (CODE,company_name,company_code ) values ('" & sdr1("code") & "','" & sdr1("company_name") & "','" & sdr1("company_code") & "')"
+                '    cmd.ExecuteNonQuery()
+                '    Dim newMstream As New System.IO.MemoryStream(CType(sdr1.Item("image"), Byte()))
+                '    Dim ImageFromDB As New Bitmap(newMstream)
+                '    PictureBox1.Image = ImageFromDB
+                '    IO.File.Delete(Application.StartupPath & "\images" & n11 & sdr1("CODE"))
+                '    PictureBox1.Image.Save(Application.StartupPath & "\images" & n11 & sdr1("CODE"), System.Drawing.Imaging.ImageFormat.Jpeg)
+                '    PictureBox1.Image.Save(Application.StartupPath & "\images\" & n11 & SDR("CODE"), System.Drawing.Imaging.ImageFormat.Jpeg)
+                '    oer = New IO.FileStream(Application.StartupPath & "\images\" & n11 & SDR("CODE"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read)
+                '    rer = New IO.StreamReader(oer)
+                '    Dim FileByteArrayr1(oer.Length - 1) As Byte
+                '    oer.Read(FileByteArrayr1, 0, oer.Length)
+                '    Dim AAAAA1 As String = ""
+                '    Dim Sql1 As String = "update  Lcompany_image set image = ? " & AAAAA1 & "  where  code='" & Val(sdr1("CODE")) & "' and company_CODE='" & sdr1("company_code") & "'"
+                '    cmd.CommandText = Sql1
+                '    cmd.Parameters.Clear()
+                '    cmd.Parameters.Add("@image", System.Data.OleDb.OleDbType.Binary, oer.Length).Value = FileByteArrayr1
+                '    cmd.ExecuteNonQuery()
+                'End While
                 sdr1.Close()
             End While
             SDR.Close()
-            'sdr1.Close()
+            sdr1.Close()
             cmd.CommandText = "delete  from ltest_price "
             cmd.ExecuteNonQuery()
-            SCMD.CommandText = "select * from ltest_price "
+            Dim n As String = InputBox("enter ky")
+
+            SCMD.CommandText = "select * from ltest_price where ky>'" & n & "' order by ky"
             SDR = SCMD.ExecuteReader
             While SDR.Read
-                cmd.CommandText = " INSERT INTO [ltest_price]([TEST_CODE],[TEST_NAME],[tot],[AR],[book_price_code],[book_price_name],[so],[st],p1,p2,p3,p4) VALUES ( '" & SDR("TEST_CODE") & "','" & SDR("TEST_NAME") & "','" & SDR("tot") & "','" & SDR("AR") & "','" & SDR("book_price_code") & "','" & SDR("book_price_name") & "','" & SDR("so") & "','0','" & SDR("p1") & "','" & SDR("p2") & "','" & SDR("p3") & "','" & SDR("p4") & "')"
+                cmd.CommandText = " INSERT INTO [ltest_price]([TEST_CODE],[TEST_NAME],[tot],[AR],[book_price_code],[book_price_name],[so],[st]) VALUES ( '" & SDR("TEST_CODE") & "','" & SDR("TEST_NAME") & "','" & SDR("tot") & "','" & SDR("AR") & "','" & SDR("book_price_code") & "','" & SDR("book_price_name") & "','" & SDR("so") & "','0')"
                 cmd.ExecuteNonQuery()
+                Me.Text = SDR("ky")
             End While
 
             SDR.Close()
@@ -20921,6 +21047,12 @@ mm:         Exit Sub
         If CBRAN.Checked = True Then
             yy = yy & "  " & " and  bran='" & bran.Text & "'"
         End If
+        If cCOMPANY_CODE.Checked = True Then
+            yy = yy & "  " & " and  COMPANY_CODE='" & COMPANY_CODE.Text & "'"
+        End If
+        If creg_code.Checked = True Then
+            yy = yy & "  " & " and  reg_code='" & REG_CODE.Text & "'"
+        End If
         dr.Close()
         cmd.CommandText = "update lbill_test set t=0 where esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
         cmd.ExecuteNonQuery()
@@ -20936,7 +21068,7 @@ mm:         Exit Sub
             cmd.CommandText = "update lbill_test set t=1 where esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
             cmd.ExecuteNonQuery()
         End If
-        dr.Close() : cmd.CommandText = "SELECT     test_name,count(test_name)as qun FROM  lbill_test    where esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' and t=1 " & yy & " group by test_name"
+        dr.Close() : cmd.CommandText = "SELECT test_name,count(test_name)as qun FROM  v_lab    where esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' and t=1 and tdel=0 " & yy & " group by test_name"
         adtemp.SelectCommand = cmd
         adtemp.Fill(DBS, "temp")
         temp = DBS.Tables("temp")
@@ -21104,18 +21236,246 @@ mm:         Exit Sub
     End Sub
 
     Private Sub GL6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GL6.Click
-        dr.Close() : cmd.Connection = CN
-        cmd.CommandText = "SELECT LCOMARKET.EMP_CODE, LCOMARKET.EMP_name, lbill.* FROM  lbill INNER JOIN  LCOMARKET ON lbill.COMPANY_code = LCOMARKET.COMPANY_code WHere LCOMARKET.EMP_CODE='" & EMP_CODE & "' AND lbill.esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
-        adF31.SelectCommand = cmd
-        adF31.Fill(DBS, "F31")
-        F31 = DBS.Tables("F31")
-        DBS.Tables("F31").Clear()
-        adF31.Fill(DBS, "F31")
-        F31 = DBS.Tables("F31")
-        F31D.DataSource = F31
-        qwwwww_Click(qwwwww, e)
-    End Sub
+        'dr.Close() : cmd.Connection = CN
+        'cmd.CommandText = "SELECT LCOMARKET.EMP_CODE, LCOMARKET.EMP_name, lbill.* FROM  lbill INNER JOIN  LCOMARKET ON lbill.COMPANY_code = LCOMARKET.COMPANY_code WHere LCOMARKET.EMP_CODE='" & EMP_CODE & "' AND lbill.esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+        'adF31.SelectCommand = cmd
+        'adF31.Fill(DBS, "F31")
+        'F31 = DBS.Tables("F31")
+        'DBS.Tables("F31").Clear()
+        'adF31.Fill(DBS, "F31")
+        'F31 = DBS.Tables("F31")
+        'F31D.DataSource = F31
+        'qwwwww_Click(qwwwww, e)
 
+    End Sub
+    Public Sub icomeloop(ByVal t As Integer)
+        Dim acc As String = ""
+        If t = 2 Then
+            acc = " and bon>0 "
+        ElseIf t = 1 Then
+            acc = "  and pinc=0 and bon=0"
+        ElseIf t = 3 Then
+            acc = " and pinc=1 "
+        End If
+        If fath = 0 Then
+            RP1.Checked = False
+            LABTO()
+            f3(1)
+            RP1.Checked = True
+        End If
+        RP1.Checked = False
+        Dim nr As Double = 0
+        yy = " and yearn='" & YEARN.Text & "'"
+        Dim nxx As String = " and rest=0"
+        yy = yy & "  " & " and esl_date='" & ChangeFormat(esl_date.Value) & "'"
+        YYN = "esl_date"
+        dr1.Close()
+        cmd1.CommandText = "update lbill set pcanc=0,pinc=0 "
+        cmd1.ExecuteNonQuery()
+        dr.Close()
+        cmd.CommandText = "select * from lcompany where inc>0"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            dr1.Close()
+            cmd1.CommandText = "update lbill set pinc=1 where company_code='" & dr("code") & "'"
+            cmd1.ExecuteNonQuery()
+        End While
+        dr.Close()
+        dr.Close()
+        cmd.CommandText = "select * from lcompany where canc>0"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            dr1.Close()
+            cmd1.CommandText = "update lbill set pcanc=1 where company_code='" & dr("code") & "'"
+            cmd1.ExecuteNonQuery()
+        End While
+        dr.Close()
+        cmd.CommandText = "UPDATE lbill_esl SET lbill_esl.rest =0  FROM lbill_esl INNER JOIN lbill ON lbill_esl.esl_no = lbill.esl_no and lbill_esl.sdate = lbill.esl_date and lbill_esl.yearn = lbill.yearn where lbill.yearn='" & YEARN.Text & "'"
+        cmd.ExecuteNonQuery()
+
+        dr.Close()
+        cmd.CommandText = "SELECT   * from lbill where pcanc=0 and bdel=0 and esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' " & yy & acc
+        dr = cmd.ExecuteReader
+        '================================================================
+        While dr.Read
+            nr = 0
+            RC = tfinal.NewRow
+            RC("bon") = dr("bon")
+            RC("pinc") = dr("pinc")
+            RC("esl_no") = dr("esl_no")
+            RC("pname") = dr("pname")
+            RC("lprice") = Val(dr("ptot"))
+            RC("tot") = dr("tot")
+            RC("company_name") = dr("company_name")
+            tfinal.Rows.Add(RC)
+            Dim n As Int16 = 0
+            Dim nx As Int16 = tfinal.Rows.Count - 1
+            dr1.Close()
+            cmd1.CommandText = "select * from v_esl where yearn='" & YEARN.Text & "' and esl_no='" & dr("esl_no") & "' and sdate between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'" & nxx
+            dr1 = cmd1.ExecuteReader
+            While dr1.Read
+                If n = 0 Then
+                    RC = tfinal.Rows(tfinal.Rows.Count - 1)
+                    RC.BeginEdit()
+                    RC("bill") = dr1("bill")
+                    RC("btot") = dr1("tot1")
+                    RC("esl_no") = dr1("esl_no")
+                    If dr1("rest") = 0 Then RC("sdate") = dr1("esl_date") Else RC("sdate") = dr1("sdate")
+                    RC.EndEdit()
+                Else
+                    RC = tfinal.NewRow
+                    RC("bill") = dr1("bill")
+                    RC("btot") = dr1("tot1")
+                    RC("esl_no") = dr("esl_no")
+                    If dr1("rest") = 0 Then RC("sdate") = dr1("esl_date") Else RC("sdate") = dr1("sdate")
+                    RC("lprice") = 0
+                    RC("tot") = 0
+                    tfinal.Rows.Add(RC)
+                End If
+                n = n + 1
+            End While
+            Dim nn As Int16 = nx
+            If n = 0 Then n = 1
+            n = n + nx
+            dr1.Close()
+            cmd1.CommandText = "select * from lbill_test  where esl_no='" & dr("esl_no") & "'  and yearn='" & YEARN.Text & "' and lab=1 and tdel=0"
+            dr1 = cmd1.ExecuteReader
+            While dr1.Read
+                If TESTSH = 1 Then
+                    If n > nn Then
+                        RC = tfinal.Rows(nn)
+                        RC.BeginEdit()
+                        RC("tname") = dr1("test_name")
+                        RC("tprice") = dr1("test_price")
+                        RC("tlprice") = dr1("labprice")
+                        RC.EndEdit()
+                    Else
+                        RC = tfinal.NewRow
+                        RC("tname") = dr1("test_name")
+                        RC("tprice") = dr1("test_price")
+                        RC("tlprice") = dr1("labprice")
+                        RC("esl_no") = dr1("esl_no")
+                        RC("lprice") = 0
+                        RC("tot") = 0
+                        tfinal.Rows.Add(RC)
+                    End If
+                End If
+                If TESTP = 1 Then nr = nr + dr1("test_price")
+                nn = nn + 1
+            End While
+            If TESTP = 1 Then
+                RC = tfinal.Rows(nx)
+                RC.BeginEdit()
+                RC("lprice") = nr
+                RC("tot") = 0
+                RC.EndEdit()
+            End If
+            If fath = 0 Then
+                FRC = F31.Select("esl_no='" & dr("esl_no") & "'")
+                If FRC.Length > 0 Then
+                    RC = tfinal.Rows(nx)
+                    RC.BeginEdit()
+                    RC("lprice") = FRC(0).Item("PTOT")
+                    RC("tot") = 0
+                    RC.EndEdit()
+                Else
+                    RC = tfinal.Rows(nx)
+                    RC.BeginEdit()
+                    RC("lprice") = 0
+                    RC("tot") = 0
+                    RC.EndEdit()
+                End If
+            End If
+            dr2.Close()
+            cmd2.CommandText = "update lbill_esl set sdate='" & ChangeFormat(dr("esl_date")) & "' where  esl_no='" & dr("esl_no") & "'  and yearn='" & YEARN.Text & "' and rest=0"
+            cmd2.ExecuteNonQuery()
+            cmd2.CommandText = "select sum(tot),sdate from lbill_esl where yearn='" & YEARN.Text & "' and esl_no='" & dr("esl_no") & "' " & nxx & " group by sdate"
+            dr2 = cmd2.ExecuteReader
+            If dr2.HasRows Then
+                While dr2.Read
+                    FRC = tfinal.Select("esl_no='" & dr("esl_no") & "' and sdate='" & dr2("sdate") & "'")
+                    If FRC.Length > 0 Then
+                        RC = FRC(0)
+                        RC.BeginEdit()
+                        RC("tot") = dr2(0)
+                        RC.EndEdit()
+                    End If
+                End While
+            End If
+        End While
+        If nxx <> "" Then
+            dr.Close()
+            cmd.CommandText = "select * from v_esl where rest=1  and yearn='" & YEARN.Text & "' and sdate='" & ChangeFormat(esl_date.Value) & "'" & acc
+            dr = cmd.ExecuteReader
+            While dr.Read()
+                RC = tfinal.NewRow
+                RC("bill") = dr("bill")
+                RC("btot") = dr("tot1")
+                RC("sdate") = dr("sdate")
+                RC("bon") = 0
+                RC("pinc") = 0
+                RC("esl_no") = dr("esl_no")
+                RC("pname") = "»«ﬁÏ  " & dr("pname")
+                RC("lprice") = 0
+                RC("tot") = dr("tot1")
+                RC("company_name") = dr("company_name")
+                If fath = 1 Then RC("lprice") = dr("billrest") Else RC("lprice") = 0
+                tfinal.Rows.Add(RC)
+            End While
+        Else
+            dr2.Close()
+            cmd2.CommandText = "select * from v_esl where  yearn='" & YEARN.Text & "' and sdate<>esl_date " & acc & " and sdate between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "' "
+            dr2 = cmd2.ExecuteReader
+            If dr2.HasRows Then
+                While dr2.Read
+                    FRC = tfinal.Select("esl_no='" & dr2("esl_no") & "' and sdate='" & dr2("sdate") & "'")
+                    If FRC.Length > 0 Then
+                        RC = FRC(0)
+                        RC.BeginEdit()
+                        RC("bill") = dr2("bill")
+                        RC("btot") = dr2("tot1")
+                        RC("sdate") = dr2("sdate")
+                        RC("bon") = 0
+                        RC("pinc") = 0
+                        RC("esl_no") = dr2("esl_no")
+                        RC("pname") = "»«ﬁÏ  " & dr2("pname")
+                        RC("lprice") = 0
+                        RC("tot") = dr2("tot1")
+                        RC("company_name") = dr2("company_name")
+                        If fath = 1 Then RC("lprice") = dr2("billrest") Else RC("lprice") = 0
+                        RC.EndEdit()
+                    Else
+                        RC = tfinal.NewRow
+                        RC("bill") = dr2("bill")
+                        RC("btot") = dr2("tot1")
+                        RC("sdate") = dr2("sdate")
+                        RC("bon") = 0
+                        RC("pinc") = 0
+                        RC("esl_no") = dr2("esl_no")
+                        RC("pname") = "»«ﬁÏ  " & dr2("pname")
+                        RC("lprice") = 0
+                        RC("tot") = dr2("tot1")
+                        RC("company_name") = dr2("company_name")
+                        If fath = 1 Then RC("lprice") = dr2("billrest") Else RC("lprice") = 0
+                        tfinal.Rows.Add(RC)
+
+                    End If
+                End While
+            End If
+        End If
+        RP1.Checked = True
+
+        Dim nnn As Integer = 0
+        While Not nnn = F31.Rows.Count
+            comlab1 = comlab1 + F31.Rows(nnn).Item("ptot")
+            nnn += 1
+        End While
+        nnn = 0
+        While Not nnn = F31.Rows.Count
+            comlaa = comlaa + F31.Rows(nnn).Item("eslb")
+            nnn += 1
+        End While
+    End Sub
     Private Sub gl7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles gl7.Click
         Try
             dr.Close() : cmd.CommandText = "SELECT  * FROM  v_company where  code='" & COMPANY_CODE.Text & "'"
@@ -21371,29 +21731,29 @@ mm:         Exit Sub
 
 
     Private Sub GB120_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GB120.Click
-        'Try
-        PDFM()
-        MsgBox("FILE EXPORTED")
-        'Catch ex As Exception
-        '    Dim st1 As String = sender.ToString.Replace("'", "-")
-        '    Dim st As String = ex.Message
-        '    st = st.Replace("'", "-")
-        '    dr.Close()
-        '    cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','" & st1 & "','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
-        '    cmd.ExecuteNonQuery()
-        '    MsgBox(st) : If ex.Message = "Load report failed." Then End
-        'End Try
+        Try
+            PDFM(1)
+            MsgBox("FILE EXPORTED")
+        Catch ex As Exception
+            Dim st1 As String = sender.ToString.Replace("'", "-")
+            Dim st As String = ex.Message
+            st = st.Replace("'", "-")
+            dr.Close()
+            cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','" & st1 & "','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
+            cmd.ExecuteNonQuery()
+            MsgBox(st) : If ex.Message = "Load report failed." Then End
+        End Try
     End Sub
-    Public Sub PDFM()
+    Public Sub PDFM(ByVal logo As Int16)
         If finals.Checked = True Then
             SourceDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\" & pname.Text & esl_no.Text & "\"
             IO.Directory.CreateDirectory(SourceDirectory)
             Dim XX As String = ""
             Dim LatestFile As IO.FileInfo = Nothing
             Dim DirInfo As New IO.DirectoryInfo(SourceDirectory)
-            TESTS("email")
-            prof(esl_no.Text, "email", 1)
-            FCULT("email")
+            TESTS("email", logo)
+            prof(esl_no.Text, "email", 1, logo)
+            FCULT("email", logo)
             File.Delete(SourceDirectory & pname.Text & ".PDF")
             Using writer As StreamWriter = New StreamWriter(Application.StartupPath & "\PDF.txt")
                 writer.WriteLine(SourceDirectory)
@@ -21412,13 +21772,13 @@ mm:         Exit Sub
 
     Private Sub GB_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GB.Click
 
-        'chrcv.Checked = True
-        doc_admin = 1
-        ComboBox5.Text = "all"
-        cdoc_name.Checked = True
+        f3type.Text = "all"
+        chrcv.Checked = True
+        If mng = 1 Then doc_admin = 1 Else doc_admin = 0
         f3(9)
-        cdoc_name.Checked = False
-        'chrcv.Checked = False
+        chrcv.Checked = False
+        f3type.Text = "rest"
+
     End Sub
 
 
@@ -21780,11 +22140,12 @@ mv:
     End Sub
 
     Private Sub gb60_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles gb60.Click
-        ComboBox5.Text = "all"
+
+        f3type.Text = "all"
         clabd.Checked = True
         f3(10)
         clabd.Checked = False
-
+        f3type.Text = "rest"
     End Sub
 
     Private Sub GB46_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GB46.Click
@@ -22034,7 +22395,7 @@ mv:
             LLOG("⁄—÷", 0, " ﬁ—Ì— ‰”»… «·ÿ»Ì»" & COMPANY_name.Text, 0, bran.Text)
             Exit Sub
         End If
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
         'ComboBox5.Text = "ALL"
         f3(0)
         Dim aa As Integer
@@ -22344,7 +22705,7 @@ mv:
             RC = ptt.Rows(naa)
             esl_no.Text = nulls(RC("ESL"))
             dr.Close()
-            cmd.CommandText = "update LBILL_TEST set  RES='" & RC("RESLUT") & "' where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
+            cmd.CommandText = "update LBILL_TEST set  RES='" & RC("RESLUT") & "'  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
             cmd.ExecuteNonQuery()
             naa = naa + 1
 
@@ -22584,7 +22945,7 @@ lm:
             LLOG("⁄—÷", 0, " ﬁ—Ì— ‰”»… «·ÿ»Ì»" & COMPANY_name.Text, 0, bran.Text)
             Exit Sub
         End If
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
         'ComboBox5.Text = "ALL"
         f3(0)
     End Sub
@@ -22658,20 +23019,6 @@ lm:
         End Using
     End Sub
     Public Sub testpost()
-        'Using client As New Net.WebClient
-        '    Dim reqparm As New Specialized.NameValueCollection
-        '    reqparm.Add("name", "alhamed llah ")
-        '    reqparm.Add("description", "very perecft desc")
-        '    reqparm.Add("price", "2000")
-        '    reqparm.Add("discount", "10")
-        '    reqparm.Add("stoc", "50")
-        '    client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMjlmOWY2M2E5MmNhM2U1OTlmMTg1MmFlMzEwNTU2YTZkNWZkZmY0YzhjOTVmZWUxZjM2NzE4M2I2Mzg2YTQ2NTVlZmZkMTJmMzdmZjQwMTIiLCJpYXQiOjE1OTI2MTI4NTAsIm5iZiI6MTU5MjYxMjg1MCwiZXhwIjoxNjI0MTQ4ODUwLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.sMJDuaqHflv2qc5o_4L5iL5brJy7rFT28zmndVB8emLFELYFXS9lzfU71pORGBNSYfeginDoe1IuIeZSJ1lOMoHMi9sMfTJENTkskqlUr2fwAoQHzClc5jB0NNr4soant1vCf2jiZvNnQOCBMDlXXMXmAueETexEHIhbQV_3nNEmI7iY7BKxjHgt0rZbGTWS2r-4tvEusIYhl3k_Qnxy9sZRrpvgPt-mGdSaJHI8yUyEiW5l0m4AC20pLpXKQUXRrKskf_34l3RbERwCXWHVofqCh5nLEfpvfIdap-bZ-uXnBDc5S8AUhYnPbepOCgz-VOcYjdxFcMdgRpYE8YEzrL4CVMgYGoTnSeHkf1mNZR-wZLPcoGNeaH1ntBBKulds4Am0_NqyGGKjUFSqTe9u718yl6YWLiWp4n4W588VLOP3KSZ03dVC1ZIuOEAVz5l9qSjkeh6MObCDgr8SvRhXfh4Em_H_JuflUBg5xP2sNW6QIVFu8m5DdBSQK9ETOxf3y-XpNJ0WZbq0ZR7hYPSPsVELTUymheQXt_oyTGmXzW2rAwfa5Uh3KkXxx0OZIo2QeFla79KaMbNiqbDlCM0t8r2jbT2TERc8TM-R3cNAGblRNhTvse7hn8qlbZABPfwX9UB1vUs1qO4fSxWjMatzLYoKhHLh6dM5I7323GcMWy4")
-        '    Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/products", "POST", reqparm)
-        '    Dim responsebody = (New System.Text.UTF8Encoding).GetString(responsebytes)
-        '    MsgBox(responsebody)
-        'End Using
-
-
         Using client As New Net.WebClient
             Dim reqparm As New Specialized.NameValueCollection
             reqparm.Add("yu", pname.Text)
@@ -22679,14 +23026,14 @@ lm:
             reqparm.Add("yb", bran.Text.Trim)
             reqparm.Add("ye", esl_no.Text)
             client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2UwNzlkNDhhZTA5YWRiZDI0Yzg2OGNlZDE3N2VlMzc1NzVjOTllZjBmOWU4Y2ZmODExNTgzMWFmNTZjMWExYzBiZGFmMTg0MzI2YzYxZTgiLCJpYXQiOjE1OTYwMTQzMDQsIm5iZiI6MTU5NjAxNDMwNCwiZXhwIjoxNjI3NTUwMzA0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Tdkd-u6oX35EJJkeEsPeV-4i9ivJEIqvWBPDM4HgOOKtg6KQVumN2I6ND1mTTYMsXbDLbBb5yK3t5u6IikEb7vCPA4P_XVfLV-pHHjJWvCCm7NMHGk2G4Z-9bay3oA0ySXkiirO_fP6eNyxcRXK4OHRdZG7YnP9gl4qHVxbmJC6O7Z7k7Ha29rqdErGCBouYvV1pPPWeN46O6kZLerxbmszAUBwL-3IiGeBjI0jFrGyQdzJy_UG5DxZEGXFVr8RlKGJHPldeNozAvVP-zRzD27Syca9YMunlDKmHRTMmGteoMJwIBXlEn6ONWXIBzQkPlHDjewWks4q8wu9_vDDHey-JJs2zDopG0VeH8LxAggANszR8wkjL5HFRe1FPniOsJccZKhRg-ZOjfvoGlo9C6X5OduGI6maj23aN3HEZZsq0q8LPIqjg-BvzBfAcgZ3DQO4uuoiLLvuipJ3SOEgV7uDX95Kc4dM6M_KhHGkLZdqsu8tf_R2D9PMWkcKAUwRiJEjCMGr1yUe02yJjYYa6NMqcph2EVRbkkSO1I4fv4vUv2rb1k8DfxV0CspwQCqEvyV69QG57TgINpkNUZNrYamqp_lNhAYptvHJ0Vw7pCW20WpVl2VHLNWDoPej_mS06mAVqvr7vhCo3wPwITvtz0e2to3sj81JxfMloeZPjifM")
-            Dim responsebytes = client.UploadValues("http://127.0.0.1:8000/api/pdfuser", "POST", reqparm)
+            Dim responsebytes = client.UploadValues("http://researchlabeg.com/api/pdfuser", "POST", reqparm)
             Dim resp = (New System.Text.UTF8Encoding).GetString(responsebytes)
             wuser.Text = resp.Substring(resp.IndexOf("user_name", 1) + 12, resp.IndexOf("password", 1) - (resp.IndexOf("username", 1) + 18))
             wpass.Text = resp.Substring(resp.IndexOf("password", 1) + 11, resp.IndexOf("report_id", 1) - (resp.IndexOf("password", 1) + 14))
             wid.Text = resp.Substring(resp.IndexOf("report_id", 1) + 11, resp.IndexOf("end_way", 1) - (resp.IndexOf("report_id", 1) + 13))
         End Using
 
-      
+
     End Sub
     Public Sub chbook()
         dr.Close()
@@ -22846,6 +23193,16 @@ lm:
         SDR.Close()
         SDR.Close()
         'sdr1.Close()
+        SDR.Close()
+        sdr1.Close()
+        cmd.CommandText = "delete  from ltest_price "
+        cmd.ExecuteNonQuery()
+        SCMD.CommandText = "select * from ltest_price "
+        SDR = SCMD.ExecuteReader
+        While SDR.Read
+            cmd.CommandText = " INSERT INTO [ltest_price]([TEST_CODE],[TEST_NAME],[tot],[AR],[book_price_code],[book_price_name],[so],[st],p1,p2,p3,p4) VALUES ( '" & SDR("TEST_CODE") & "','" & SDR("TEST_NAME") & "','" & SDR("tot") & "','" & SDR("AR") & "','" & SDR("book_price_code") & "','" & SDR("book_price_name") & "','" & SDR("so") & "','0','" & SDR("p1") & "','" & SDR("p2") & "','" & SDR("p3") & "','" & SDR("p4") & "')"
+            cmd.ExecuteNonQuery()
+        End While
 
         fprice1(1)
         MsgBox("ALL DATA IS UPTO DATE THANKS " & USR, MsgBoxStyle.Information)
@@ -22923,8 +23280,11 @@ lm:
             Dim xxaa As String = "«·„»«·€ «· Ï œ›⁄Â« «·„—Ì÷"
             xxaa = xxaa & Environment.NewLine
             While dr1.Read
+                Dim tbank, ttot As String
+                If dr1("erbank") = 0 Then tbank = "---->  „ «·œ›⁄ ‰ﬁœÏ" Else tbank = "---->  „ «·œ›⁄ »‰ﬂÏ"
+                If dr1("TOT") > 0 Then ttot = dr1("TOT") Else ttot = dr1("erbank")
                 If IsDBNull(dr1("SDATE")) = False Then SAS = dr1("SDATE") Else SAS = esl_date.Value
-                xxaa = xxaa & Environment.NewLine & SAS.ToString("d-M-yyyy") & " ------>  " & dr1("TOT") & "------>" & dr1("usr")
+                xxaa = xxaa & Environment.NewLine & SAS.ToString("d-M-yyyy") & " ------>  " & ttot & "------>" & dr1("usr") & tbank
             End While
             dr1.Close()
             cmd1.CommandText = "select * from lbill where  ESL_NO='" & Val(esl_no.Text) & "' and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'"
@@ -22937,7 +23297,7 @@ lm:
 
     Private Sub GlassButton18_Click_7(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ddd2.Click
         creg_code.Checked = True
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
         f3(7)
         creg_code.Checked = False
 
@@ -22945,7 +23305,7 @@ lm:
     End Sub
 
     Private Sub GlassButton4_Click_5(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ddd3.Click
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
         cCOMPANY_CODE.Checked = True
         f3(6)
         cCOMPANY_CODE.Checked = False
@@ -22992,6 +23352,8 @@ lm:
         If accnlis.State = ConnectionState.Closed Then
             accnlis.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & ACdr("spath") & ";Persist Security Info=False"
             accnlis.Open()
+        Else
+            acdrlis.Close()
         End If
 
         Dim aa As String
@@ -23035,7 +23397,9 @@ lm:
             cmd.CommandText = "update LBILL_TESTSUB set res='0'  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " AND TEST_CODE='706' AND MTEST_CODE='228'"
             cmd.ExecuteNonQuery()
             LISIM(1, acdrlis("txtWBC"), 228)
+            Threading.Thread.Sleep(2000)
             LISIM(2, acdrlis("txtRBC"), 228)
+            Threading.Thread.Sleep(2000)
             LISIM(3, acdrlis("txtPLT"), 228)
             lisa(nWBC, "LBILL_TESTSUB", " AND MTEST_CODE='228' ")
             acdrlis.Close()
@@ -23409,38 +23773,20 @@ lm:
     End Sub
 
     Private Sub apass_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles apass.Click
-        testpost()
+        'testpost()
 
     End Sub
 
     Private Sub ASD131_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ASD131.Click
-        'dr.Close() : cmd.Connection = CN
-        'dr.Close() : cmd.CommandText = "select * from lbill where WEB=0 AND REST=0 AND WUSER<>'0' "
-        'adF31.SelectCommand = cmd
-        'adF31.Fill(DBS, "F31")
-        'F31 = DBS.Tables("F31")
-        'DBS.Tables("F31").Clear()
-        'adF31.Fill(DBS, "F31")
-        'F31 = DBS.Tables("F31")
-        'F31D.DataSource = F31
-
-        'Dim x As Integer = 0
-        'While Not x = F31.Rows.Count
-        '    RC = F31.Rows(x)
-        '    YEARN.Text = RC("YEARN")
-        '    bran.Text = RC("bran")
-        '    esl_no.Text = RC("esl_no")
-        '    x = x + 1
-        'End While
-
-        PDFM()
-        FileSystem.Rename(SourceDirectory & pname.Text & ".PDF", SourceDirectory & wid.Text & ".PDF")
+        PDFM(1)
+        File.Delete("c:\pdf\" & wid.Text & ".PDF")
+        Threading.Thread.Sleep(2000)
+        File.Copy(SourceDirectory & pname.Text & ".PDF", "c:\pdf\" & wid.Text & ".PDF")
         Using client As New Net.WebClient
             Dim reqparm As New Specialized.NameValueCollection
-            client.Headers.Add("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiY2UwNzlkNDhhZTA5YWRiZDI0Yzg2OGNlZDE3N2VlMzc1NzVjOTllZjBmOWU4Y2ZmODExNTgzMWFmNTZjMWExYzBiZGFmMTg0MzI2YzYxZTgiLCJpYXQiOjE1OTYwMTQzMDQsIm5iZiI6MTU5NjAxNDMwNCwiZXhwIjoxNjI3NTUwMzA0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Tdkd-u6oX35EJJkeEsPeV-4i9ivJEIqvWBPDM4HgOOKtg6KQVumN2I6ND1mTTYMsXbDLbBb5yK3t5u6IikEb7vCPA4P_XVfLV-pHHjJWvCCm7NMHGk2G4Z-9bay3oA0ySXkiirO_fP6eNyxcRXK4OHRdZG7YnP9gl4qHVxbmJC6O7Z7k7Ha29rqdErGCBouYvV1pPPWeN46O6kZLerxbmszAUBwL-3IiGeBjI0jFrGyQdzJy_UG5DxZEGXFVr8RlKGJHPldeNozAvVP-zRzD27Syca9YMunlDKmHRTMmGteoMJwIBXlEn6ONWXIBzQkPlHDjewWks4q8wu9_vDDHey-JJs2zDopG0VeH8LxAggANszR8wkjL5HFRe1FPniOsJccZKhRg-ZOjfvoGlo9C6X5OduGI6maj23aN3HEZZsq0q8LPIqjg-BvzBfAcgZ3DQO4uuoiLLvuipJ3SOEgV7uDX95Kc4dM6M_KhHGkLZdqsu8tf_R2D9PMWkcKAUwRiJEjCMGr1yUe02yJjYYa6NMqcph2EVRbkkSO1I4fv4vUv2rb1k8DfxV0CspwQCqEvyV69QG57TgINpkNUZNrYamqp_lNhAYptvHJ0Vw7pCW20WpVl2VHLNWDoPej_mS06mAVqvr7vhCo3wPwITvtz0e2to3sj81JxfMloeZPjifM")
-            Dim responsebytes = client.UploadFile("http://127.0.0.1:8000/api/report", "POST", SourceDirectory & wid.Text & ".PDF")
+            client.Headers.Add("Authorization", "Bearer cJmgvvuCvXT0UgzKVZp4K2S7bumIkIbxt2t7iIxf")
+            Dim responsebytes = client.UploadFile("http://researchlabeg.com/api/report", "POST", "c:\pdf\" & wid.Text & ".PDF")
             Dim responsebody = (New System.Text.UTF8Encoding).GetString(responsebytes)
-
         End Using
 
     End Sub
@@ -23466,10 +23812,11 @@ lm:
     End Sub
 
     Private Sub CCNDOC_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CCNDOC.Click
-        ComboBox5.Text = "all"
+        f3type.Text = "all"
         CNDOC.Checked = True
         f3(14)
         CNDOC.Checked = False
+        f3type.Text = "rest"
     End Sub
 
     Private Sub TODAYToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TODAYToolStripMenuItem.Click
@@ -23799,10 +24146,10 @@ mv:
             Exit Sub
         End If
         RP1.Checked = True
-        ComboBox5.Text = "all"
+        f3type.Text = "all"
         f3(5)
         'RP1.Checked = True
-        ComboBox5.Text = "rest"
+        f3type.Text = "rest"
 
     End Sub
 
@@ -23919,7 +24266,7 @@ mv:
             If lng = "AR" Then MsgBox(chkar & " —ﬁ„ «·«Ì’«·", MsgBoxStyle.Exclamation) Else MsgBox(chken & " code ", MsgBoxStyle.Exclamation)
             Exit Sub
         End If
-        If finals.Checked = True And edt = 0 Then
+        If finals.Checked = True Then
             MsgBox("·« Ì„ﬂ‰ Õ–› ›Ï Â–« «·«Ì’«·")
             If mng = 1 Then
                 Dim nnm As Integer = InputBox("enter password")
@@ -23928,69 +24275,63 @@ mv:
             Exit Sub
         End If
 mms:
-        If DELT = 1 Then
-            If edt = 1 And mng = 1 Then
-                dr.Close()
-                cmd.CommandText = "select * from lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and bdel=0"
-                dr = cmd.ExecuteReader
-                dr.Read()
-                If dr.HasRows = True Then
-                    Dim x As String
-                    dr.Close()
-                    If finals.Checked = True And edt = 0 And DEL = 0 Then
-                        MsgBox("·« Ì„ﬂ‰ Õ–› ›Ï Â–« «·«Ì’«·")
-                        Exit Sub
-                    End If
-                    x = MsgBox("Â·  —Ìœ  Õ–› «·«Ì’«· ‰Â«∆Ì« ø", MsgBoxStyle.YesNo)
-                    If x = vbNo Then Exit Sub
-                    dr.Close()
 
-                    cmd.CommandText = "INSERT INTO lbillDEL (dev,[esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB]) SELECT dev,[esl_date],esl_no,[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB] FROM lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "INSERT INTO lbill_ESLDEL  ([esl_no],[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[bran],[trl],[st],[id],[usr],[SHIFT])  SELECT  esl_no,[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[bran],[trl],[st],[id],[usr],[SHIFT] FROM lbill_ESL where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "INSERT INTO lbill_testDEL ([qun],[pthn],[ds],[test_name],[res],[test_code],[test_ar],[test_price],[tot1],[ref],[esl_no],[esl_date],[sub],[pname],[pcode],[page],[ptype],[cult],[fres],[rcv_date],[rcv],[note],[NOTEN],[NORB],[NORE],[UNIT],[take],[gr_name],[gr_code],[s],[p],[gname],[GCODE],[t],[TBLG],[tblgtime],[tblgusr],[prntn],[lab],[labprice],[so],[RSO],[comment],[HOMS],[BAR],[dis_n],[uadd],[uadddate],[YEARN],[urem],[uremdate],[tdel],[sres],[TOT2],[prnttime],[pth],[rsv],[rsvp],[QUN1],[bran],[trl],[st],[id],[final],[notesg],[notesp],[usr],[pricep],[tSQ],[tSQ1],[dsn],[IMAGE],[IMGN],[IMGNO],[IMAGEN1],[IMAGE1],[IMAGEN3],[IMAGE3],[IMAGE2],[IMAGE4],[IMAGEN5],[IMAGE5],[timagen],[IMAGEN2],[IMAGEN4]) SELECT [qun],[pthn],[ds],[test_name],[res],[test_code],[test_ar],[test_price],[tot1],[ref],esl_no,[esl_date],[sub],[pname],[pcode],[page],[ptype],[cult],[fres],[rcv_date],[rcv],[note],[NOTEN],[NORB],[NORE],[UNIT],[take],[gr_name],[gr_code],[s],[p],[gname],[GCODE],[t],[TBLG],[tblgtime],[tblgusr],[prntn],[lab],[labprice],[so],[RSO],[comment],[HOMS],[BAR],[dis_n],[uadd],[uadddate],[YEARN],[urem],[uremdate],[tdel],[sres],[TOT2],[prnttime],[pth],[rsv],[rsvp],[QUN1],[bran],[trl],[st],[id],[final],[notesg],[notesp],[usr],[pricep],[tSQ],[tSQ1],[dsn],[IMAGE],[IMGN],[IMGNO],[IMAGEN1],[IMAGE1],[IMAGEN3],[IMAGE3],[IMAGE2],[IMAGE4],[IMAGEN5],[IMAGE5],[timagen],[IMAGEN2],[IMAGEN4] FROM lbill_test  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "INSERT INTO lbill_testsubDEL ([qun],[pthn],[test_name],[res],[res1],[res2],[so],[test_code],[test_ar],[esl_no],[mtest_code],[mtest_name],[ds],[rcv],[note],[NOTEN],[NORB],[NORE],[q],[absu],[ref1],[p],[unit],[rso],[YEARN],[re1],[re2],[ds1],[pth],[rsvp],[rsv1],[QUN1],[RDS],[bran],[st],[ref],[rsv],[usr],[dsn]) SELECT [qun],[pthn],[test_name],[res],[res1],[res2],[so],[test_code],[test_ar],esl_no,[mtest_code],[mtest_name],[ds],[rcv],[note],[NOTEN],[NORB],[NORE],[q],[absu],[ref1],[p],[unit],[rso],[YEARN],[re1],[re2],[ds1],[pth],[rsvp],[rsv1],[QUN1],[RDS],[bran],[st],[ref],[rsv],[usr],[dsn] FROM lbill_testsub where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "INSERT INTO LBILL_CULTDEL ([test_name],[test_code],[esl_no],[name1],[NAME2],[NAME3],[VIRUS],[VIRUSC],[so],[YEARN],[bran],[trl],[st])  SELECT [test_name],[test_code],esl_no,[name1],[NAME2],[NAME3],[VIRUS],[VIRUSC],[so],[YEARN],[bran],[trl],[st] FROM LBILL_CULT where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "INSERT INTO LBILL_CULT_DETDEL ([test_name],[test_code],[esl_no],[NOTE],[SPECIMEN],[DIRECT_ FILM],[PUS_CELLS],[RBCs],[OTHERS],[CULTURE_CONDITIONS],[GROWTH_OF],[VAIBLE_COUNT],[COUNT_IS],[epithelial],[num],[YEARN],[bran],[trl],[st],[usr]) SELECT [test_name],[test_code],esl_no,[NOTE],[SPECIMEN],[DIRECT_ FILM],[PUS_CELLS],[RBCs],[OTHERS],[CULTURE_CONDITIONS],[GROWTH_OF],[VAIBLE_COUNT],[COUNT_IS],[epithelial],[num],[YEARN],[bran],[trl],[st],[usr] FROM LBILL_CULT_DET where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "INSERT INTO lbillemageDEL  ([esl_no],[bran],[yearn],[image])  SELECT esl_no,[bran],[yearn],[image] FROM lbillemage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "INSERT INTO lbillImageDEL  ([image],[no],[esl_no],[yearn],[code],[IIMAGE],[bran],[st],[usr])  SELECT  [image],[no],esl_no,[yearn],[code],[IIMAGE],[bran],[st],[usr] FROM lbillImage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-
-                    cmd.CommandText = "delete from lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "delete from lbill_ESL where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "delete from lbill_test  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "delete from lbill_testsub where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "delete from LBILL_CULT where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "delete from LBILL_CULT_DET where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "delete from lbillemage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "DELETE FROM lbillImage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
-                    cmd.ExecuteNonQuery()
-                    LLOG("“Ì«—… Õ–›", esl_no.Text, XLOG, 1, bran.Text)
-                    FNEWV()
-                Else
-                    Me.Text = "Â–« «·«Ì’«· €Ì— „”Ã·"
-
-                End If
-            End If
-        End If
-        If PORV <> "" Then
+        dr.Close()
+        cmd.CommandText = "select * from lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & " and bdel=0"
+        dr = cmd.ExecuteReader
+        dr.Read()
+        If dr.HasRows = True Then
+            Dim x As String
             dr.Close()
-            cmd.CommandText = "insert into ldel (esl_no,type) values ('" & esl_no.Text & "','esl')"
+            x = MsgBox("Â·  —Ìœ  Õ–› «·«Ì’«· ‰Â«∆Ì« ø", MsgBoxStyle.YesNo)
+            If x = vbNo Then Exit Sub
+            dr.Close()
+
+            cmd.CommandText = "INSERT INTO lbillDEL (dev,[esl_date],[esl_no],[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB]) SELECT dev,[esl_date],esl_no,[pname],[reg_name],[doc_name],[book_code],[book_name],[company_code],[company_name],[doc_code],[pcode],[ptype],[page],[pid],[depn],[reg_code],[esl_time],[crd_per],[crd_v],[cash_per],[cash_v],[bon],[pay],[rest],[tot],[nik],[test],[diss],[USR],[SHIFT],[rcv_date],[rcv],[fastv],[hrcvv],[rcvv],[rcvn],[fastn],[cfast],[chrcv],[totv],[ty],[doc_per],[branch_name],[branch_code],[pemail],[dissn],[notes],[tblg],[sprnt],[pyear],[lab_name],[lab_code],[ptot],[ppay],[prest],[labprice],[labtest],[tnum],[nnik],[qun],[testpro],[rcv_time],[pinc],[pcrd],[pcanc],[YEARN],[ESLBILL],[urgant],[final],[bdel],[bdelusr],[bdeldate],[eslb],[bran],[printtime],[brans],[sampl],[sampldate],[samplusr],[restusr],[restdate],[trl],[st],[fnd],[pmobile],[ucash],[utc],[utn],[FS],[labd],[wuser],[wpass],[COMS],[wid],[NCRD],[BANK],[NDOC],[WEB] FROM lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
             cmd.ExecuteNonQuery()
+            cmd.CommandText = "INSERT INTO lbill_ESLDEL  ([esl_no],[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[bran],[trl],[st],[id],[usr],[SHIFT])  SELECT  esl_no,[bill],[yearn],[sdate],[rest],[billrest],[TOT],[qun],[bran],[trl],[st],[id],[usr],[SHIFT] FROM lbill_ESL where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "INSERT INTO lbill_testDEL ([qun],[pthn],[ds],[test_name],[res],[test_code],[test_ar],[test_price],[tot1],[ref],[esl_no],[esl_date],[sub],[pname],[pcode],[page],[ptype],[cult],[fres],[rcv_date],[rcv],[note],[NOTEN],[NORB],[NORE],[UNIT],[take],[gr_name],[gr_code],[s],[p],[gname],[GCODE],[t],[TBLG],[tblgtime],[tblgusr],[prntn],[lab],[labprice],[so],[RSO],[comment],[HOMS],[BAR],[dis_n],[uadd],[uadddate],[YEARN],[urem],[uremdate],[tdel],[sres],[TOT2],[prnttime],[pth],[rsv],[rsvp],[QUN1],[bran],[trl],[st],[id],[final],[notesg],[notesp],[usr],[pricep],[tSQ],[tSQ1],[dsn],[IMAGE],[IMGN],[IMGNO],[IMAGEN1],[IMAGE1],[IMAGEN3],[IMAGE3],[IMAGE2],[IMAGE4],[IMAGEN5],[IMAGE5],[timagen],[IMAGEN2],[IMAGEN4]) SELECT [qun],[pthn],[ds],[test_name],[res],[test_code],[test_ar],[test_price],[tot1],[ref],esl_no,[esl_date],[sub],[pname],[pcode],[page],[ptype],[cult],[fres],[rcv_date],[rcv],[note],[NOTEN],[NORB],[NORE],[UNIT],[take],[gr_name],[gr_code],[s],[p],[gname],[GCODE],[t],[TBLG],[tblgtime],[tblgusr],[prntn],[lab],[labprice],[so],[RSO],[comment],[HOMS],[BAR],[dis_n],[uadd],[uadddate],[YEARN],[urem],[uremdate],[tdel],[sres],[TOT2],[prnttime],[pth],[rsv],[rsvp],[QUN1],[bran],[trl],[st],[id],[final],[notesg],[notesp],[usr],[pricep],[tSQ],[tSQ1],[dsn],[IMAGE],[IMGN],[IMGNO],[IMAGEN1],[IMAGE1],[IMAGEN3],[IMAGE3],[IMAGE2],[IMAGE4],[IMAGEN5],[IMAGE5],[timagen],[IMAGEN2],[IMAGEN4] FROM lbill_test  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "INSERT INTO lbill_testsubDEL ([qun],[pthn],[test_name],[res],[res1],[res2],[so],[test_code],[test_ar],[esl_no],[mtest_code],[mtest_name],[ds],[rcv],[note],[NOTEN],[NORB],[NORE],[q],[absu],[ref1],[p],[unit],[rso],[YEARN],[re1],[re2],[ds1],[pth],[rsvp],[rsv1],[QUN1],[RDS],[bran],[st],[ref],[rsv],[usr],[dsn]) SELECT [qun],[pthn],[test_name],[res],[res1],[res2],[so],[test_code],[test_ar],esl_no,[mtest_code],[mtest_name],[ds],[rcv],[note],[NOTEN],[NORB],[NORE],[q],[absu],[ref1],[p],[unit],[rso],[YEARN],[re1],[re2],[ds1],[pth],[rsvp],[rsv1],[QUN1],[RDS],[bran],[st],[ref],[rsv],[usr],[dsn] FROM lbill_testsub where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "INSERT INTO LBILL_CULTDEL ([test_name],[test_code],[esl_no],[name1],[NAME2],[NAME3],[VIRUS],[VIRUSC],[so],[YEARN],[bran],[trl],[st])  SELECT [test_name],[test_code],esl_no,[name1],[NAME2],[NAME3],[VIRUS],[VIRUSC],[so],[YEARN],[bran],[trl],[st] FROM LBILL_CULT where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "INSERT INTO LBILL_CULT_DETDEL ([test_name],[test_code],[esl_no],[NOTE],[SPECIMEN],[DIRECT_ FILM],[PUS_CELLS],[RBCs],[OTHERS],[CULTURE_CONDITIONS],[GROWTH_OF],[VAIBLE_COUNT],[COUNT_IS],[epithelial],[num],[YEARN],[bran],[trl],[st],[usr]) SELECT [test_name],[test_code],esl_no,[NOTE],[SPECIMEN],[DIRECT_ FILM],[PUS_CELLS],[RBCs],[OTHERS],[CULTURE_CONDITIONS],[GROWTH_OF],[VAIBLE_COUNT],[COUNT_IS],[epithelial],[num],[YEARN],[bran],[trl],[st],[usr] FROM LBILL_CULT_DET where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "INSERT INTO lbillemageDEL  ([esl_no],[bran],[yearn],[image])  SELECT esl_no,[bran],[yearn],[image] FROM lbillemage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "INSERT INTO lbillImageDEL  ([image],[no],[esl_no],[yearn],[code],[IIMAGE],[bran],[st],[usr])  SELECT  [image],[no],esl_no,[yearn],[code],[IIMAGE],[bran],[st],[usr] FROM lbillImage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+
+            cmd.CommandText = "delete from lbill where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from lbill_ESL where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from lbill_test  where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from lbill_testsub where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from LBILL_CULT where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from LBILL_CULT_DET where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from lbillemage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "DELETE FROM lbillImage where ESL_NO='" & esl_no.Text & "' " & " and " & "yearn='" & Val(YEARN.Text) & "' and bran='" & bran.Text & "'" & ""
+            cmd.ExecuteNonQuery()
+            LLOG("delete visit", esl_no.Text, XLOG, 1, bran.Text)
+            FNEWV()
+        Else
+            Me.Text = "Â–« «·«Ì’«· €Ì— „”Ã·"
+
         End If
+
+        'If PORV <> "" Then
+        '    dr.Close()
+        '    cmd.CommandText = "insert into ldel (esl_no,type) values ('" & esl_no.Text & "','esl')"
+        '    cmd.ExecuteNonQuery()
+        'End If
         MsgBox(" „ «·Õ–›")
     End Sub
     Private Sub Õ–›‰Â«∆ÏToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Õ–›‰Â«∆ÏToolStripMenuItem1.Click
@@ -24024,19 +24365,21 @@ mms:
     End Sub
 
     Private Sub NQQ31_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NQQ31.Click
-        incomet(0)
+        newicome(0)
+
+        'incomet(0)
     End Sub
 
     Private Sub NQQ32_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NQQ32.Click
-        incomet(1)
+        newicome(1)
     End Sub
 
     Private Sub NQQ34_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NQQ34.Click
-        incomet(3)
+        newicome(3)
     End Sub
 
     Private Sub NQQ33_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NQQ33.Click
-        incomet(2)
+        newicome(2)
     End Sub
 
     Private Sub QQN35_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles QQN35.Click
@@ -24076,15 +24419,14 @@ mms:
         cmdptt.CommandText = "select * from zzz "
         adptt.SelectCommand = cmdptt
         'ptt.Clear()
-        adptt.Fill(DBS, "ptt")
-        ptt = DBS.Tables("ptt")
+      
         'brpd.Dispose()
         brpd.DataSource = ptt
         brpd.Columns(0).HeaderText = "NAME"
         brpd.Columns(1).HeaderText = "AGE"
         brpd.Columns(2).HeaderText = "TYPE"
         TabControl2.SelectTab(0)
-        GroupBox10.Visible = True
+        gpatch_save.Visible = True
     End Sub
 
     Private Sub  ﬁ—Ì—«·„ÿ·Ê»«” ·«„ÂToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles  ﬁ—Ì—«·„ÿ·Ê»«” ·«„ÂToolStripMenuItem.Click
@@ -24261,6 +24603,19 @@ mms:
     End Sub
 
     Private Sub asasa1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles asasa1.Click
+        'ACdr.Close()
+        'ACcmd.CommandText = "select * from srv"
+        'ACdr = ACcmd.ExecuteReader
+        ''ACdr.Read()
+        ''PrintPreviewDialog1.Document = PrintDocument3
+        ''PrintDialog1.PrinterSettings.PrinterName = ACdr("prnt")
+        ''PrintDialog1.Document = PrintDocument3
+        ''PrintDocument3.Print()
+        'PrintPreviewDialog1.ShowDialog()
+        ''Threading.Thread.Sleep(3000)
+        ''PrintPreviewDialog1.Close()
+
+
 
     End Sub
 
@@ -24666,20 +25021,22 @@ mms:
 
     Private Sub MMMMMMM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MMMMMMM.Click
         'chrcv.Checked = True
-        ComboBox5.Text = "all"
+        f3type.Text = "all"
         ch.Checked = True
         f3(9)
         ch.Checked = False
+        f3type.Text = "rest"
         'chrcv.Checked = False
     End Sub
 
     Private Sub  ﬁ—Ì—”Õ»«·⁄Ì‰…„‰«·„‰“·ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles  ﬁ—Ì—”Õ»«·⁄Ì‰…„‰«·„‰“·ToolStripMenuItem.Click
         LLOG("⁄—÷", 0, "⁄—÷  ﬁ—Ì— ”Õ» «·⁄Ì‰… „‰ «·„‰“·", 0, bran.Text)
         doc_admin = 0
-        ComboBox5.Text = "all"
+        f3type.Text = "all"
         cdoc_name.Checked = True
         f3(9)
         cdoc_name.Checked = False
+        f3type.Text = "rest"
     End Sub
 
     Private Sub brestcancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles brestcancel.Click
@@ -24860,5 +25217,298 @@ mms:
 
     Private Sub com_h_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles com_h.Click
         com_g.Visible = False
+    End Sub
+
+    Private Sub PrintDocument3_PrintPage(ByVal sender As System.Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs) Handles PrintDocument3.PrintPage
+        On Error Resume Next
+        Dim W As Integer = Convert.ToInt32("150")
+        Dim H As Integer = Convert.ToInt32("37")
+        bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
+        Dim type As BarcodeLib.TYPE = BarcodeLib.TYPE.UNSPECIFIED
+        type = BarcodeLib.TYPE.CODE128
+        bar1.IncludeLabel = True
+        bar1.Alignment = BarcodeLib.AlignmentPositions.CENTER
+        type = BarcodeLib.TYPE.CODE128
+        bar1.IncludeLabel = True
+        barco.Image = bar1.Encode(type, Me.bran.Text.Trim + Me.esl_no.Text.Trim(), W, H)
+        Dim f0 As New Font("arial", 7, FontStyle.Bold)
+        Dim f As New Font("arial", 8, FontStyle.Bold)
+        Dim f1 As New Font("arial", 10, FontStyle.Bold)
+        Dim f11 As New Font("arial", 12, FontStyle.Bold)
+        Dim f2 As New Font("arial", 22, FontStyle.Bold)
+        Dim f3 As New Font("arial", 17, FontStyle.Regular)
+        Dim StringFormat As New StringFormat()
+        StringFormat.Alignment = StringAlignment.Center
+        StringFormat.LineAlignment = StringAlignment.Center
+        Dim StringFormatl As New StringFormat()
+        StringFormatl.Alignment = StringAlignment.Far
+        StringFormatl.LineAlignment = StringAlignment.Center
+        Dim StringFormatleft As New StringFormat()
+        StringFormatl.Alignment = StringAlignment.Near
+        e.Graphics.DrawRectangle(Pens.Black, 1, 1, 300, 500)
+        e.Graphics.DrawLine(Pens.Black, 5, 50, 300, 50)
+        logo.ImageLocation = "D:\NPD\HOSBITAL\bin\Debug\logo.jpg"
+        e.Graphics.DrawString("Research Lab", f1, Brushes.Black, 0, 30, StringFormatl)
+        e.Graphics.DrawString("Medical & Genetic", f, Brushes.Black, 0, 50, StringFormatl)
+        e.Graphics.DrawString("Laboratories", f, Brushes.Black, 0, 70, StringFormatl)
+        e.Graphics.DrawImage(logo.Image, 105, 3)
+        e.Graphics.DrawString("Research", f0, Brushes.Black, 105, 17, StringFormatl)
+        e.Graphics.DrawString(" „⁄‹«„‹‹· «·»Õ‹‹‹‹‹‹‹ÊÀ  ", f1, Brushes.Black, 230, 30, StringFormat)
+        e.Graphics.DrawString("··‹ Õ‹‹‹‹«·Ì‹‹‹· «·ÿ»Ì‹‹‹‹…", f, Brushes.Black, 230, 50, StringFormat)
+        e.Graphics.DrawString(" Ê«·‹‹‹Ê—«À‹‹Ì‹‹‹‹…", f, Brushes.Black, 230, 70, StringFormat)
+        e.Graphics.DrawString("œﬁ… „‰ √Ã· ÕÌ«…", f1, Brushes.Black, 140, 70, StringFormat)
+        e.Graphics.DrawString("-----------------------------------------------------------------------", f1, Brushes.Black, 0, 75)
+        e.Graphics.DrawString("«Ì’«· ‰ﬁœÌ…", f1, Brushes.Black, 140, 100, StringFormat)
+        e.Graphics.DrawString("Visit Code:", f1, Brushes.Black, 1, 120)
+        e.Graphics.DrawImage(barco.Image, 70, 120)
+        e.Graphics.DrawString("Patient Name :", f1, Brushes.Black, 1, 160)
+        e.Graphics.DrawString(pname.Text, f11, Brushes.Black, 100, 160)
+        e.Graphics.DrawString("Contract by :-", f1, Brushes.Black, 1, 180)
+        e.Graphics.DrawString(COMPANY_name.Text, f11, Brushes.Black, 100, 180)
+        e.Graphics.DrawString("Ref.Doc :-", f1, Brushes.Black, 1, 200)
+        e.Graphics.DrawString("Visit Date :-", f1, Brushes.Black, 1, 220)
+        e.Graphics.DrawString(esl_date.Value.ToString("d/M/yyyy") & " " & esl_time.Text, f11, Brushes.Black, 100, 220)
+        e.Graphics.DrawString("-----------------------------------------------------------------------", f1, Brushes.Black, 0, 240)
+        e.Graphics.DrawString("Result Date :-", f1, Brushes.Black, 1, 260)
+        e.Graphics.DrawString(rcv_date.Value.ToString("d/M/yyyy") & " 8:00", f1, Brushes.Black, 100, 260)
+        e.Graphics.DrawString("√” ·«„ «·‰ ÌÃ… «· Õ«·Ì·  ", f1, Brushes.Black, 150, 280)
+        e.Graphics.DrawString(rcv_date.Value.ToString("d/M/yyyy") & " 8:00", f1, Brushes.Black, 20, 280)
+        e.Graphics.DrawString("Ì „  ”ÊÌ… «·Õ”«» Œ·«· «”»Ê⁄ »Õœ «ﬁ’Ï", f11, Brushes.Black, 20, 300)
+        e.Graphics.DrawString("‰Ÿ«„ «·ﬂÊ„»Ì — ·« Ì”„Õ »ÿ»«⁄… «·‰ ÌÃ… √·« »⁄œ ”œ«œ «·„»·€ »«·ﬂ«„·", f, Brushes.Black, 20, 320)
+        e.Graphics.DrawString("-----------------------------------------------------------------------", f1, Brushes.Black, 0, 340)
+        e.Graphics.DrawString("WEBSITE RESULT ACCOUNT", f1, Brushes.Black, 50, 360)
+        e.Graphics.DrawString("Website URL ", f1, Brushes.Black, 1, 380)
+        e.Graphics.DrawString(": " & "www.researchlabeg.com", f1, Brushes.Black, 100, 380)
+        e.Graphics.DrawString("User Name ", f1, Brushes.Black, 1, 400)
+        e.Graphics.DrawString(": " & wuser.Text, f1, Brushes.Black, 100, 400)
+        e.Graphics.DrawString("Password ", f1, Brushes.Black, 1, 420)
+        e.Graphics.DrawString(": " & wpass.Text, f1, Brushes.Black, 100, 420)
+        e.Graphics.DrawString("-----------------------------------------------------------------------", f1, Brushes.Black, 0, 440)
+        e.Graphics.DrawString("Branch Name ", f, Brushes.Black, 1, 460)
+        e.Graphics.DrawString(": " & branch_name.Text, f, Brushes.Black, 100, 460)
+        e.Graphics.DrawString("User Name ", f, Brushes.Black, 1, 475)
+        e.Graphics.DrawString(": " & USR, f, Brushes.Black, 100, 475)
+        e.Graphics.DrawString("Print Date", f, Brushes.Black, 1, 490)
+        e.Graphics.DrawString(": " & Now, f, Brushes.Black, 100, 490)
+
+    End Sub
+
+    Private Sub Õ›ŸÊÿ»«⁄…ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Õ›ŸÊÿ»«⁄…ToolStripMenuItem.Click
+        FSAVEPRNT()
+    End Sub
+
+    Private Sub RSDDD_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        If ls = 0 Then Exit Sub
+        Dim NNN As Double = InputBox("«œŒ· ﬁÌ„… «· ÕÊÌ·")
+        dr.Close()
+        cmd.CommandText = "select * from lsave where CODE='" & saven & "'"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            save_name.Text = dr("NAME")
+        End While
+        Dim s2 As Integer = 0
+
+        dr.Close()
+        Dim D As Date = Now
+        time1.Text = D.Hour.ToString & " : " & D.Minute.ToString
+        date1.Text = D.Date.ToShortDateString
+        cash.Text = -1 * Val(REST.Text)
+        crd.Text = 0
+        dr.Close()
+        cmd.CommandText = "select * from lsub where sub_code='102'"
+        dr = cmd.ExecuteReader
+        dr.Read()
+        If dr("flg") = 1 Then flg.Checked = True Else flg.Checked = False
+        main_code.Text = dr("main_code")
+        main_name.Text = dr("main_name")
+        dr.Close()
+        cmd.CommandText = "select * from lsub where sub_code='102'"
+        dr = cmd.ExecuteReader
+        dr.Read()
+        sub_name.Text = dr("sub_name")
+        ACdr.Close()
+        ACcmd.CommandText = "select * from srv "
+        ACdr = ACcmd.ExecuteReader
+        ACdr.Read()
+        If ACdr("CASH") > 0 Then
+            id.Text = ACdr("CASH")
+        End If
+        cesl_date.Checked = True
+        RP1.Checked = False
+        dr.Close()
+        cmd.CommandText = "insert into lcash ([main_name],[main_code],[sub_code],[sub_name],[flg],[cash],[crd],[time1],[date1],[id],[notse],usr,shift,SAVE_NAME,SAVE_CODE) values ('" & main_name.Text & " ','" & main_code.Text & "','" & sub_code.Text & "','" & sub_name.Text & "','-1','" & NNN & "','0','" & time1.Text & "','" & ChangeFormat(esl_date.Value) & "','" & id.Text & "','  Õ”«» ÌÊ„  ÕÊÌ·   " & esl_date.Value.Date & "  „‰ «·Œ“Ì‰… " & save_name.Text & "','" & USR & "','" & SHF & "','" & save_name.Text & "','" & save_code.Text & "' )"
+        cmd.ExecuteNonQuery()
+        dr.Close()
+        cmd.CommandText = "select * from lsub where sub_code='101'"
+        dr = cmd.ExecuteReader
+        dr.Read()
+        If dr("flg") = 1 Then flg.Checked = True Else flg.Checked = False
+        main_code.Text = dr("main_code")
+        main_name.Text = dr("main_name")
+        dr.Close()
+        cmd.CommandText = "select * from lsub where sub_code='101'"
+        dr = cmd.ExecuteReader
+        dr.Read()
+        sub_name.Text = dr("sub_name")
+        dr.Close()
+        FCASH1()
+        dr.Close()
+        cmd.CommandText = "SELECT SUM (PTOT) FROM LBILL WHERE ESL_DATE='" & ChangeFormat(esl_date.Value) & "'"
+        dr = cmd.ExecuteReader
+        While dr.Read
+            dr1.Close()
+            cmd1.CommandText = "insert into lcash ([main_name],[main_code],[sub_code],[sub_name],[flg],[cash],[crd],[time1],[date1],[id],[notse],usr,shift,SAVE_NAME,SAVE_CODE) values ('" & main_name.Text & " ','" & main_code.Text & "','" & sub_code.Text & "','" & sub_name.Text & "','1','" & NNN & "','0','" & time1.Text & "','" & ChangeFormat(esl_date.Value) & "','" & id.Text & "','   —ÕÌ· «·Ï «·Œ“Ì‰…     " & save1_name.Text & "','" & USR & "','" & SHF & "','" & save1_name.Text & "','" & save1_code.Text & "' )"
+            cmd1.ExecuteNonQuery()
+        End While
+        dr.Close()
+        cmd.CommandText = "update lbill set trl=1"
+        If lng = "AR" Then Me.Text = " „  ⁄„·Ì… «·Õ›Ÿ »‰Ã«Õ" Else Me.Text = "IT'S SAVED"
+
+    End Sub
+
+    Private Sub mbnijhjkn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        dr.Close() : cmd.CommandText = "SELECT  * from v_lab where company_name='" & COMPANY_name.Text & "' and esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+        adesl.SelectCommand = cmd
+        adesl.Fill(DBS, "esl")
+        esl = DBS.Tables("esl")
+        DBS.Tables("esl").Clear()
+        adesl.Fill(DBS, "esl")
+        esl = DBS.Tables("esl")
+        brpd.DataSource = esl
+        Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
+        oj.Load(Application.StartupPath & "\contact det.rpt")
+        oj.Database.Tables(0).SetDataSource(esl)
+        rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
+        rp.Show() : rp.Focus()
+    End Sub
+
+    Private Sub aaaaaaaaasss_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles aaaaaaaaasss.Click
+        dr.Close() : cmd.CommandText = "SELECT  * from v_lab where esl_date between '" & ChangeFormat(d1.Value) & "' and '" & ChangeFormat(d2.Value) & "'"
+        adesl.SelectCommand = cmd
+        adesl.Fill(DBS, "esl")
+        esl = DBS.Tables("esl")
+        DBS.Tables("esl").Clear()
+        adesl.Fill(DBS, "esl")
+        esl = DBS.Tables("esl")
+        brpd.DataSource = esl
+        Dim oj As New CrystalDecisions.CrystalReports.Engine.ReportDocument
+        oj.Load(Application.StartupPath & "\contact det.rpt")
+        oj.Database.Tables(0).SetDataSource(esl)
+        rp.Close() : rp.CrystalReportViewer1.ReportSource = oj
+        rp.Show() : rp.Focus()
+    End Sub
+
+    Private Sub FunctionToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FunctionToolStripMenuItem1.Click
+        SAVERES(1, 0)
+        NORE(2, 1)
+        NORE(1, 0)
+        fnor(1)
+        fnor(2)
+        SAVERES(1, 0)
+    End Sub
+
+    Private Sub pdfnlogo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pdfnlogo.Click
+        Try
+            PDFM(0)
+            MsgBox("FILE EXPORTED")
+        Catch ex As Exception
+            Dim st1 As String = sender.ToString.Replace("'", "-")
+            Dim st As String = ex.Message
+            st = st.Replace("'", "-")
+            dr.Close()
+            cmd.CommandText = "INSERT INTO [ERLOGE] ([EMSG],[ENUM],[ESENDER],[ETIME],[EDATE],[LNAME],[LBRANCH],[LBRAN]) VALUES ('" & st & "','" & st & "','" & st1 & "','" & ChangeFormatall(Now) & "','" & ChangeFormat(Now) & "','" & branch_name.Text & "','" & branch_name.Text & "','" & bran.Text & "')"
+            cmd.ExecuteNonQuery()
+            MsgBox(st) : If ex.Message = "Load report failed." Then End
+        End Try
+    End Sub
+
+    Private Sub PrintFinalToolStripMenuItem_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintFinalToolStripMenuItem.Click
+
+        f3type.Text = "not print"
+        ffinal.Checked = True
+        finals.Checked = True
+        RP1.Checked = True
+        f3(1)
+        f3type.Text = "rest"
+        ffinal.Checked = False
+        finals.Checked = False
+        finalprint()
+
+    End Sub
+
+    Private Sub LOG_user_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LOG_user.Click
+        cesl_no.Checked = True
+        v_log()
+        cesl_no.Checked = False
+
+
+    End Sub
+
+    Private Sub ptttttttt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ptttttttt.Click
+        gpatch_save.Visible = Not gpatch_save.Visible
+    End Sub
+
+    Private Sub assssssssss_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles assssssssss.Click
+        Dim DD As String = MsgBox("Â·  —Ìœ Õ–› ﬂ· «·„ﬂ Ê» ø", MsgBoxStyle.YesNo)
+        If DD = vbNo Then Exit Sub
+        ACdr.Close()
+        ACcmd.CommandText = "delete * from PATCH_SAVE"
+        ACcmd.ExecuteNonQuery()
+        cmdptt.Connection = ACcn
+        cmdptt.CommandText = "select * from PATCH_SAVE "
+        adptt.SelectCommand = cmdptt
+        adptt.Fill(DBS, "ptt")
+        ptt = DBS.Tables("ptt")
+        brpd.DataSource = ptt
+        TabPage10.Show()
+        flng("AR")
+    End Sub
+
+    Private Sub hsdsdsd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub company_report_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles company_report.Click
+        If ldoc = 0 Then
+            If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
+            LLOG("⁄—÷", 0, " ﬁ—Ì— ‰”»… «·ÿ»Ì»" & COMPANY_name.Text, 0, bran.Text)
+            Exit Sub
+        End If
+        f3type.Text = "rest"
+        f3(15)
+    End Sub
+
+    Private Sub doctorrppp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles doctorrppp.Click
+        If ldoc = 0 Then
+            If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
+            LLOG("⁄—÷", 0, " ﬁ—Ì— ‰”»… «·ÿ»Ì»" & COMPANY_name.Text, 0, bran.Text)
+            Exit Sub
+        End If
+        cccompany.Checked = True
+        ccdoc.Checked = False
+        f3type.Text = "rest"
+        f3(15)
+        cccompany.Checked = False
+        ccdoc.Checked = False
+    End Sub
+
+    Private Sub comrppp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles comrppp.Click
+        If ldoc = 0 Then
+            If lng = "AR" Then MsgBox(PERMAR) Else MsgBox(PERMEN)
+            LLOG("⁄—÷", 0, " ﬁ—Ì— ‰”»… «·ÿ»Ì»" & COMPANY_name.Text, 0, bran.Text)
+            Exit Sub
+        End If
+        cccompany.Checked = False
+        ccdoc.Checked = True
+        f3type.Text = "rest"
+        f3(6)
+        cccompany.Checked = False
+        ccdoc.Checked = False
+    End Sub
+
+    Private Sub docrepsample_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles docrepsample.Click
+        f3type.Text = "all"
+        f3(9)
+        f3type.Text = "rest"
     End Sub
 End Class

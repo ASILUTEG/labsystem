@@ -507,6 +507,9 @@ Me.CODE1 = New System.Windows.Forms.TextBox
 Me.web = New System.Windows.Forms.TextBox
 Me.Label124 = New System.Windows.Forms.Label
 Me.TabPage4 = New System.Windows.Forms.TabPage
+Me.GlassButton171 = New Glass.GlassButton
+Me.GlassButton172 = New Glass.GlassButton
+Me.GlassButton173 = New Glass.GlassButton
 Me.GlassButton106 = New Glass.GlassButton
 Me.GlassButton168 = New Glass.GlassButton
 Me.GlassButton165 = New Glass.GlassButton
@@ -550,6 +553,9 @@ Me.GlassButton43 = New Glass.GlassButton
 Me.GlassButton44 = New Glass.GlassButton
 Me.GlassButton45 = New Glass.GlassButton
 Me.TabPage3 = New System.Windows.Forms.TabPage
+Me.GlassButton156 = New Glass.GlassButton
+Me.GlassButton169 = New Glass.GlassButton
+Me.GlassButton170 = New Glass.GlassButton
 Me.GlassButton155 = New Glass.GlassButton
 Me.GlassButton164 = New Glass.GlassButton
 Me.GlassButton163 = New Glass.GlassButton
@@ -619,6 +625,7 @@ Me.DataGridView3 = New System.Windows.Forms.DataGridView
 Me.Label10 = New System.Windows.Forms.Label
 Me.Label11 = New System.Windows.Forms.Label
 Me.TabPage2 = New System.Windows.Forms.TabPage
+Me.cal = New System.Windows.Forms.CheckBox
 Me.CheckBox22 = New System.Windows.Forms.CheckBox
 Me.ask1 = New System.Windows.Forms.ComboBox
 Me.GlassButton135 = New Glass.GlassButton
@@ -698,7 +705,6 @@ Me.Label2 = New System.Windows.Forms.Label
 Me.Label1 = New System.Windows.Forms.Label
 Me.TabControl1 = New System.Windows.Forms.TabControl
 Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
-Me.cal = New System.Windows.Forms.CheckBox
 Me.TabPage19.SuspendLayout
 CType(Me.dataso,System.ComponentModel.ISupportInitialize).BeginInit
 Me.TabPage18.SuspendLayout
@@ -6283,7 +6289,7 @@ Me.Label33.Text = "ﬂ Ì» «·«”⁄«—"
 Me.DataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
 Me.DataGridView6.Location = New System.Drawing.Point(6, 215)
 Me.DataGridView6.Name = "DataGridView6"
-Me.DataGridView6.Size = New System.Drawing.Size(331, 404)
+Me.DataGridView6.Size = New System.Drawing.Size(911, 404)
 Me.DataGridView6.TabIndex = 182
 '
 'GlassButton49
@@ -6622,6 +6628,9 @@ Me.Label124.Visible = false
 'TabPage4
 '
 Me.TabPage4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+Me.TabPage4.Controls.Add(Me.GlassButton171)
+Me.TabPage4.Controls.Add(Me.GlassButton172)
+Me.TabPage4.Controls.Add(Me.GlassButton173)
 Me.TabPage4.Controls.Add(Me.GlassButton106)
 Me.TabPage4.Controls.Add(Me.GlassButton168)
 Me.TabPage4.Controls.Add(Me.GlassButton165)
@@ -6671,6 +6680,49 @@ Me.TabPage4.TabIndex = 3
 Me.TabPage4.Text = "NORMALE SUB"
 Me.TabPage4.UseVisualStyleBackColor = true
 '
+'GlassButton171
+'
+Me.GlassButton171.BackColor = System.Drawing.Color.Red
+Me.GlassButton171.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.FontStyle.Bold)
+Me.GlassButton171.ForeColor = System.Drawing.Color.Blue
+Me.GlassButton171.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
+Me.GlassButton171.InnerBorderColor = System.Drawing.Color.MistyRose
+Me.GlassButton171.Location = New System.Drawing.Point(188, 117)
+Me.GlassButton171.Name = "GlassButton171"
+Me.GlassButton171.OuterBorderColor = System.Drawing.Color.WhiteSmoke
+Me.GlassButton171.Size = New System.Drawing.Size(189, 26)
+Me.GlassButton171.TabIndex = 272
+Me.GlassButton171.Text = "SAVE CHILD"
+'
+'GlassButton172
+'
+Me.GlassButton172.BackColor = System.Drawing.Color.Red
+Me.GlassButton172.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.FontStyle.Bold)
+Me.GlassButton172.ForeColor = System.Drawing.Color.Blue
+Me.GlassButton172.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
+Me.GlassButton172.InnerBorderColor = System.Drawing.Color.MistyRose
+Me.GlassButton172.Location = New System.Drawing.Point(188, 89)
+Me.GlassButton172.Name = "GlassButton172"
+Me.GlassButton172.OuterBorderColor = System.Drawing.Color.WhiteSmoke
+Me.GlassButton172.Size = New System.Drawing.Size(94, 26)
+Me.GlassButton172.TabIndex = 271
+Me.GlassButton172.Text = "OLD MAN"
+'
+'GlassButton173
+'
+Me.GlassButton173.BackColor = System.Drawing.Color.Red
+Me.GlassButton173.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.FontStyle.Bold)
+Me.GlassButton173.ForeColor = System.Drawing.Color.Blue
+Me.GlassButton173.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
+Me.GlassButton173.InnerBorderColor = System.Drawing.Color.MistyRose
+Me.GlassButton173.Location = New System.Drawing.Point(281, 89)
+Me.GlassButton173.Name = "GlassButton173"
+Me.GlassButton173.OuterBorderColor = System.Drawing.Color.WhiteSmoke
+Me.GlassButton173.Size = New System.Drawing.Size(95, 26)
+Me.GlassButton173.TabIndex = 270
+Me.GlassButton173.Tag = ""
+Me.GlassButton173.Text = "OLD FEMALE"
+'
 'GlassButton106
 '
 Me.GlassButton106.BackColor = System.Drawing.Color.Red
@@ -6692,7 +6744,7 @@ Me.GlassButton168.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.Fo
 Me.GlassButton168.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton168.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton168.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton168.Location = New System.Drawing.Point(9, 54)
+Me.GlassButton168.Location = New System.Drawing.Point(9, 145)
 Me.GlassButton168.Name = "GlassButton168"
 Me.GlassButton168.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton168.Size = New System.Drawing.Size(82, 26)
@@ -6706,10 +6758,10 @@ Me.GlassButton165.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.Fo
 Me.GlassButton165.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton165.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton165.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton165.Location = New System.Drawing.Point(215, 50)
+Me.GlassButton165.Location = New System.Drawing.Point(387, 118)
 Me.GlassButton165.Name = "GlassButton165"
 Me.GlassButton165.OuterBorderColor = System.Drawing.Color.WhiteSmoke
-Me.GlassButton165.Size = New System.Drawing.Size(152, 26)
+Me.GlassButton165.Size = New System.Drawing.Size(188, 26)
 Me.GlassButton165.TabIndex = 267
 Me.GlassButton165.Text = "SAVE FEMALE & MALE "
 '
@@ -6720,7 +6772,7 @@ Me.GlassButton166.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.Fo
 Me.GlassButton166.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton166.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton166.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton166.Location = New System.Drawing.Point(387, 50)
+Me.GlassButton166.Location = New System.Drawing.Point(387, 89)
 Me.GlassButton166.Name = "GlassButton166"
 Me.GlassButton166.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton166.Size = New System.Drawing.Size(94, 26)
@@ -6734,7 +6786,7 @@ Me.GlassButton167.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.Fo
 Me.GlassButton167.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton167.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton167.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton167.Location = New System.Drawing.Point(480, 50)
+Me.GlassButton167.Location = New System.Drawing.Point(480, 89)
 Me.GlassButton167.Name = "GlassButton167"
 Me.GlassButton167.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton167.Size = New System.Drawing.Size(95, 26)
@@ -6748,7 +6800,7 @@ Me.GlassButton145.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawin
 Me.GlassButton145.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton145.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton145.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton145.Location = New System.Drawing.Point(387, 145)
+Me.GlassButton145.Location = New System.Drawing.Point(387, 174)
 Me.GlassButton145.Name = "GlassButton145"
 Me.GlassButton145.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton145.Size = New System.Drawing.Size(161, 41)
@@ -6761,7 +6813,7 @@ Me.nsunit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
 Me.nsunit.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
 Me.nsunit.Font = New System.Drawing.Font("Times New Roman", 12!, System.Drawing.FontStyle.Bold)
 Me.nsunit.FormattingEnabled = true
-Me.nsunit.Location = New System.Drawing.Point(9, 90)
+Me.nsunit.Location = New System.Drawing.Point(9, 56)
 Me.nsunit.Name = "nsunit"
 Me.nsunit.Size = New System.Drawing.Size(82, 27)
 Me.nsunit.TabIndex = 259
@@ -6775,7 +6827,7 @@ Me.syear.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyl
 Me.syear.ForeColor = System.Drawing.Color.Blue
 Me.syear.FormattingEnabled = true
 Me.syear.Items.AddRange(New Object() {"YEAR", "MONTH", "DAY"})
-Me.syear.Location = New System.Drawing.Point(496, 90)
+Me.syear.Location = New System.Drawing.Point(496, 56)
 Me.syear.Name = "syear"
 Me.syear.Size = New System.Drawing.Size(75, 24)
 Me.syear.TabIndex = 257
@@ -6862,7 +6914,7 @@ Me.nsagee.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
 '
 Me.nsnorb.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178,Byte))
 Me.nsnorb.ForeColor = System.Drawing.Color.Blue
-Me.nsnorb.Location = New System.Drawing.Point(309, 93)
+Me.nsnorb.Location = New System.Drawing.Point(309, 59)
 Me.nsnorb.Name = "nsnorb"
 Me.nsnorb.Size = New System.Drawing.Size(61, 22)
 Me.nsnorb.TabIndex = 164
@@ -6872,7 +6924,7 @@ Me.nsnorb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
 '
 Me.nsnore.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178,Byte))
 Me.nsnore.ForeColor = System.Drawing.Color.Blue
-Me.nsnore.Location = New System.Drawing.Point(165, 93)
+Me.nsnore.Location = New System.Drawing.Point(165, 59)
 Me.nsnore.Name = "nsnore"
 Me.nsnore.Size = New System.Drawing.Size(61, 22)
 Me.nsnore.TabIndex = 159
@@ -6904,9 +6956,9 @@ Me.nsageb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
 'DataGridView4
 '
 Me.DataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-Me.DataGridView4.Location = New System.Drawing.Point(23, 204)
+Me.DataGridView4.Location = New System.Drawing.Point(23, 257)
 Me.DataGridView4.Name = "DataGridView4"
-Me.DataGridView4.Size = New System.Drawing.Size(985, 446)
+Me.DataGridView4.Size = New System.Drawing.Size(985, 393)
 Me.DataGridView4.TabIndex = 172
 '
 'Label31
@@ -6952,7 +7004,7 @@ Me.nmtest_name.TabIndex = 166
 Me.Label23.AutoSize = true
 Me.Label23.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178,Byte))
 Me.Label23.ForeColor = System.Drawing.Color.Black
-Me.Label23.Location = New System.Drawing.Point(88, 93)
+Me.Label23.Location = New System.Drawing.Point(88, 59)
 Me.Label23.Name = "Label23"
 Me.Label23.Size = New System.Drawing.Size(57, 22)
 Me.Label23.TabIndex = 162
@@ -6961,7 +7013,7 @@ Me.Label23.Text = "UNIT"
 'cnunit
 '
 Me.cnunit.AutoSize = true
-Me.cnunit.Location = New System.Drawing.Point(144, 97)
+Me.cnunit.Location = New System.Drawing.Point(144, 63)
 Me.cnunit.Name = "cnunit"
 Me.cnunit.Size = New System.Drawing.Size(15, 14)
 Me.cnunit.TabIndex = 161
@@ -6972,7 +7024,7 @@ Me.cnunit.UseVisualStyleBackColor = true
 Me.Label24.AutoSize = true
 Me.Label24.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178,Byte))
 Me.Label24.ForeColor = System.Drawing.Color.Black
-Me.Label24.Location = New System.Drawing.Point(227, 93)
+Me.Label24.Location = New System.Drawing.Point(227, 59)
 Me.Label24.Name = "Label24"
 Me.Label24.Size = New System.Drawing.Size(38, 22)
 Me.Label24.TabIndex = 160
@@ -6983,7 +7035,7 @@ Me.Label24.Text = "TO"
 Me.Label25.AutoSize = true
 Me.Label25.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(178,Byte))
 Me.Label25.ForeColor = System.Drawing.Color.Black
-Me.Label25.Location = New System.Drawing.Point(374, 93)
+Me.Label25.Location = New System.Drawing.Point(374, 59)
 Me.Label25.Name = "Label25"
 Me.Label25.Size = New System.Drawing.Size(96, 22)
 Me.Label25.TabIndex = 158
@@ -7046,7 +7098,7 @@ Me.GlassButton38.Font = New System.Drawing.Font("Tahoma", 12!, System.Drawing.Fo
 Me.GlassButton38.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton38.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton38.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton38.Location = New System.Drawing.Point(23, 145)
+Me.GlassButton38.Location = New System.Drawing.Point(23, 174)
 Me.GlassButton38.Name = "GlassButton38"
 Me.GlassButton38.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton38.Size = New System.Drawing.Size(78, 41)
@@ -7060,7 +7112,7 @@ Me.GlassButton39.Font = New System.Drawing.Font("Tahoma", 12!, System.Drawing.Fo
 Me.GlassButton39.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton39.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton39.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton39.Location = New System.Drawing.Point(106, 145)
+Me.GlassButton39.Location = New System.Drawing.Point(106, 174)
 Me.GlassButton39.Name = "GlassButton39"
 Me.GlassButton39.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton39.Size = New System.Drawing.Size(77, 41)
@@ -7074,7 +7126,7 @@ Me.GlassButton40.Font = New System.Drawing.Font("Tahoma", 12!, System.Drawing.Fo
 Me.GlassButton40.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton40.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton40.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton40.Location = New System.Drawing.Point(188, 145)
+Me.GlassButton40.Location = New System.Drawing.Point(188, 174)
 Me.GlassButton40.Name = "GlassButton40"
 Me.GlassButton40.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton40.Size = New System.Drawing.Size(77, 41)
@@ -7088,7 +7140,7 @@ Me.GlassButton41.Font = New System.Drawing.Font("Tahoma", 12!, System.Drawing.Fo
 Me.GlassButton41.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton41.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton41.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton41.Location = New System.Drawing.Point(270, 145)
+Me.GlassButton41.Location = New System.Drawing.Point(270, 174)
 Me.GlassButton41.Name = "GlassButton41"
 Me.GlassButton41.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton41.Size = New System.Drawing.Size(76, 41)
@@ -7113,7 +7165,7 @@ Me.GlassButton42.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing
 Me.GlassButton42.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton42.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton42.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton42.Location = New System.Drawing.Point(584, 144)
+Me.GlassButton42.Location = New System.Drawing.Point(584, 173)
 Me.GlassButton42.Name = "GlassButton42"
 Me.GlassButton42.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton42.Size = New System.Drawing.Size(83, 41)
@@ -7127,7 +7179,7 @@ Me.GlassButton43.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing
 Me.GlassButton43.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton43.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton43.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton43.Location = New System.Drawing.Point(682, 144)
+Me.GlassButton43.Location = New System.Drawing.Point(682, 173)
 Me.GlassButton43.Name = "GlassButton43"
 Me.GlassButton43.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton43.Size = New System.Drawing.Size(83, 41)
@@ -7141,7 +7193,7 @@ Me.GlassButton44.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing
 Me.GlassButton44.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton44.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton44.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton44.Location = New System.Drawing.Point(780, 144)
+Me.GlassButton44.Location = New System.Drawing.Point(780, 173)
 Me.GlassButton44.Name = "GlassButton44"
 Me.GlassButton44.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton44.Size = New System.Drawing.Size(83, 41)
@@ -7155,7 +7207,7 @@ Me.GlassButton45.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing
 Me.GlassButton45.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton45.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton45.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton45.Location = New System.Drawing.Point(878, 144)
+Me.GlassButton45.Location = New System.Drawing.Point(878, 173)
 Me.GlassButton45.Name = "GlassButton45"
 Me.GlassButton45.OuterBorderColor = System.Drawing.Color.WhiteSmoke
 Me.GlassButton45.Size = New System.Drawing.Size(83, 41)
@@ -7165,6 +7217,9 @@ Me.GlassButton45.Text = "ÃœÌœ"
 'TabPage3
 '
 Me.TabPage3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+Me.TabPage3.Controls.Add(Me.GlassButton156)
+Me.TabPage3.Controls.Add(Me.GlassButton169)
+Me.TabPage3.Controls.Add(Me.GlassButton170)
 Me.TabPage3.Controls.Add(Me.GlassButton155)
 Me.TabPage3.Controls.Add(Me.GlassButton164)
 Me.TabPage3.Controls.Add(Me.GlassButton163)
@@ -7212,6 +7267,49 @@ Me.TabPage3.TabIndex = 2
 Me.TabPage3.Text = "NORMALS"
 Me.TabPage3.UseVisualStyleBackColor = true
 '
+'GlassButton156
+'
+Me.GlassButton156.BackColor = System.Drawing.Color.Red
+Me.GlassButton156.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.FontStyle.Bold)
+Me.GlassButton156.ForeColor = System.Drawing.Color.Blue
+Me.GlassButton156.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
+Me.GlassButton156.InnerBorderColor = System.Drawing.Color.MistyRose
+Me.GlassButton156.Location = New System.Drawing.Point(126, 146)
+Me.GlassButton156.Name = "GlassButton156"
+Me.GlassButton156.OuterBorderColor = System.Drawing.Color.WhiteSmoke
+Me.GlassButton156.Size = New System.Drawing.Size(189, 26)
+Me.GlassButton156.TabIndex = 268
+Me.GlassButton156.Text = "SAVE CHILD"
+'
+'GlassButton169
+'
+Me.GlassButton169.BackColor = System.Drawing.Color.Red
+Me.GlassButton169.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.FontStyle.Bold)
+Me.GlassButton169.ForeColor = System.Drawing.Color.Blue
+Me.GlassButton169.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
+Me.GlassButton169.InnerBorderColor = System.Drawing.Color.MistyRose
+Me.GlassButton169.Location = New System.Drawing.Point(126, 118)
+Me.GlassButton169.Name = "GlassButton169"
+Me.GlassButton169.OuterBorderColor = System.Drawing.Color.WhiteSmoke
+Me.GlassButton169.Size = New System.Drawing.Size(94, 26)
+Me.GlassButton169.TabIndex = 267
+Me.GlassButton169.Text = "OLD MAN"
+'
+'GlassButton170
+'
+Me.GlassButton170.BackColor = System.Drawing.Color.Red
+Me.GlassButton170.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.FontStyle.Bold)
+Me.GlassButton170.ForeColor = System.Drawing.Color.Blue
+Me.GlassButton170.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
+Me.GlassButton170.InnerBorderColor = System.Drawing.Color.MistyRose
+Me.GlassButton170.Location = New System.Drawing.Point(219, 118)
+Me.GlassButton170.Name = "GlassButton170"
+Me.GlassButton170.OuterBorderColor = System.Drawing.Color.WhiteSmoke
+Me.GlassButton170.Size = New System.Drawing.Size(95, 26)
+Me.GlassButton170.TabIndex = 266
+Me.GlassButton170.Tag = ""
+Me.GlassButton170.Text = "OLD FEMALE"
+'
 'GlassButton155
 '
 Me.GlassButton155.BackColor = System.Drawing.Color.Red
@@ -7219,10 +7317,10 @@ Me.GlassButton155.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.Fo
 Me.GlassButton155.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton155.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton155.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton155.Location = New System.Drawing.Point(19, 146)
+Me.GlassButton155.Location = New System.Drawing.Point(8, 118)
 Me.GlassButton155.Name = "GlassButton155"
 Me.GlassButton155.OuterBorderColor = System.Drawing.Color.WhiteSmoke
-Me.GlassButton155.Size = New System.Drawing.Size(160, 26)
+Me.GlassButton155.Size = New System.Drawing.Size(107, 50)
 Me.GlassButton155.TabIndex = 265
 Me.GlassButton155.Text = "NORMAL FROM SUB"
 '
@@ -7233,10 +7331,10 @@ Me.GlassButton164.Font = New System.Drawing.Font("Tahoma", 8!, System.Drawing.Fo
 Me.GlassButton164.ForeColor = System.Drawing.Color.Blue
 Me.GlassButton164.GlowColor = System.Drawing.Color.FromArgb(CType(CType(192,Byte),Integer), CType(CType(0,Byte),Integer), CType(CType(0,Byte),Integer))
 Me.GlassButton164.InnerBorderColor = System.Drawing.Color.MistyRose
-Me.GlassButton164.Location = New System.Drawing.Point(149, 118)
+Me.GlassButton164.Location = New System.Drawing.Point(320, 146)
 Me.GlassButton164.Name = "GlassButton164"
 Me.GlassButton164.OuterBorderColor = System.Drawing.Color.WhiteSmoke
-Me.GlassButton164.Size = New System.Drawing.Size(152, 26)
+Me.GlassButton164.Size = New System.Drawing.Size(191, 26)
 Me.GlassButton164.TabIndex = 264
 Me.GlassButton164.Text = "SAVE FEMALE & MALE "
 '
@@ -8103,6 +8201,17 @@ Me.TabPage2.TabIndex = 1
 Me.TabPage2.Text = "«”„«¡ «· Õ«·Ì·"
 Me.TabPage2.UseVisualStyleBackColor = true
 '
+'cal
+'
+Me.cal.AutoSize = true
+Me.cal.Font = New System.Drawing.Font("Times New Roman", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic),System.Drawing.FontStyle))
+Me.cal.Location = New System.Drawing.Point(193, 43)
+Me.cal.Name = "cal"
+Me.cal.Size = New System.Drawing.Size(67, 26)
+Me.cal.TabIndex = 241
+Me.cal.Text = "„⁄«œ·…"
+Me.cal.UseVisualStyleBackColor = true
+'
 'CheckBox22
 '
 Me.CheckBox22.AutoSize = true
@@ -8964,17 +9073,6 @@ Me.TabControl1.TabIndex = 0
 '
 Me.OpenFileDialog1.FileName = "OpenFileDialog1"
 '
-'cal
-'
-Me.cal.AutoSize = true
-Me.cal.Font = New System.Drawing.Font("Times New Roman", 14.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic),System.Drawing.FontStyle))
-Me.cal.Location = New System.Drawing.Point(193, 43)
-Me.cal.Name = "cal"
-Me.cal.Size = New System.Drawing.Size(67, 26)
-Me.cal.TabIndex = 241
-Me.cal.Text = "„⁄«œ·…"
-Me.cal.UseVisualStyleBackColor = true
-'
 'LBLD
 '
 Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -9734,4 +9832,10 @@ End Sub
     Friend WithEvents GlassButton107 As Glass.GlassButton
     Friend WithEvents GlassButton155 As Glass.GlassButton
     Friend WithEvents cal As System.Windows.Forms.CheckBox
+    Friend WithEvents GlassButton156 As Glass.GlassButton
+    Friend WithEvents GlassButton169 As Glass.GlassButton
+    Friend WithEvents GlassButton170 As Glass.GlassButton
+    Friend WithEvents GlassButton171 As Glass.GlassButton
+    Friend WithEvents GlassButton172 As Glass.GlassButton
+    Friend WithEvents GlassButton173 As Glass.GlassButton
 End Class
